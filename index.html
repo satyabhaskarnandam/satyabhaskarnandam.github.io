@@ -4,8 +4,11 @@
     <title>SB Portfolio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/4c5e8b4b5e.js" crossorigin="anonymous"></script>
+
+    <!-- PUBLIC Font Awesome CDN (FIXED) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
         html { scroll-behavior: smooth; }
@@ -26,6 +29,7 @@
             100% {background-position: 0% 50%;}
         }
 
+        /* NAVIGATION */
         nav {
             position: fixed;
             top: 0;
@@ -112,6 +116,7 @@
             background: rgba(0,0,0,0.8);
         }
 
+        /* SOCIAL ICONS */
         .social-icons {
             margin-top: 30px;
             text-align: center;
@@ -130,6 +135,7 @@
             text-shadow: 0 0 10px #00d9ff;
         }
 
+        /* MODAL */
         .modal {
             position: fixed;
             inset: 0;
@@ -200,7 +206,7 @@
 <canvas id="particles"></canvas>
 
 <nav>
-    <a href="#home"><i class="fas fa-home home-icon"></i></a>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <a href="#about">About</a>
     <a href="#skills">Skills</a>
     <a href="#certifications">Certifications</a>
@@ -307,17 +313,7 @@
     © 2026 SB Portfolio
 </footer>
 
-<div id="modal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <div id="modalBody"></div>
-    </div>
-</div>
-
 <script>
-const modal=document.getElementById("modal");
-const modalBody=document.getElementById("modalBody");
-
 /* Typing */
 const text="Nandam Satya Bhaskar";
 let i=0;
@@ -329,56 +325,6 @@ function typeEffect(){
     }
 }
 typeEffect();
-
-/* View Certificate */
-function openCert(src){
-    modalBody.innerHTML=`<img src="${src}" style="width:100%; border-radius:10px;">`;
-    modal.classList.add("active");
-}
-
-/* View Project Details */
-function openProject(type){
-
-if(type==="solar"){
-modalBody.innerHTML=`<h3>Solar PV Modeling</h3>
-<h4>Working:</h4>
-<p>Detailed PV system modeling with MPPT and boost converter integration.</p>
-<h4>Key Components:</h4>
-<p>PV model, MPPT algorithm, DC-DC converter.</p>
-<h4>Output:</h4>
-<p>Optimized power extraction and performance curves.</p>`;
-}
-
-if(type==="street"){
-modalBody.innerHTML=`<h3>Smart Street Lighting</h3>
-<h4>Working:</h4>
-<p>Automatic lighting control based on motion and ambient light.</p>
-<h4>Key Components:</h4>
-<p>LDR, PIR sensor, Microcontroller.</p>
-<h4>Output:</h4>
-<p>Energy-efficient lighting control system.</p>`;
-}
-
-if(type==="robot"){
-modalBody.innerHTML=`<h3>Cable Inspection Robot</h3>
-<h4>Working:</h4>
-<p>Autonomous robot for cable monitoring and fault detection.</p>
-<h4>Key Components:</h4>
-<p>Microcontroller, sensors, motor driver.</p>
-<h4>Output:</h4>
-<p>Real-time monitoring and reduced manual inspection.</p>`;
-}
-
-modal.classList.add("active");
-}
-
-function closeModal(){
-modal.classList.remove("active");
-}
-
-window.onclick=function(e){
-if(e.target==modal){closeModal();}
-}
 
 /* Floating dots */
 const canvas=document.getElementById("particles");
