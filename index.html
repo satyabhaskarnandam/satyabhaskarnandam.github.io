@@ -6,10 +6,11 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/4c5e8b4b5e.js" crossorigin="anonymous"></script>
+
     <style>
-        html {
-            scroll-behavior: smooth; /* Smooth scrolling */
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             margin: 0;
@@ -45,7 +46,7 @@
         }
 
         nav a:hover {
-            transform: scale(1.15);
+            transform: scale(1.1);
             color: #00d9ff;
         }
 
@@ -94,18 +95,33 @@
             padding: 20px;
         }
 
-        button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            background: #00d9ff;
-            font-weight: 600;
-            margin-top: 10px;
+        /* Contact Buttons */
+        .contact-buttons {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
-        button:hover {
-            transform: scale(1.05);
+        .contact-buttons a {
+            text-decoration: none;
+        }
+
+        .contact-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            background: #00d9ff;
+            color: black;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            transform: scale(1.08);
         }
 
         footer {
@@ -114,51 +130,6 @@
             background: rgba(0,0,0,0.8);
         }
 
-        /* Modal */
-        .modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: 0.4s;
-            z-index: 2000;
-        }
-
-        .modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background: #111;
-            padding: 30px;
-            border-radius: 15px;
-            width: 85%;
-            max-width: 800px;
-            transform: scale(0.8);
-            transition: 0.4s;
-        }
-
-        .modal.active .modal-content {
-            transform: scale(1);
-        }
-
-        .close {
-            float: right;
-            font-size: 25px;
-            cursor: pointer;
-        }
-
-        a.btn-link {
-            text-decoration: none;
-            color: white;
-        }
-
-        /* Snow canvas */
         canvas {
             position: fixed;
             top: 0;
@@ -263,22 +234,40 @@
 
 <section id="contact">
     <div class="container">
+
         <h2>Contact Me</h2>
         <p>Email: satyabhaskarnandam@gmail.com</p>
+        <p>Mobile: +91 7780603821</p>
 
-        <a href="resume.pdf" download class="btn-link">
-            <button>Download Resume</button>
-        </a>
+        <!-- Horizontal Buttons -->
+        <div class="contact-buttons">
 
-        <br><br>
+            <a href="resume.pdf" download>
+                <div class="contact-btn">
+                    <i class="fas fa-file-download"></i> Resume
+                </div>
+            </a>
 
-        <a href="https://github.com/satyabhaskarnandam" target="_blank" class="btn-link">
-            <button>GitHub</button>
-        </a>
+            <a href="https://github.com/satyabhaskarnandam" target="_blank">
+                <div class="contact-btn">
+                    <i class="fab fa-github"></i> GitHub
+                </div>
+            </a>
 
-        <a href="https://linkedin.com/in/nandam-satya-bhaskar" target="_blank" class="btn-link">
-            <button>LinkedIn</button>
-        </a>
+            <a href="https://linkedin.com/in/nandam-satya-bhaskar" target="_blank">
+                <div class="contact-btn">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </div>
+            </a>
+
+            <a href="https://wa.me/917780603821" target="_blank">
+                <div class="contact-btn">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </div>
+            </a>
+
+        </div>
+
     </div>
 </section>
 
