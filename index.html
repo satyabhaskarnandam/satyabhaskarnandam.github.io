@@ -7,8 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
-        html { scroll-behavior: smooth; }
-
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
@@ -16,7 +14,6 @@
             background-size: 400% 400%;
             animation: gradientBG 12s ease infinite;
             color: #fff;
-            overflow-x: hidden;
         }
 
         @keyframes gradientBG {
@@ -26,12 +23,9 @@
         }
 
         nav {
-            position: sticky;
-            top: 0;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(10px);
             padding: 15px;
             text-align: center;
+            background: rgba(0,0,0,0.6);
         }
 
         nav a {
@@ -39,24 +33,15 @@
             color: #fff;
             text-decoration: none;
             font-weight: 500;
-            position: relative;
-            transition: 0.3s;
-        }
-
-        nav a:hover {
-            transform: scale(1.15);
-            color: #00d9ff;
         }
 
         header {
-            padding: 120px 20px;
+            padding: 100px 20px;
             text-align: center;
         }
 
-        h1 { font-size: 48px; }
-
         section {
-            padding: 80px 20px;
+            padding: 60px 20px;
         }
 
         .container {
@@ -76,7 +61,7 @@
             width: 300px;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.4);
+            cursor: pointer;
             transition: transform 0.3s ease;
         }
 
@@ -84,33 +69,44 @@
             transform: translateY(-8px);
         }
 
-        .card-image {
-            height: 180px;
-            overflow: hidden;
-        }
-
-        .card-image img {
+        .project-card img {
             width: 100%;
-            height: 100%;
+            height: 180px;
             object-fit: cover;
         }
 
-        .card-content {
-            padding: 20px;
+        .project-card h3 {
+            padding: 15px;
+            margin: 0;
         }
 
-        button {
-            padding: 8px 16px;
-            border-radius: 6px;
-            border: none;
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: #111;
+            margin: 60px auto;
+            padding: 30px;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 15px;
+        }
+
+        .close {
+            color: #fff;
+            float: right;
+            font-size: 30px;
             cursor: pointer;
-            background-color: #00d9ff;
-            font-weight: 600;
-            margin-top: 10px;
-        }
-
-        button:hover {
-            transform: scale(1.05);
         }
 
         footer {
@@ -118,46 +114,13 @@
             text-align: center;
             background: rgba(0,0,0,0.8);
         }
-
-        /* Modal Styling */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            padding-top: 60px;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.9);
-        }
-
-        .modal img {
-            margin: auto;
-            display: block;
-            max-width: 90%;
-            max-height: 80vh;
-        }
-
-        .close {
-            position: absolute;
-            top: 30px;
-            right: 50px;
-            color: #fff;
-            font-size: 40px;
-            cursor: pointer;
-        }
     </style>
 </head>
 
 <body>
 
 <nav>
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#certifications">Certifications</a>
     <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
 </nav>
 
 <header>
@@ -165,43 +128,28 @@
     <p>Electrical & Electronics Engineering Student</p>
 </header>
 
-<section id="certifications">
+<section id="projects">
     <div class="container">
-        <h2>Certifications</h2>
+        <h2>Projects</h2>
 
         <div class="projects-wrapper">
 
-            <div class="project-card">
-                <div class="card-image">
-                    <img src="nptel.jpg" alt="NPTEL Certificate">
-                </div>
-                <div class="card-content">
-                    <h3>Digital Electronics</h3>
-                    <p>NPTEL | March 2023</p>
-                    <button onclick="openModal('nptel.jpg')">View Certificate</button>
-                </div>
+            <!-- Solar -->
+            <div class="project-card" onclick="openProject('solar')">
+                <img src="solar.jpg" alt="Solar">
+                <h3>Solar PV Modeling</h3>
             </div>
 
-            <div class="project-card">
-                <div class="card-image">
-                    <img src="iot.jpg" alt="IoT Certificate">
-                </div>
-                <div class="card-content">
-                    <h3>Introduction to IoT</h3>
-                    <p>Cisco Networking Academy | January 2024</p>
-                    <button onclick="openModal('iot.jpg')">View Certificate</button>
-                </div>
+            <!-- Streetlight -->
+            <div class="project-card" onclick="openProject('street')">
+                <img src="streetlight.jpg" alt="Streetlight">
+                <h3>Smart Street Lighting</h3>
             </div>
 
-            <div class="project-card">
-                <div class="card-image">
-                    <img src="matlab.jpg" alt="MATLAB Certificate">
-                </div>
-                <div class="card-content">
-                    <h3>MATLAB Onramp</h3>
-                    <p>MathWorks | May 2024</p>
-                    <button onclick="openModal('matlab.jpg')">View Certificate</button>
-                </div>
+            <!-- Robot -->
+            <div class="project-card" onclick="openProject('robot')">
+                <img src="robot.jpg" alt="Robot">
+                <h3>Cable Inspection Robot</h3>
             </div>
 
         </div>
@@ -209,9 +157,12 @@
 </section>
 
 <!-- Modal -->
-<div id="certificateModal" class="modal">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <img id="modalImage">
+<div id="projectModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeProject()">&times;</span>
+        <h2 id="modalTitle"></h2>
+        <p id="modalDescription"></p>
+    </div>
 </div>
 
 <footer>
@@ -219,13 +170,71 @@
 </footer>
 
 <script>
-function openModal(imageSrc) {
-    document.getElementById("certificateModal").style.display = "block";
-    document.getElementById("modalImage").src = imageSrc;
+function openProject(project) {
+
+    const title = document.getElementById("modalTitle");
+    const desc = document.getElementById("modalDescription");
+
+    if (project === "solar") {
+        title.innerHTML = "Solar PV System Modeling with MPPT Control";
+        desc.innerHTML = `
+        This project involves modeling and simulation of a photovoltaic (PV) system using MATLAB/Simulink.
+        A single-diode model was implemented to analyze I–V and P–V characteristics under varying irradiation and temperature conditions.
+        
+        An MPPT (Maximum Power Point Tracking) algorithm was integrated to ensure optimal energy extraction from the solar panel.
+        
+        Key Components:
+        • PV Module mathematical modeling  
+        • MPPT algorithm implementation  
+        • Performance analysis under dynamic environmental conditions  
+        • Efficiency comparison of power output
+        
+        Outcome:
+        Achieved improved energy harvesting efficiency and demonstrated understanding of renewable energy system modeling.
+        `;
+    }
+
+    if (project === "street") {
+        title.innerHTML = "Smart Street Lighting with Adaptive Control";
+        desc.innerHTML = `
+        Designed and developed an embedded-based smart street lighting system using LDR and PIR sensors.
+        
+        The system automatically adjusts brightness based on ambient light conditions and detects human/vehicle motion to optimize power usage.
+        
+        Key Features:
+        • Automatic ON/OFF based on daylight detection  
+        • Motion-based intensity control  
+        • Energy-efficient design  
+        • Microcontroller-based automation logic
+        
+        Outcome:
+        Reduced unnecessary power consumption and demonstrated practical IoT-based infrastructure automation.
+        `;
+    }
+
+    if (project === "robot") {
+        title.innerHTML = "Autonomous Underground Cable Inspection Robot";
+        desc.innerHTML = `
+        Developed a hardware-integrated robotic platform for underground power cable inspection.
+        
+        The robot is equipped with multiple sensors to detect faults such as overheating, short circuits, and insulation degradation.
+        
+        Key Features:
+        • Embedded microcontroller system  
+        • Real-time sensor monitoring  
+        • Autonomous movement mechanism  
+        • Fault detection and reporting
+        
+        Outcome:
+        Provided a cost-effective prototype solution for preventive maintenance in power distribution networks.
+        `;
+    }
+
+    document.getElementById("projectModal").style.display = "block";
 }
 
-function closeModal() {
-    document.getElementById("certificateModal").style.display = "none";
+function closeProject() {
+    document.getElementById("projectModal").style.display = "none";
 }
 </script>
 
