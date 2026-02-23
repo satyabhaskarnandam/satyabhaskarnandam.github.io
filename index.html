@@ -29,7 +29,7 @@
             100% {background-position: 0% 50%;}
         }
 
-        /* Fixed Navbar */
+        /* NAVIGATION */
         nav {
             position: fixed;
             top: 0;
@@ -50,11 +50,8 @@
             transition: 0.3s;
         }
 
-        nav a:hover {
-            color: #00d9ff;
-        }
+        nav a:hover { color: #00d9ff; }
 
-        /* Force Home icon white */
         .home-icon {
             color: white;
             font-size: 18px;
@@ -113,55 +110,38 @@
 
         button:hover { transform: scale(1.05); }
 
+        /* SOCIAL ICONS BOTTOM */
+        .social-icons {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .social-icons a {
+            color: rgba(255,255,255,0.6);
+            font-size: 28px;
+            margin: 0 15px;
+            transition: 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #ffffff;
+            transform: scale(1.2);
+            text-shadow: 0 0 10px #00d9ff;
+        }
+
         footer {
             text-align: center;
             padding: 30px;
             background: rgba(0,0,0,0.8);
         }
 
-        /* Modal */
-        .modal {
+        /* Floating dots */
+        canvas {
             position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.85);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: 0.4s;
-            z-index: 2000;
+            top: 0;
+            left: 0;
+            z-index: -1;
         }
-
-        .modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background: #111;
-            padding: 30px;
-            width: 90%;
-            max-width: 800px;
-            border-radius: 15px;
-            transform: scale(0.8);
-            transition: 0.4s;
-            text-align: left;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .modal.active .modal-content {
-            transform: scale(1);
-        }
-
-        .close {
-            float: right;
-            font-size: 25px;
-            cursor: pointer;
-        }
-
-        h4 { margin-top: 20px; color: #00d9ff; }
 
         .cursor {
             display: inline-block;
@@ -174,13 +154,6 @@
             0% { opacity: 1; }
             50% { opacity: 0; }
             100% { opacity: 1; }
-        }
-
-        canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
         }
     </style>
 </head>
@@ -225,23 +198,18 @@
                 <img src="nptel.jpg">
                 <div class="card-content">
                     <h3>Digital Electronics</h3>
-                    <button onclick="openCert('nptel.jpg')">View Certificate</button>
                 </div>
             </div>
-
             <div class="card">
                 <img src="iot.jpg">
                 <div class="card-content">
                     <h3>Introduction to IoT</h3>
-                    <button onclick="openCert('iot.jpg')">View Certificate</button>
                 </div>
             </div>
-
             <div class="card">
                 <img src="matlab.jpg">
                 <div class="card-content">
                     <h3>MATLAB Onramp</h3>
-                    <button onclick="openCert('matlab.jpg')">View Certificate</button>
                 </div>
             </div>
         </div>
@@ -256,23 +224,18 @@
                 <img src="solar.jpg">
                 <div class="card-content">
                     <h3>Solar PV Modeling</h3>
-                    <button onclick="openProject('solar')">View Details</button>
                 </div>
             </div>
-
             <div class="card">
                 <img src="streetlight.jpg">
                 <div class="card-content">
                     <h3>Smart Street Lighting</h3>
-                    <button onclick="openProject('street')">View Details</button>
                 </div>
             </div>
-
             <div class="card">
                 <img src="robot.jpg">
                 <div class="card-content">
                     <h3>Cable Inspection Robot</h3>
-                    <button onclick="openProject('robot')">View Details</button>
                 </div>
             </div>
         </div>
@@ -284,6 +247,22 @@
         <h2>Contact Me</h2>
         <p>Email: satyabhaskarnandam@gmail.com</p>
         <p>Mobile: +91 7780603821</p>
+
+        <!-- Transparent Social Icons -->
+        <div class="social-icons">
+            <a href="https://github.com/satyabhaskarnandam" target="_blank">
+                <i class="fab fa-github"></i>
+            </a>
+
+            <a href="https://linkedin.com/in/nandam-satya-bhaskar" target="_blank">
+                <i class="fab fa-linkedin"></i>
+            </a>
+
+            <a href="https://wa.me/917780603821" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+
     </div>
 </section>
 
