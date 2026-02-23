@@ -23,96 +23,132 @@
         }
 
         nav {
-            padding: 15px;
             text-align: center;
+            padding: 15px;
             background: rgba(0,0,0,0.6);
+            position: sticky;
+            top: 0;
         }
 
         nav a {
-            margin: 0 20px;
-            color: #fff;
+            margin: 0 15px;
+            color: white;
             text-decoration: none;
             font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            transform: scale(1.15);
+            color: #00d9ff;
         }
 
         header {
-            padding: 100px 20px;
             text-align: center;
+            padding: 100px 20px;
         }
 
         section {
-            padding: 60px 20px;
+            padding: 70px 20px;
         }
 
         .container {
             max-width: 1100px;
             margin: auto;
+            text-align: center;
         }
 
-        .projects-wrapper {
+        .cards {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 30px;
         }
 
-        .project-card {
+        .card {
             background: rgba(0,0,0,0.6);
             width: 300px;
             border-radius: 15px;
             overflow: hidden;
-            cursor: pointer;
             transition: transform 0.3s ease;
+            cursor: pointer;
         }
 
-        .project-card:hover {
+        .card:hover {
             transform: translateY(-8px);
         }
 
-        .project-card img {
+        .card img {
             width: 100%;
             height: 180px;
             object-fit: cover;
         }
 
-        .project-card h3 {
-            padding: 15px;
-            margin: 0;
+        .card-content {
+            padding: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #00d9ff;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: rgba(0,0,0,0.8);
         }
 
         /* Modal */
         .modal {
-            display: none;
             position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.9);
-            overflow-y: auto;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.4s;
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
         }
 
         .modal-content {
             background: #111;
-            margin: 60px auto;
             padding: 30px;
-            width: 80%;
-            max-width: 800px;
             border-radius: 15px;
+            width: 85%;
+            max-width: 800px;
+            transform: scale(0.8);
+            transition: 0.4s;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
         }
 
         .close {
-            color: #fff;
             float: right;
-            font-size: 30px;
+            font-size: 25px;
             cursor: pointer;
         }
 
-        footer {
-            padding: 30px;
-            text-align: center;
-            background: rgba(0,0,0,0.8);
+        a.btn-link {
+            text-decoration: none;
+            color: white;
         }
     </style>
 </head>
@@ -120,7 +156,11 @@
 <body>
 
 <nav>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#certifications">Certifications</a>
     <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
 </nav>
 
 <header>
@@ -128,113 +168,170 @@
     <p>Electrical & Electronics Engineering Student</p>
 </header>
 
-<section id="projects">
+<section id="about">
     <div class="container">
-        <h2>Projects</h2>
+        <h2>About Me</h2>
+        <p>
+        I am an Electrical and Electronics Engineering student specializing in power systems, embedded systems,
+        and renewable energy technologies. My work focuses on intelligent hardware-integrated solutions
+        for efficient and reliable electrical infrastructure.
+        </p>
+    </div>
+</section>
 
-        <div class="projects-wrapper">
+<section id="skills">
+    <div class="container">
+        <h2>Skills</h2>
+        <p>C | C++ | MATLAB | Embedded Systems | Power Systems</p>
+    </div>
+</section>
 
-            <!-- Solar -->
-            <div class="project-card" onclick="openProject('solar')">
-                <img src="solar.jpg" alt="Solar">
-                <h3>Solar PV Modeling</h3>
+<section id="certifications">
+    <div class="container">
+        <h2>Certifications</h2>
+
+        <div class="cards">
+
+            <div class="card">
+                <img src="nptel.jpg">
+                <div class="card-content">
+                    <h3>Digital Electronics</h3>
+                    <p>NPTEL | March 2023</p>
+                    <button onclick="openCert('nptel.jpg')">View Certificate</button>
+                </div>
             </div>
 
-            <!-- Streetlight -->
-            <div class="project-card" onclick="openProject('street')">
-                <img src="streetlight.jpg" alt="Streetlight">
-                <h3>Smart Street Lighting</h3>
+            <div class="card">
+                <img src="iot.jpg">
+                <div class="card-content">
+                    <h3>Introduction to IoT</h3>
+                    <p>Cisco | Jan 2024</p>
+                    <button onclick="openCert('iot.jpg')">View Certificate</button>
+                </div>
             </div>
 
-            <!-- Robot -->
-            <div class="project-card" onclick="openProject('robot')">
-                <img src="robot.jpg" alt="Robot">
-                <h3>Cable Inspection Robot</h3>
+            <div class="card">
+                <img src="matlab.jpg">
+                <div class="card-content">
+                    <h3>MATLAB Onramp</h3>
+                    <p>MathWorks | May 2024</p>
+                    <button onclick="openCert('matlab.jpg')">View Certificate</button>
+                </div>
             </div>
 
         </div>
     </div>
 </section>
 
-<!-- Modal -->
-<div id="projectModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeProject()">&times;</span>
-        <h2 id="modalTitle"></h2>
-        <p id="modalDescription"></p>
+<section id="projects">
+    <div class="container">
+        <h2>Projects</h2>
+
+        <div class="cards">
+
+            <div class="card" onclick="openProject('solar')">
+                <img src="solar.jpg">
+                <div class="card-content">
+                    <h3>Solar PV Modeling</h3>
+                </div>
+            </div>
+
+            <div class="card" onclick="openProject('street')">
+                <img src="streetlight.jpg">
+                <div class="card-content">
+                    <h3>Smart Street Lighting</h3>
+                </div>
+            </div>
+
+            <div class="card" onclick="openProject('robot')">
+                <img src="robot.jpg">
+                <div class="card-content">
+                    <h3>Cable Inspection Robot</h3>
+                </div>
+            </div>
+
+        </div>
     </div>
-</div>
+</section>
+
+<section id="contact">
+    <div class="container">
+        <h2>Contact Me</h2>
+        <p>Email: satyabhaskarnandam@gmail.com</p>
+
+        <a href="resume.pdf" download class="btn-link">
+            <button>Download Resume</button>
+        </a>
+
+        <br><br>
+
+        <a href="https://github.com/satyabhaskarnandam" target="_blank" class="btn-link">
+            <button>GitHub</button>
+        </a>
+
+        <a href="https://linkedin.com/in/nandam-satya-bhaskar" target="_blank" class="btn-link">
+            <button>LinkedIn</button>
+        </a>
+    </div>
+</section>
 
 <footer>
     © 2026 SB Portfolio
 </footer>
 
+<!-- Modal -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="modalTitle"></h2>
+        <p id="modalDesc"></p>
+        <img id="modalImage" style="width:100%; margin-top:15px;">
+    </div>
+</div>
+
 <script>
-function openProject(project) {
+const modal = document.getElementById("modal");
 
+function openProject(type){
     const title = document.getElementById("modalTitle");
-    const desc = document.getElementById("modalDescription");
+    const desc = document.getElementById("modalDesc");
+    const img = document.getElementById("modalImage");
 
-    if (project === "solar") {
-        title.innerHTML = "Solar PV System Modeling with MPPT Control";
-        desc.innerHTML = `
-        This project involves modeling and simulation of a photovoltaic (PV) system using MATLAB/Simulink.
-        A single-diode model was implemented to analyze I–V and P–V characteristics under varying irradiation and temperature conditions.
-        
-        An MPPT (Maximum Power Point Tracking) algorithm was integrated to ensure optimal energy extraction from the solar panel.
-        
-        Key Components:
-        • PV Module mathematical modeling  
-        • MPPT algorithm implementation  
-        • Performance analysis under dynamic environmental conditions  
-        • Efficiency comparison of power output
-        
-        Outcome:
-        Achieved improved energy harvesting efficiency and demonstrated understanding of renewable energy system modeling.
-        `;
+    img.style.display="none";
+
+    if(type==="solar"){
+        title.innerHTML="Solar PV Modeling with MPPT";
+        desc.innerHTML="Developed MATLAB/Simulink model of PV system with MPPT control for optimal energy extraction and performance analysis.";
+    }
+    if(type==="street"){
+        title.innerHTML="Smart Street Lighting";
+        desc.innerHTML="Designed sensor-based adaptive lighting system using LDR and PIR sensors to optimize energy efficiency.";
+    }
+    if(type==="robot"){
+        title.innerHTML="Cable Inspection Robot";
+        desc.innerHTML="Built embedded robotic platform for underground cable fault detection with real-time monitoring.";
     }
 
-    if (project === "street") {
-        title.innerHTML = "Smart Street Lighting with Adaptive Control";
-        desc.innerHTML = `
-        Designed and developed an embedded-based smart street lighting system using LDR and PIR sensors.
-        
-        The system automatically adjusts brightness based on ambient light conditions and detects human/vehicle motion to optimize power usage.
-        
-        Key Features:
-        • Automatic ON/OFF based on daylight detection  
-        • Motion-based intensity control  
-        • Energy-efficient design  
-        • Microcontroller-based automation logic
-        
-        Outcome:
-        Reduced unnecessary power consumption and demonstrated practical IoT-based infrastructure automation.
-        `;
-    }
-
-    if (project === "robot") {
-        title.innerHTML = "Autonomous Underground Cable Inspection Robot";
-        desc.innerHTML = `
-        Developed a hardware-integrated robotic platform for underground power cable inspection.
-        
-        The robot is equipped with multiple sensors to detect faults such as overheating, short circuits, and insulation degradation.
-        
-        Key Features:
-        • Embedded microcontroller system  
-        • Real-time sensor monitoring  
-        • Autonomous movement mechanism  
-        • Fault detection and reporting
-        
-        Outcome:
-        Provided a cost-effective prototype solution for preventive maintenance in power distribution networks.
-        `;
-    }
-
-    document.getElementById("projectModal").style.display = "block";
+    modal.classList.add("active");
 }
 
-function closeProject() {
-    document.getElementById("projectModal").style.display = "none";
+function openCert(src){
+    document.getElementById("modalTitle").innerHTML="Certificate Preview";
+    document.getElementById("modalDesc").innerHTML="";
+    const img=document.getElementById("modalImage");
+    img.src=src;
+    img.style.display="block";
+    modal.classList.add("active");
+}
+
+function closeModal(){
+    modal.classList.remove("active");
+}
+
+window.onclick=function(e){
+    if(e.target==modal){
+        closeModal();
+    }
 }
 </script>
 
