@@ -45,6 +45,31 @@
 
         nav a:hover { color: #00d9ff; }
 
+        /* 🔥 Zoom + underline effect ONLY for Projects tab */
+        nav a[href="#projects"] {
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        nav a[href="#projects"]:hover {
+            transform: scale(1.15);
+        }
+
+        nav a[href="#projects"]::after {
+            content: "";
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            left: 0;
+            bottom: -5px;
+            background-color: #00d9ff;
+            transition: width 0.3s ease;
+        }
+
+        nav a[href="#projects"]:hover::after {
+            width: 100%;
+        }
+
         header {
             padding: 120px 20px;
             text-align: center;
@@ -158,14 +183,12 @@
     </div>
 </section>
 
-<!-- CERTIFICATIONS (Chronological Order) -->
 <section id="certifications">
     <div class="container">
         <h2>Certifications</h2>
 
         <div class="projects-wrapper">
 
-            <!-- 1️⃣ NPTEL (March 2023) -->
             <div class="project-card">
                 <h3>🔌 Digital Electronics</h3>
                 <p>
@@ -175,7 +198,6 @@
                 </p>
             </div>
 
-            <!-- 2️⃣ IoT (January 2024) -->
             <div class="project-card">
                 <h3>🌐 Introduction to IoT</h3>
                 <p>
@@ -184,7 +206,6 @@
                 </p>
             </div>
 
-            <!-- 3️⃣ MATLAB (May 2024) -->
             <div class="project-card">
                 <h3>📊 MATLAB Onramp</h3>
                 <p>
