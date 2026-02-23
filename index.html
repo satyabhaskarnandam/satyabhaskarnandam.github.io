@@ -3,9 +3,14 @@
 <head>
     <title>SB Portfolio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
+        html {
+            scroll-behavior: smooth; /* Smooth scrolling */
+        }
+
         body {
             margin: 0;
             font-family: 'Poppins', sans-serif;
@@ -13,6 +18,7 @@
             background-size: 400% 400%;
             animation: gradientBG 12s ease infinite;
             color: #fff;
+            overflow-x: hidden;
         }
 
         @keyframes gradientBG {
@@ -27,6 +33,7 @@
             background: rgba(0,0,0,0.6);
             position: sticky;
             top: 0;
+            z-index: 1000;
         }
 
         nav a {
@@ -38,7 +45,7 @@
         }
 
         nav a:hover {
-            transform: scale(1.1);
+            transform: scale(1.15);
             color: #00d9ff;
         }
 
@@ -117,7 +124,8 @@
             align-items: center;
             opacity: 0;
             visibility: hidden;
-            transition: 0.4s ease;
+            transition: 0.4s;
+            z-index: 2000;
         }
 
         .modal.active {
@@ -132,8 +140,7 @@
             width: 85%;
             max-width: 800px;
             transform: scale(0.8);
-            transition: 0.4s ease;
-            text-align: left;
+            transition: 0.4s;
         }
 
         .modal.active .modal-content {
@@ -146,20 +153,30 @@
             cursor: pointer;
         }
 
-        .section-title {
-            margin-top: 20px;
-            font-weight: 600;
-            color: #00d9ff;
-        }
-
         a.btn-link {
             text-decoration: none;
             color: white;
+        }
+
+        /* Snow canvas */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        section, header, footer, nav {
+            position: relative;
+            z-index: 1;
         }
     </style>
 </head>
 
 <body>
+
+<canvas id="snow"></canvas>
 
 <nav>
     <a href="#about">About</a>
@@ -178,10 +195,9 @@
     <div class="container">
         <h2>About Me</h2>
         <p>
-        I am an Electrical and Electronics Engineering student with strong interests in power systems,
-        embedded technologies, and renewable energy integration. My objective is to develop
-        intelligent hardware-based solutions that enhance efficiency and reliability
-        within modern electrical infrastructure.
+        Electrical and Electronics Engineering student specializing in power systems,
+        embedded technologies, and renewable energy integration.
+        Focused on intelligent hardware-based solutions for modern infrastructure.
         </p>
     </div>
 </section>
@@ -193,33 +209,54 @@
     </div>
 </section>
 
+<section id="certifications">
+    <div class="container">
+        <h2>Certifications</h2>
+        <div class="cards">
+            <div class="card">
+                <img src="nptel.jpg">
+                <div class="card-content">
+                    <h3>Digital Electronics</h3>
+                </div>
+            </div>
+            <div class="card">
+                <img src="iot.jpg">
+                <div class="card-content">
+                    <h3>Introduction to IoT</h3>
+                </div>
+            </div>
+            <div class="card">
+                <img src="matlab.jpg">
+                <div class="card-content">
+                    <h3>MATLAB Onramp</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section id="projects">
     <div class="container">
         <h2>Projects</h2>
-
         <div class="cards">
-
-            <div class="card" onclick="openProject('solar')">
+            <div class="card">
                 <img src="solar.jpg">
                 <div class="card-content">
                     <h3>Solar PV Modeling</h3>
                 </div>
             </div>
-
-            <div class="card" onclick="openProject('street')">
+            <div class="card">
                 <img src="streetlight.jpg">
                 <div class="card-content">
                     <h3>Smart Street Lighting</h3>
                 </div>
             </div>
-
-            <div class="card" onclick="openProject('robot')">
+            <div class="card">
                 <img src="robot.jpg">
                 <div class="card-content">
                     <h3>Cable Inspection Robot</h3>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
@@ -249,93 +286,58 @@
     © 2026 SB Portfolio
 </footer>
 
-<!-- Modal -->
-<div id="modal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2 id="modalTitle"></h2>
-        <div id="modalDesc"></div>
-    </div>
-</div>
-
 <script>
-const modal = document.getElementById("modal");
+/* Snow Effect */
+const canvas = document.getElementById("snow");
+const ctx = canvas.getContext("2d");
 
-function openProject(type){
-    const title = document.getElementById("modalTitle");
-    const desc = document.getElementById("modalDesc");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-    if(type==="solar"){
-        title.innerHTML="Solar PV Modeling with MPPT Control";
-        desc.innerHTML=`
-        <div class="section-title">Working:</div>
-        The photovoltaic system was modeled using MATLAB/Simulink with a single-diode model.
-        An MPPT algorithm continuously tracked the maximum power point under varying
-        irradiance and temperature conditions.
+let snowflakes = [];
 
-        <div class="section-title">Key Components:</div>
-        • PV mathematical model  
-        • MPPT control algorithm  
-        • Irradiance and temperature analysis  
-        • Power output monitoring
-
-        <div class="section-title">Output:</div>
-        Achieved optimized power extraction and demonstrated improved efficiency
-        under dynamic environmental conditions.
-        `;
-    }
-
-    if(type==="street"){
-        title.innerHTML="Smart Street Lighting System";
-        desc.innerHTML=`
-        <div class="section-title">Working:</div>
-        The system automatically adjusts street light intensity based on ambient
-        light and motion detection using LDR and PIR sensors.
-
-        <div class="section-title">Key Components:</div>
-        • LDR sensor  
-        • PIR motion sensor  
-        • Microcontroller unit  
-        • LED driver circuit
-
-        <div class="section-title">Output:</div>
-        Reduced energy consumption by enabling adaptive brightness control
-        and minimizing unnecessary power usage.
-        `;
-    }
-
-    if(type==="robot"){
-        title.innerHTML="Autonomous Underground Cable Inspection Robot";
-        desc.innerHTML=`
-        <div class="section-title">Working:</div>
-        The robotic platform autonomously moves through underground cable paths
-        while monitoring real-time parameters for fault detection.
-
-        <div class="section-title">Key Components:</div>
-        • Embedded microcontroller  
-        • Temperature & fault sensors  
-        • Motor driver system  
-        • Communication interface
-
-        <div class="section-title">Output:</div>
-        Enabled early detection of cable faults and provided a preventive
-        maintenance prototype for power distribution networks.
-        `;
-    }
-
-    modal.classList.add("active");
+for (let i = 0; i < 150; i++) {
+    snowflakes.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 3 + 1,
+        d: Math.random() + 0.5
+    });
 }
 
-function closeModal(){
-    modal.classList.remove("active");
+function drawSnow() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "white";
+    ctx.beginPath();
+
+    for (let i = 0; i < snowflakes.length; i++) {
+        let s = snowflakes[i];
+        ctx.moveTo(s.x, s.y);
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2, true);
+    }
+
+    ctx.fill();
+    moveSnow();
 }
 
-/* Open Area Exit */
-window.onclick=function(e){
-    if(e.target==modal){
-        closeModal();
+function moveSnow() {
+    for (let i = 0; i < snowflakes.length; i++) {
+        let s = snowflakes[i];
+        s.y += s.d;
+
+        if (s.y > canvas.height) {
+            s.y = 0;
+            s.x = Math.random() * canvas.width;
+        }
     }
 }
+
+setInterval(drawSnow, 30);
+
+window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
 </script>
 
 </body>
