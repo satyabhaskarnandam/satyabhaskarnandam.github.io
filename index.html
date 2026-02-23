@@ -32,7 +32,6 @@
             backdrop-filter: blur(10px);
             padding: 15px;
             text-align: center;
-            z-index: 1000;
         }
 
         nav a {
@@ -40,38 +39,13 @@
             color: #fff;
             text-decoration: none;
             font-weight: 500;
-            transition: 0.3s;
             position: relative;
+            transition: 0.3s;
         }
 
-        nav a:hover { color: #00d9ff; }
-
-        /* 🔥 Zoom + underline for Projects & Certifications */
-        nav a[href="#projects"],
-        nav a[href="#certifications"] {
-            transition: transform 0.3s ease;
-        }
-
-        nav a[href="#projects"]:hover,
-        nav a[href="#certifications"]:hover {
+        nav a:hover {
             transform: scale(1.15);
-        }
-
-        nav a[href="#projects"]::after,
-        nav a[href="#certifications"]::after {
-            content: "";
-            position: absolute;
-            width: 0%;
-            height: 2px;
-            left: 0;
-            bottom: -5px;
-            background-color: #00d9ff;
-            transition: width 0.3s ease;
-        }
-
-        nav a[href="#projects"]:hover::after,
-        nav a[href="#certifications"]:hover::after {
-            width: 100%;
+            color: #00d9ff;
         }
 
         header {
@@ -83,15 +57,6 @@
 
         section {
             padding: 80px 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s ease;
-        }
-
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         .container {
@@ -108,10 +73,9 @@
 
         .project-card {
             background: rgba(0,0,0,0.6);
-            padding: 20px;
             width: 300px;
             border-radius: 15px;
-            backdrop-filter: blur(8px);
+            overflow: hidden;
             box-shadow: 0 5px 25px rgba(0,0,0,0.4);
             transition: transform 0.3s ease;
         }
@@ -120,20 +84,29 @@
             transform: translateY(-8px);
         }
 
-        .project-card img {
+        .card-image {
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .card-image img {
             width: 100%;
-            border-radius: 10px;
-            margin-bottom: 15px;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
         }
 
         button {
-            padding: 8px 18px;
+            padding: 8px 16px;
             border-radius: 6px;
             border: none;
             cursor: pointer;
-            font-weight: 600;
             background-color: #00d9ff;
-            transition: transform 0.3s ease;
+            font-weight: 600;
+            margin-top: 10px;
         }
 
         button:hover {
@@ -143,22 +116,41 @@
         footer {
             padding: 30px;
             text-align: center;
-            font-size: 14px;
             background: rgba(0,0,0,0.8);
         }
 
-        canvas {
+        /* Modal Styling */
+        .modal {
+            display: none;
             position: fixed;
-            top: 0;
+            z-index: 2000;
+            padding-top: 60px;
             left: 0;
-            z-index: -1;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        .modal img {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 80vh;
+        }
+
+        .close {
+            position: absolute;
+            top: 30px;
+            right: 50px;
+            color: #fff;
+            font-size: 40px;
+            cursor: pointer;
         }
     </style>
 </head>
 
 <body>
-
-<canvas id="particles"></canvas>
 
 <nav>
     <a href="#about">About</a>
@@ -169,138 +161,72 @@
 </nav>
 
 <header>
-    <h1><span id="typing"></span></h1>
+    <h1>Nandam Satya Bhaskar</h1>
     <p>Electrical & Electronics Engineering Student</p>
 </header>
-
-<section id="about">
-    <div class="container">
-        <h2>About Me</h2>
-        <p>Focused on intelligent power systems, embedded architectures, and renewable energy integration.</p>
-    </div>
-</section>
-
-<section id="skills">
-    <div class="container">
-        <h2>Skills</h2>
-        <p>C | C++ | MATLAB | Embedded Systems | Power Systems</p>
-    </div>
-</section>
 
 <section id="certifications">
     <div class="container">
         <h2>Certifications</h2>
 
         <div class="projects-wrapper">
+
             <div class="project-card">
-                <h3>🔌 Digital Electronics</h3>
-                <p>Issued by: NPTEL<br>Date: March 2023<br>Certificate ID: NPTEL/DE/2023/83741</p>
+                <div class="card-image">
+                    <img src="nptel.jpg" alt="NPTEL Certificate">
+                </div>
+                <div class="card-content">
+                    <h3>Digital Electronics</h3>
+                    <p>NPTEL | March 2023</p>
+                    <button onclick="openModal('nptel.jpg')">View Certificate</button>
+                </div>
             </div>
 
             <div class="project-card">
-                <h3>🌐 Introduction to IoT</h3>
-                <p>Issued by: Cisco Networking Academy<br>Date: January 2024</p>
+                <div class="card-image">
+                    <img src="iot.jpg" alt="IoT Certificate">
+                </div>
+                <div class="card-content">
+                    <h3>Introduction to IoT</h3>
+                    <p>Cisco Networking Academy | January 2024</p>
+                    <button onclick="openModal('iot.jpg')">View Certificate</button>
+                </div>
             </div>
 
             <div class="project-card">
-                <h3>📊 MATLAB Onramp</h3>
-                <p>Issued by: MathWorks<br>Date: May 2024</p>
+                <div class="card-image">
+                    <img src="matlab.jpg" alt="MATLAB Certificate">
+                </div>
+                <div class="card-content">
+                    <h3>MATLAB Onramp</h3>
+                    <p>MathWorks | May 2024</p>
+                    <button onclick="openModal('matlab.jpg')">View Certificate</button>
+                </div>
             </div>
+
         </div>
     </div>
 </section>
 
-<section id="projects">
-    <div class="container">
-        <h2>Projects</h2>
-
-        <div class="projects-wrapper">
-            <div class="project-card">
-                <img src="solar.jpg" alt="Solar">
-                <h3>Solar PV Modeling</h3>
-                <p>PV modeling with I–V and P–V analysis.</p>
-            </div>
-
-            <div class="project-card">
-                <img src="streetlight.jpg" alt="Streetlight">
-                <h3>Smart Street Lighting</h3>
-                <p>Adaptive brightness control system.</p>
-            </div>
-
-            <div class="project-card">
-                <img src="robot.jpg" alt="Robot">
-                <h3>Cable Inspection Robot</h3>
-                <p>Autonomous underground monitoring platform.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="contact">
-    <div class="container">
-        <button onclick="location.href='resume.pdf'">Download Resume</button>
-        <br><br>
-        <button onclick="location.href='https://github.com/satyabhaskarnandam'">GitHub</button>
-        <button onclick="location.href='https://linkedin.com'">LinkedIn</button>
-        <h2>Contact</h2>
-        <p>Email: satyabhaskarnandam@gmail.com</p>
-    </div>
-</section>
+<!-- Modal -->
+<div id="certificateModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img id="modalImage">
+</div>
 
 <footer>
     © 2026 SB Portfolio
 </footer>
 
 <script>
-    const text = "Nandam Satya Bhaskar";
-    let i = 0;
-    function typeWriter() {
-        if (i < text.length) {
-            document.getElementById("typing").innerHTML += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, 80);
-        }
-    }
-    typeWriter();
+function openModal(imageSrc) {
+    document.getElementById("certificateModal").style.display = "block";
+    document.getElementById("modalImage").src = imageSrc;
+}
 
-    const sections = document.querySelectorAll("section");
-    window.addEventListener("scroll", () => {
-        sections.forEach(sec => {
-            const top = sec.getBoundingClientRect().top;
-            if (top < window.innerHeight - 100) {
-                sec.classList.add("visible");
-            }
-        });
-    });
-
-    const canvas = document.getElementById("particles");
-    const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let particles = [];
-    for(let i=0;i<100;i++){
-        particles.push({
-            x: Math.random()*canvas.width,
-            y: Math.random()*canvas.height,
-            r: Math.random()*2,
-            d: Math.random()*1
-        });
-    }
-
-    function draw(){
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-        ctx.fillStyle="rgba(255,255,255,0.2)";
-        particles.forEach(p=>{
-            ctx.beginPath();
-            ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-            ctx.fill();
-            p.y+=p.d;
-            if(p.y>canvas.height)p.y=0;
-        });
-        requestAnimationFrame(draw);
-    }
-    draw();
+function closeModal() {
+    document.getElementById("certificateModal").style.display = "none";
+}
 </script>
 
 </body>
