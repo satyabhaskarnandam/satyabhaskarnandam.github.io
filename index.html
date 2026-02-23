@@ -41,21 +41,24 @@
             text-decoration: none;
             font-weight: 500;
             transition: 0.3s;
+            position: relative;
         }
 
         nav a:hover { color: #00d9ff; }
 
-        /* 🔥 Zoom + underline effect ONLY for Projects tab */
-        nav a[href="#projects"] {
-            position: relative;
+        /* 🔥 Zoom + underline for Projects & Certifications */
+        nav a[href="#projects"],
+        nav a[href="#certifications"] {
             transition: transform 0.3s ease;
         }
 
-        nav a[href="#projects"]:hover {
+        nav a[href="#projects"]:hover,
+        nav a[href="#certifications"]:hover {
             transform: scale(1.15);
         }
 
-        nav a[href="#projects"]::after {
+        nav a[href="#projects"]::after,
+        nav a[href="#certifications"]::after {
             content: "";
             position: absolute;
             width: 0%;
@@ -66,7 +69,8 @@
             transition: width 0.3s ease;
         }
 
-        nav a[href="#projects"]:hover::after {
+        nav a[href="#projects"]:hover::after,
+        nav a[href="#certifications"]:hover::after {
             width: 100%;
         }
 
@@ -188,32 +192,20 @@
         <h2>Certifications</h2>
 
         <div class="projects-wrapper">
-
             <div class="project-card">
                 <h3>🔌 Digital Electronics</h3>
-                <p>
-                    Issued by: NPTEL<br>
-                    Date: March 2023<br>
-                    Certificate ID: NPTEL/DE/2023/83741
-                </p>
+                <p>Issued by: NPTEL<br>Date: March 2023<br>Certificate ID: NPTEL/DE/2023/83741</p>
             </div>
 
             <div class="project-card">
                 <h3>🌐 Introduction to IoT</h3>
-                <p>
-                    Issued by: Cisco Networking Academy<br>
-                    Date: January 2024
-                </p>
+                <p>Issued by: Cisco Networking Academy<br>Date: January 2024</p>
             </div>
 
             <div class="project-card">
                 <h3>📊 MATLAB Onramp</h3>
-                <p>
-                    Issued by: MathWorks<br>
-                    Date: May 2024
-                </p>
+                <p>Issued by: MathWorks<br>Date: May 2024</p>
             </div>
-
         </div>
     </div>
 </section>
@@ -223,7 +215,6 @@
         <h2>Projects</h2>
 
         <div class="projects-wrapper">
-
             <div class="project-card">
                 <img src="solar.jpg" alt="Solar">
                 <h3>Solar PV Modeling</h3>
@@ -241,7 +232,6 @@
                 <h3>Cable Inspection Robot</h3>
                 <p>Autonomous underground monitoring platform.</p>
             </div>
-
         </div>
     </div>
 </section>
