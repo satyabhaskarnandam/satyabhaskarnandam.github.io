@@ -2,23 +2,22 @@
 <html>
 <head>
     <title>SB Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             margin: 0;
-            padding: 0;
             font-family: 'Poppins', sans-serif;
-            color: #fff;
             background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1e3c72);
             background-size: 400% 400%;
             animation: gradientBG 12s ease infinite;
+            color: #fff;
+            overflow-x: hidden;
         }
 
         @keyframes gradientBG {
@@ -28,12 +27,13 @@
         }
 
         nav {
-            background: rgba(0,0,0,0.8);
-            padding: 15px;
             position: sticky;
             top: 0;
+            background: rgba(0,0,0,0.6);
             backdrop-filter: blur(10px);
+            padding: 15px;
             text-align: center;
+            z-index: 1000;
         }
 
         nav a {
@@ -44,42 +44,34 @@
             transition: 0.3s;
         }
 
-        nav a:hover {
-            color: #00d9ff;
+        nav a:hover { color: #00d9ff; }
+
+        .toggle-btn {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            cursor: pointer;
+            font-size: 14px;
         }
 
         header {
-            padding: 100px 20px;
+            padding: 120px 20px;
             text-align: center;
         }
 
-        h1 {
-            font-size: 48px;
-            margin-bottom: 10px;
-        }
-
-        h2 {
-            font-size: 32px;
-            margin-bottom: 30px;
-        }
+        h1 { font-size: 48px; }
 
         section {
             padding: 80px 20px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
             opacity: 0;
-            transform: translateY(30px);
-            animation: fadeIn 1s ease forwards;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
         }
 
-        section:nth-child(even) {
-            background: rgba(0,0,0,0.2);
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .container {
@@ -106,7 +98,7 @@
 
         .project-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 217, 255, 0.4);
+            box-shadow: 0 15px 40px rgba(0,217,255,0.4);
         }
 
         .project-card img {
@@ -127,7 +119,7 @@
 
         button:hover {
             transform: scale(1.08);
-            box-shadow: 0 0 20px rgba(0, 217, 255, 0.8);
+            box-shadow: 0 0 20px rgba(0,217,255,0.8);
         }
 
         footer {
@@ -137,34 +129,45 @@
             background: rgba(0,0,0,0.8);
         }
 
-        a {
-            text-decoration: none;
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
         }
+
+        /* Dark / Light Mode */
+        .light-mode {
+            background: #f5f5f5;
+            color: #000;
+        }
+
+        .light-mode nav { background: rgba(255,255,255,0.8); }
+        .light-mode .project-card { background: #fff; }
     </style>
 </head>
 
 <body>
+
+<canvas id="particles"></canvas>
 
 <nav>
     <a href="#about">About</a>
     <a href="#skills">Skills</a>
     <a href="#projects">Projects</a>
     <a href="#contact">Contact</a>
+    <span class="toggle-btn" onclick="toggleMode()">Toggle Mode</span>
 </nav>
 
 <header>
-    <h1>Nandam Satya Bhaskar</h1>
+    <h1><span id="typing"></span></h1>
     <p>Electrical & Electronics Engineering Student</p>
 </header>
 
 <section id="about">
     <div class="container">
         <h2>About Me</h2>
-        <p>
-            Electrical and Electronics Engineering student focused on intelligent power systems, 
-            embedded architectures, and renewable energy integration. Passionate about building 
-            scalable infrastructure solutions that enhance efficiency and sustainability.
-        </p>
+        <p>Focused on intelligent power systems, embedded architectures, and renewable energy integration.</p>
     </div>
 </section>
 
@@ -178,34 +181,27 @@
 <section id="projects">
     <div class="container">
         <h2>Projects</h2>
-
         <div class="projects-wrapper">
 
             <div class="project-card">
-                <img src="solar.jpg" alt="Solar PV Project">
+                <img src="solar.jpg" alt="Solar">
                 <h3>Solar PV Modeling</h3>
-                <p>Single-diode PV modeling with I–V and P–V analysis in MATLAB.</p>
-                <a href="#" target="_blank">
-                    <button>View Project</button>
-                </a>
+                <p>PV modeling with I–V and P–V analysis.</p>
+                <button>View Project</button>
             </div>
 
             <div class="project-card">
-                <img src="streetlight.jpg" alt="Smart Street Light">
+                <img src="streetlight.jpg" alt="Streetlight">
                 <h3>Smart Street Lighting</h3>
-                <p>Embedded system using LDR and PIR for adaptive brightness control.</p>
-                <a href="#" target="_blank">
-                    <button>View Project</button>
-                </a>
+                <p>Adaptive brightness control system.</p>
+                <button>View Project</button>
             </div>
 
             <div class="project-card">
-                <img src="robot.jpg" alt="Cable Robot">
+                <img src="robot.jpg" alt="Robot">
                 <h3>Cable Inspection Robot</h3>
-                <p>Autonomous embedded robotic platform for underground cable monitoring.</p>
-                <a href="#" target="_blank">
-                    <button>View Project</button>
-                </a>
+                <p>Autonomous underground monitoring platform.</p>
+                <button>View Project</button>
             </div>
 
         </div>
@@ -214,30 +210,78 @@
 
 <section id="contact">
     <div class="container">
-
-        <a href="resume.pdf" download>
-            <button>Download Resume</button>
-        </a>
-
-        <div style="margin-top:20px;">
-            <a href="https://github.com/satyabhaskarnandam" target="_blank">
-                <button>GitHub</button>
-            </a>
-
-            <a href="https://www.linkedin.com/in/nandam-satya-bhaskar/" target="_blank">
-                <button>LinkedIn</button>
-            </a>
-        </div>
-
-        <h2 style="margin-top:40px;">Contact</h2>
+        <button onclick="location.href='resume.pdf'">Download Resume</button>
+        <br><br>
+        <button onclick="location.href='https://github.com/satyabhaskarnandam'">GitHub</button>
+        <button onclick="location.href='https://linkedin.com'">LinkedIn</button>
+        <h2>Contact</h2>
         <p>Email: satyabhaskarnandam@gmail.com</p>
-
     </div>
 </section>
 
 <footer>
     © 2026 SB Portfolio
 </footer>
+
+<script>
+    // Typing effect
+    const text = "Nandam Satya Bhaskar";
+    let i = 0;
+    function typeWriter() {
+        if (i < text.length) {
+            document.getElementById("typing").innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, 80);
+        }
+    }
+    typeWriter();
+
+    // Fade-in on scroll
+    const sections = document.querySelectorAll("section");
+    window.addEventListener("scroll", () => {
+        sections.forEach(sec => {
+            const top = sec.getBoundingClientRect().top;
+            if (top < window.innerHeight - 100) {
+                sec.classList.add("visible");
+            }
+        });
+    });
+
+    // Dark/Light mode toggle
+    function toggleMode() {
+        document.body.classList.toggle("light-mode");
+    }
+
+    // Floating particles
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particles = [];
+    for(let i=0;i<100;i++){
+        particles.push({
+            x: Math.random()*canvas.width,
+            y: Math.random()*canvas.height,
+            r: Math.random()*2,
+            d: Math.random()*1
+        });
+    }
+
+    function draw(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.fillStyle="rgba(255,255,255,0.3)";
+        particles.forEach(p=>{
+            ctx.beginPath();
+            ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+            ctx.fill();
+            p.y+=p.d;
+            if(p.y>canvas.height)p.y=0;
+        });
+        requestAnimationFrame(draw);
+    }
+    draw();
+</script>
 
 </body>
 </html>
