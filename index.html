@@ -7,7 +7,7 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-    <!-- PUBLIC Font Awesome CDN (FIXED) -->
+    <!-- Correct Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
@@ -29,7 +29,6 @@
             100% {background-position: 0% 50%;}
         }
 
-        /* NAVIGATION */
         nav {
             position: fixed;
             top: 0;
@@ -116,7 +115,6 @@
             background: rgba(0,0,0,0.8);
         }
 
-        /* SOCIAL ICONS */
         .social-icons {
             margin-top: 30px;
             text-align: center;
@@ -134,50 +132,6 @@
             transform: scale(1.2);
             text-shadow: 0 0 10px #00d9ff;
         }
-
-        /* MODAL */
-        .modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.85);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: 0.4s;
-            z-index: 2000;
-        }
-
-        .modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background: #111;
-            padding: 30px;
-            width: 90%;
-            max-width: 800px;
-            border-radius: 15px;
-            transform: scale(0.8);
-            transition: 0.4s;
-            text-align: left;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .modal.active .modal-content {
-            transform: scale(1);
-        }
-
-        .close {
-            float: right;
-            font-size: 25px;
-            cursor: pointer;
-        }
-
-        h4 { margin-top: 20px; color: #00d9ff; }
 
         canvas {
             position: fixed;
@@ -206,7 +160,8 @@
 <canvas id="particles"></canvas>
 
 <nav>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- HOME ICON ADDED BACK -->
+    <a href="#home"><i class="fa-solid fa-house home-icon"></i></a>
     <a href="#about">About</a>
     <a href="#skills">Skills</a>
     <a href="#certifications">Certifications</a>
@@ -241,23 +196,18 @@
                 <img src="nptel.jpg">
                 <div class="card-content">
                     <h3>Digital Electronics</h3>
-                    <button onclick="openCert('nptel.jpg')">View Certificate</button>
                 </div>
             </div>
-
             <div class="card">
                 <img src="iot.jpg">
                 <div class="card-content">
                     <h3>Introduction to IoT</h3>
-                    <button onclick="openCert('iot.jpg')">View Certificate</button>
                 </div>
             </div>
-
             <div class="card">
                 <img src="matlab.jpg">
                 <div class="card-content">
                     <h3>MATLAB Onramp</h3>
-                    <button onclick="openCert('matlab.jpg')">View Certificate</button>
                 </div>
             </div>
         </div>
@@ -272,23 +222,18 @@
                 <img src="solar.jpg">
                 <div class="card-content">
                     <h3>Solar PV Modeling</h3>
-                    <button onclick="openProject('solar')">View Details</button>
                 </div>
             </div>
-
             <div class="card">
                 <img src="streetlight.jpg">
                 <div class="card-content">
                     <h3>Smart Street Lighting</h3>
-                    <button onclick="openProject('street')">View Details</button>
                 </div>
             </div>
-
             <div class="card">
                 <img src="robot.jpg">
                 <div class="card-content">
                     <h3>Cable Inspection Robot</h3>
-                    <button onclick="openProject('robot')">View Details</button>
                 </div>
             </div>
         </div>
@@ -314,6 +259,11 @@
 </footer>
 
 <script>
+/* Always start from top on refresh */
+window.onbeforeunload = function () {
+  window.scrollTo(0, 0);
+};
+
 /* Typing */
 const text="Nandam Satya Bhaskar";
 let i=0;
