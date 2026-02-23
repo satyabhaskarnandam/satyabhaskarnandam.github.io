@@ -7,7 +7,7 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-    <!-- Correct Font Awesome CDN -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
@@ -50,11 +50,6 @@
         }
 
         nav a:hover { color: #00d9ff; }
-
-        .home-icon {
-            color: white;
-            font-size: 18px;
-        }
 
         header {
             padding-top: 120px;
@@ -152,6 +147,49 @@
             50% { opacity: 0; }
             100% { opacity: 1; }
         }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.4s;
+            z-index: 2000;
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: #111;
+            padding: 30px;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 15px;
+            transform: scale(0.8);
+            transition: 0.4s;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .close {
+            float: right;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        h4 { color: #00d9ff; margin-top:20px; }
     </style>
 </head>
 
@@ -160,8 +198,7 @@
 <canvas id="particles"></canvas>
 
 <nav>
-    <!-- HOME ICON ADDED BACK -->
-    <a href="#home"><i class="fa-solid fa-house home-icon"></i></a>
+    <a href="#home"><i class="fa-solid fa-house"></i></a>
     <a href="#about">About</a>
     <a href="#skills">Skills</a>
     <a href="#certifications">Certifications</a>
@@ -175,139 +212,159 @@
 </header>
 
 <section id="about">
-    <div class="container">
-        <h2>About Me</h2>
-        <p>Electrical and Electronics Engineering student specializing in power systems and embedded technologies.</p>
-    </div>
+<div class="container">
+<h2>About Me</h2>
+<p>Electrical and Electronics Engineering student specializing in power systems and embedded technologies.</p>
+</div>
 </section>
 
 <section id="skills">
-    <div class="container">
-        <h2>Skills</h2>
-        <p>C | C++ | MATLAB | Embedded Systems | Power Systems</p>
-    </div>
+<div class="container">
+<h2>Skills</h2>
+<p>C | C++ | MATLAB | Embedded Systems | Power Systems</p>
+</div>
 </section>
 
 <section id="certifications">
-    <div class="container">
-        <h2>Certifications</h2>
-        <div class="cards">
-            <div class="card">
-                <img src="nptel.jpg">
-                <div class="card-content">
-                    <h3>Digital Electronics</h3>
-                </div>
-            </div>
-            <div class="card">
-                <img src="iot.jpg">
-                <div class="card-content">
-                    <h3>Introduction to IoT</h3>
-                </div>
-            </div>
-            <div class="card">
-                <img src="matlab.jpg">
-                <div class="card-content">
-                    <h3>MATLAB Onramp</h3>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="container">
+<h2>Certifications</h2>
+<div class="cards">
+<div class="card">
+<img src="nptel.jpg">
+<div class="card-content">
+<h3>Digital Electronics</h3>
+<button onclick="openCert('nptel.jpg')">View Certificate</button>
+</div>
+</div>
+
+<div class="card">
+<img src="iot.jpg">
+<div class="card-content">
+<h3>Introduction to IoT</h3>
+<button onclick="openCert('iot.jpg')">View Certificate</button>
+</div>
+</div>
+
+<div class="card">
+<img src="matlab.jpg">
+<div class="card-content">
+<h3>MATLAB Onramp</h3>
+<button onclick="openCert('matlab.jpg')">View Certificate</button>
+</div>
+</div>
+</div>
+</div>
 </section>
 
 <section id="projects">
-    <div class="container">
-        <h2>Projects</h2>
-        <div class="cards">
-            <div class="card">
-                <img src="solar.jpg">
-                <div class="card-content">
-                    <h3>Solar PV Modeling</h3>
-                </div>
-            </div>
-            <div class="card">
-                <img src="streetlight.jpg">
-                <div class="card-content">
-                    <h3>Smart Street Lighting</h3>
-                </div>
-            </div>
-            <div class="card">
-                <img src="robot.jpg">
-                <div class="card-content">
-                    <h3>Cable Inspection Robot</h3>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="container">
+<h2>Projects</h2>
+<div class="cards">
+
+<div class="card">
+<img src="solar.jpg">
+<div class="card-content">
+<h3>Solar PV Modeling</h3>
+<button onclick="openProject('solar')">View Details</button>
+</div>
+</div>
+
+<div class="card">
+<img src="streetlight.jpg">
+<div class="card-content">
+<h3>Smart Street Lighting</h3>
+<button onclick="openProject('street')">View Details</button>
+</div>
+</div>
+
+<div class="card">
+<img src="robot.jpg">
+<div class="card-content">
+<h3>Cable Inspection Robot</h3>
+<button onclick="openProject('robot')">View Details</button>
+</div>
+</div>
+
+</div>
+</div>
 </section>
 
 <section id="contact">
-    <div class="container">
-        <h2>Contact Me</h2>
-        <p>Email: satyabhaskarnandam@gmail.com</p>
-        <p>Mobile: +91 7780603821</p>
+<div class="container">
+<h2>Contact Me</h2>
+<p>Email: satyabhaskarnandam@gmail.com</p>
+<p>Mobile: +91 7780603821</p>
 
-        <div class="social-icons">
-            <a href="https://github.com/satyabhaskarnandam" target="_blank"><i class="fab fa-github"></i></a>
-            <a href="https://linkedin.com/in/nandam-satya-bhaskar" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://wa.me/917780603821" target="_blank"><i class="fab fa-whatsapp"></i></a>
-        </div>
-    </div>
+<div class="social-icons">
+<a href="https://github.com/satyabhaskarnandam" target="_blank"><i class="fab fa-github"></i></a>
+<a href="https://linkedin.com/in/nandam-satya-bhaskar" target="_blank"><i class="fab fa-linkedin"></i></a>
+<a href="https://wa.me/917780603821" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</div>
+</div>
 </section>
 
 <footer>
-    © 2026 SB Portfolio
+© 2026 SB Portfolio
 </footer>
 
-<script>
-/* Always start from top on refresh */
-window.onbeforeunload = function () {
-  window.scrollTo(0, 0);
-};
+<div id="modal" class="modal">
+<div class="modal-content">
+<span class="close" onclick="closeModal()">&times;</span>
+<div id="modalBody"></div>
+</div>
+</div>
 
-/* Typing */
+<script>
+history.scrollRestoration = "manual";
+window.onload = function() { window.scrollTo(0,0); };
+
 const text="Nandam Satya Bhaskar";
 let i=0;
 function typeEffect(){
-    if(i<text.length){
-        document.getElementById("typing").innerHTML+=text.charAt(i);
-        i++;
-        setTimeout(typeEffect,80);
-    }
-}
+if(i<text.length){
+document.getElementById("typing").innerHTML+=text.charAt(i);
+i++;
+setTimeout(typeEffect,80);
+}}
 typeEffect();
 
-/* Floating dots */
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let particles=[];
-for(let i=0;i<120;i++){
-particles.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-r:Math.random()*2,
-speed:Math.random()*0.7+0.2
-});
+function openCert(src){
+document.getElementById("modalBody").innerHTML=`<img src="${src}" style="width:100%;">`;
+document.getElementById("modal").classList.add("active");
 }
 
-function drawParticles(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-ctx.fillStyle="rgba(255,255,255,0.4)";
-particles.forEach(p=>{
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-ctx.fill();
-p.y+=p.speed;
-if(p.y>canvas.height){
-p.y=0;
-p.x=Math.random()*canvas.width;
+function openProject(type){
+let content="";
+if(type==="solar"){
+content=`<h3>Solar PV Modeling</h3>
+<h4>Working:</h4><p>Simulated PV array with MPPT algorithm under varying irradiation and temperature conditions to analyze performance.</p>
+<h4>Key Components:</h4><p>PV Array Model, MPPT Controller, DC-DC Converter, MATLAB Simulink.</p>
+<h4>Output:</h4><p>Maximum power extraction and graphical performance curves.</p>`;
 }
-});
-requestAnimationFrame(drawParticles);
+if(type==="street"){
+content=`<h3>Smart Street Lighting</h3>
+<h4>Working:</h4><p>System adjusts light intensity based on ambient light and motion detection.</p>
+<h4>Key Components:</h4><p>LDR, PIR Sensor, Microcontroller.</p>
+<h4>Output:</h4><p>Energy-efficient lighting system.</p>`;
 }
-drawParticles();
+if(type==="robot"){
+content=`<h3>Cable Inspection Robot</h3>
+<h4>Working:</h4><p>Robotic system detects underground cable faults using sensors.</p>
+<h4>Key Components:</h4><p>Motor Driver, Sensors, Microcontroller.</p>
+<h4>Output:</h4><p>Real-time monitoring and fault detection.</p>`;
+}
+document.getElementById("modalBody").innerHTML=content;
+document.getElementById("modal").classList.add("active");
+}
+
+function closeModal(){
+document.getElementById("modal").classList.remove("active");
+}
+
+window.onclick=function(e){
+if(e.target==document.getElementById("modal")){
+closeModal();
+}};
 </script>
 
 </body>
