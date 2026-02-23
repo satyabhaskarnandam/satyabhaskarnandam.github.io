@@ -4,7 +4,10 @@
     <title>SB Portfolio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/4c5e8b4b5e.js" crossorigin="anonymous"></script>
 
     <style>
@@ -26,6 +29,7 @@
             100% {background-position: 0% 50%;}
         }
 
+        /* Fixed Navbar */
         nav {
             position: fixed;
             top: 0;
@@ -46,7 +50,15 @@
             transition: 0.3s;
         }
 
-        nav a:hover { color: #00d9ff; }
+        nav a:hover {
+            color: #00d9ff;
+        }
+
+        /* Force Home icon white */
+        .home-icon {
+            color: white;
+            font-size: 18px;
+        }
 
         header {
             padding-top: 120px;
@@ -178,7 +190,7 @@
 <canvas id="particles"></canvas>
 
 <nav>
-    <a href="#home"><i class="fas fa-home"></i></a>
+    <a href="#home"><i class="fas fa-home home-icon"></i></a>
     <a href="#about">About</a>
     <a href="#skills">Skills</a>
     <a href="#certifications">Certifications</a>
@@ -209,7 +221,6 @@
     <div class="container">
         <h2>Certifications</h2>
         <div class="cards">
-
             <div class="card">
                 <img src="nptel.jpg">
                 <div class="card-content">
@@ -233,7 +244,6 @@
                     <button onclick="openCert('matlab.jpg')">View Certificate</button>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
@@ -242,7 +252,6 @@
     <div class="container">
         <h2>Projects</h2>
         <div class="cards">
-
             <div class="card">
                 <img src="solar.jpg">
                 <div class="card-content">
@@ -266,7 +275,6 @@
                     <button onclick="openProject('robot')">View Details</button>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
@@ -283,17 +291,7 @@
     © 2026 SB Portfolio
 </footer>
 
-<div id="modal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <div id="modalBody"></div>
-    </div>
-</div>
-
 <script>
-const modal = document.getElementById("modal");
-const modalBody = document.getElementById("modalBody");
-
 const text = "Nandam Satya Bhaskar";
 let i = 0;
 function typeEffect() {
@@ -305,59 +303,7 @@ function typeEffect() {
 }
 typeEffect();
 
-function openCert(src){
-    modalBody.innerHTML = `<img src="${src}" style="width:100%; border-radius:10px;">`;
-    modal.classList.add("active");
-}
-
-function openProject(type){
-    if(type==="solar"){
-        modalBody.innerHTML=`
-        <h3>Solar PV Modeling</h3>
-        <h4>Working:</h4>
-        <p>Simulated PV system using MATLAB to analyze I-V and P-V curves.</p>
-        <h4>Key Components:</h4>
-        <p>PV array model, MPPT algorithm, DC-DC converter.</p>
-        <h4>Output:</h4>
-        <p>Optimized power extraction and graphical analysis.</p>`;
-    }
-
-    if(type==="street"){
-        modalBody.innerHTML=`
-        <h3>Smart Street Lighting</h3>
-        <h4>Working:</h4>
-        <p>Automatic brightness adjustment using LDR and PIR sensors.</p>
-        <h4>Key Components:</h4>
-        <p>LDR, PIR sensor, microcontroller.</p>
-        <h4>Output:</h4>
-        <p>Energy-efficient adaptive lighting system.</p>`;
-    }
-
-    if(type==="robot"){
-        modalBody.innerHTML=`
-        <h3>Cable Inspection Robot</h3>
-        <h4>Working:</h4>
-        <p>Robot navigates underground cable paths to detect faults.</p>
-        <h4>Key Components:</h4>
-        <p>Motor driver, sensors, microcontroller.</p>
-        <h4>Output:</h4>
-        <p>Real-time cable monitoring and fault detection.</p>`;
-    }
-
-    modal.classList.add("active");
-}
-
-function closeModal(){
-    modal.classList.remove("active");
-}
-
-window.onclick=function(e){
-    if(e.target==modal){
-        closeModal();
-    }
-}
-
-/* Floating dots */
+/* Floating Dots */
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;
