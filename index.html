@@ -4,7 +4,6 @@
     <title>SB Portfolio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
@@ -46,14 +45,6 @@
 
         nav a:hover { color: #00d9ff; }
 
-        .toggle-btn {
-            position: absolute;
-            right: 20px;
-            top: 15px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
         header {
             padding: 120px 20px;
             text-align: center;
@@ -93,12 +84,11 @@
             border-radius: 15px;
             backdrop-filter: blur(8px);
             box-shadow: 0 5px 25px rgba(0,0,0,0.4);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
         .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,217,255,0.4);
+            transform: translateY(-8px);
         }
 
         .project-card img {
@@ -114,12 +104,11 @@
             cursor: pointer;
             font-weight: 600;
             background-color: #00d9ff;
-            transition: 0.3s;
+            transition: transform 0.3s ease;
         }
 
         button:hover {
-            transform: scale(1.08);
-            box-shadow: 0 0 20px rgba(0,217,255,0.8);
+            transform: scale(1.05);
         }
 
         footer {
@@ -136,7 +125,6 @@
             z-index: -1;
         }
 
-        /* Dark / Light Mode */
         .light-mode {
             background: #f5f5f5;
             color: #000;
@@ -154,9 +142,9 @@
 <nav>
     <a href="#about">About</a>
     <a href="#skills">Skills</a>
+    <a href="#certifications">Certifications</a>
     <a href="#projects">Projects</a>
     <a href="#contact">Contact</a>
-    <span class="toggle-btn" onclick="toggleMode()">Toggle Mode</span>
 </nav>
 
 <header>
@@ -178,30 +166,58 @@
     </div>
 </section>
 
+<!-- CERTIFICATIONS SECTION -->
+<section id="certifications">
+    <div class="container">
+        <h2>Certifications</h2>
+
+        <div class="projects-wrapper">
+
+            <div class="project-card">
+                <h3>📊 MATLAB Onramp</h3>
+                <p>Issued by: MathWorks<br>
+                Date: May 2024</p>
+            </div>
+
+            <div class="project-card">
+                <h3>🌐 Introduction to IoT</h3>
+                <p>Issued by: Cisco Networking Academy<br>
+                Date: January 2024</p>
+            </div>
+
+            <div class="project-card">
+                <h3>🔌 Digital Electronics</h3>
+                <p>Issued by: NPTEL<br>
+                Date: March 2023<br>
+                Certificate ID: NPTEL/DE/2023/83741</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
 <section id="projects">
     <div class="container">
         <h2>Projects</h2>
+
         <div class="projects-wrapper">
 
             <div class="project-card">
                 <img src="solar.jpg" alt="Solar">
                 <h3>Solar PV Modeling</h3>
                 <p>PV modeling with I–V and P–V analysis.</p>
-                <button>View Project</button>
             </div>
 
             <div class="project-card">
                 <img src="streetlight.jpg" alt="Streetlight">
                 <h3>Smart Street Lighting</h3>
                 <p>Adaptive brightness control system.</p>
-                <button>View Project</button>
             </div>
 
             <div class="project-card">
                 <img src="robot.jpg" alt="Robot">
                 <h3>Cable Inspection Robot</h3>
                 <p>Autonomous underground monitoring platform.</p>
-                <button>View Project</button>
             </div>
 
         </div>
@@ -224,7 +240,6 @@
 </footer>
 
 <script>
-    // Typing effect
     const text = "Nandam Satya Bhaskar";
     let i = 0;
     function typeWriter() {
@@ -236,7 +251,6 @@
     }
     typeWriter();
 
-    // Fade-in on scroll
     const sections = document.querySelectorAll("section");
     window.addEventListener("scroll", () => {
         sections.forEach(sec => {
@@ -247,12 +261,6 @@
         });
     });
 
-    // Dark/Light mode toggle
-    function toggleMode() {
-        document.body.classList.toggle("light-mode");
-    }
-
-    // Floating particles
     const canvas = document.getElementById("particles");
     const ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth;
@@ -270,7 +278,7 @@
 
     function draw(){
         ctx.clearRect(0,0,canvas.width,canvas.height);
-        ctx.fillStyle="rgba(255,255,255,0.3)";
+        ctx.fillStyle="rgba(255,255,255,0.2)";
         particles.forEach(p=>{
             ctx.beginPath();
             ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
