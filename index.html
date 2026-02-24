@@ -74,6 +74,7 @@ color:#aaa;
 text-decoration:none;
 font-weight:500;
 transition:0.3s;
+font-size:18px;
 }
 nav a.active,
 nav a:hover{
@@ -225,7 +226,7 @@ animation:blink 0.7s infinite;
 <canvas id="particles"></canvas>
 
 <nav>
-<a href="#home">Home</a>
+<a href="#home"><i class="fa-solid fa-house"></i></a>
 <a href="#about">About</a>
 <a href="#skills">Skills</a>
 <a href="#certifications">Certifications</a>
@@ -310,25 +311,20 @@ animation:blink 0.7s infinite;
 
 <script>
 
-/* FORCE HOME ON REFRESH */
-if ('scrollRestoration' in history) {
-history.scrollRestoration = 'manual';
-}
-window.addEventListener("load",function(){
-window.scrollTo(0,0);
-});
+/* Force Home on Refresh */
+if ('scrollRestoration' in history) history.scrollRestoration='manual';
+window.addEventListener("load",()=>window.scrollTo(0,0));
 
 /* Loader */
 window.onload=()=>{setTimeout(()=>{document.getElementById("loader").style.display="none";},700);};
 
-/* Typing Reset */
+/* Typing */
 const text="Nandam Satya Bhaskar";
 let i=0;
 function type(){
 if(i<text.length){
 document.getElementById("typing").innerHTML+=text.charAt(i);
-i++;
-setTimeout(type,70);
+i++; setTimeout(type,70);
 }}
 document.getElementById("typing").innerHTML="";
 type();
