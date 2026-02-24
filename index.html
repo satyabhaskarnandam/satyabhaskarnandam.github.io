@@ -53,7 +53,6 @@
 
         nav a:hover { color: #00d9ff; }
 
-        /* Perfect Centering */
         header, section {
             height: calc(100vh - 70px);
             display: flex;
@@ -66,8 +65,6 @@
             max-width: 1100px;
             width: 100%;
         }
-
-        h2 { margin-bottom: 20px; }
 
         .cards {
             display: flex;
@@ -151,7 +148,7 @@
             background: rgba(0,0,0,0.8);
         }
 
-        /* Modal */
+        /* MODAL */
         .modal {
             position: fixed;
             inset: 0;
@@ -220,22 +217,14 @@
 <section id="about">
 <div class="container">
 <h2>About Me</h2>
-<p>
-I am an Electrical and Electronics Engineering student passionate about power systems,
-embedded technologies, and renewable energy integration.
-I focus on developing intelligent hardware-based solutions
-for efficient and sustainable infrastructure.
-</p>
+<p>Electrical and Electronics Engineering student passionate about power systems and embedded technologies.</p>
 </div>
 </section>
 
 <section id="skills">
 <div class="container">
 <h2>Skills</h2>
-<p>
-C Programming | C++ | MATLAB | Embedded Systems | Power Systems |
-IoT Fundamentals | Microcontrollers | Circuit Design
-</p>
+<p>C | C++ | MATLAB | Embedded Systems | Power Systems</p>
 </div>
 </section>
 
@@ -248,7 +237,6 @@ IoT Fundamentals | Microcontrollers | Circuit Design
 <img src="nptel.jpg">
 <div class="card-content">
 <h3>Digital Electronics – NPTEL</h3>
-<p>Completed NPTEL certification covering digital logic, combinational circuits and sequential systems.</p>
 <button onclick="openCert('nptel.jpg')">View Certificate</button>
 </div>
 </div>
@@ -257,7 +245,6 @@ IoT Fundamentals | Microcontrollers | Circuit Design
 <img src="iot.jpg">
 <div class="card-content">
 <h3>Introduction to IoT – Cisco</h3>
-<p>Learned IoT architecture, connectivity models and smart device communication.</p>
 <button onclick="openCert('iot.jpg')">View Certificate</button>
 </div>
 </div>
@@ -266,7 +253,6 @@ IoT Fundamentals | Microcontrollers | Circuit Design
 <img src="matlab.jpg">
 <div class="card-content">
 <h3>MATLAB Onramp – MathWorks</h3>
-<p>Gained practical experience in MATLAB programming and simulation modeling.</p>
 <button onclick="openCert('matlab.jpg')">View Certificate</button>
 </div>
 </div>
@@ -326,6 +312,7 @@ IoT Fundamentals | Microcontrollers | Circuit Design
 © 2026 SB Portfolio
 </footer>
 
+<!-- MODAL -->
 <div id="modal" class="modal">
 <div class="modal-content">
 <span class="close" onclick="closeModal()">&times;</span>
@@ -334,6 +321,7 @@ IoT Fundamentals | Microcontrollers | Circuit Design
 </div>
 
 <script>
+/* Typing */
 const text="Nandam Satya Bhaskar";
 let i=0;
 function typeEffect(){
@@ -376,6 +364,48 @@ p.x=Math.random()*canvas.width;
 requestAnimationFrame(drawParticles);
 }
 drawParticles();
+
+/* Modal Functions */
+function openCert(src){
+document.getElementById("modalBody").innerHTML=`<img src="${src}">`;
+document.getElementById("modal").classList.add("active");
+}
+
+function openProject(type){
+let content="";
+if(type==="solar"){
+content=`<img src="solar.jpg">
+<h3>Solar PV Modeling</h3>
+<h4>Working:</h4><p>Simulated PV array using MPPT algorithm to optimize power extraction under varying conditions.</p>
+<h4>Key Components:</h4><p>PV Module, MPPT Controller, DC-DC Converter, MATLAB Simulink.</p>
+<h4>Output:</h4><p>Maximum power extraction with performance analysis.</p>`;
+}
+if(type==="street"){
+content=`<img src="streetlight.jpg">
+<h3>Smart Street Lighting</h3>
+<h4>Working:</h4><p>Brightness adjusts automatically based on ambient light and motion detection.</p>
+<h4>Key Components:</h4><p>LDR Sensor, PIR Sensor, Microcontroller.</p>
+<h4>Output:</h4><p>Energy-efficient automated lighting system.</p>`;
+}
+if(type==="robot"){
+content=`<img src="robot.jpg">
+<h3>Cable Inspection Robot</h3>
+<h4>Working:</h4><p>Robot detects underground cable faults using sensors.</p>
+<h4>Key Components:</h4><p>Motor Driver, Sensors, Microcontroller.</p>
+<h4>Output:</h4><p>Real-time monitoring and fault detection.</p>`;
+}
+document.getElementById("modalBody").innerHTML=content;
+document.getElementById("modal").classList.add("active");
+}
+
+function closeModal(){
+document.getElementById("modal").classList.remove("active");
+}
+
+window.onclick=function(e){
+if(e.target==document.getElementById("modal")){
+closeModal();
+}};
 </script>
 
 </body>
