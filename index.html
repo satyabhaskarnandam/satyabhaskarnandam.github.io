@@ -8,8 +8,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-html{scroll-behavior:smooth;}
-body{
+html { scroll-behavior: smooth; }
+body {
 margin:0;
 font-family:'Poppins',sans-serif;
 background:#0f2027;
@@ -69,20 +69,24 @@ nav a:hover{color:#00d9ff;}
 
 /* Sections */
 section{
-height:100vh;
+min-height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
 text-align:center;
+padding-top:80px;
 opacity:0;
 transform:translateY(60px);
-transition:all 1s cubic-bezier(.22,1,.36,1);
+transition:all .8s ease;
 }
-section.show{
+section.visible{
 opacity:1;
 transform:translateY(0);
 }
-#home{opacity:1;transform:none;}
+#home{
+opacity:1;
+transform:none;
+}
 
 .container{
 width:100%;
@@ -90,40 +94,32 @@ max-width:1200px;
 margin:auto;
 }
 
-/* ===== PERFECT 50/50 SKILLS ===== */
+/* Skills 50/50 */
 .skills-wrapper{
 display:flex;
 width:100%;
 margin-top:40px;
 }
-
 .skill-column{
 width:50%;
 }
-
 .skill-column:first-child{
 text-align:left;
 padding-right:80px;
 }
-
 .skill-column:last-child{
 text-align:right;
 padding-left:80px;
 }
-
 .skill-column ul{
 list-style:none;
 padding:0;
 }
-
 .skill-column li{
 margin:12px 0;
 }
-
 @media(max-width:768px){
-.skills-wrapper{
-flex-direction:column;
-}
+.skills-wrapper{flex-direction:column;}
 .skill-column{
 width:100%;
 text-align:left!important;
@@ -132,31 +128,32 @@ margin-bottom:30px;
 }
 }
 
-/* Cards */
+/* Grid */
 .grid{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 gap:40px;
-margin-top:40px;
+margin-top:50px;
+padding:0 40px;
 }
+
+/* Cards */
 .card{
 background:rgba(255,255,255,.05);
 border:1px solid rgba(255,255,255,.1);
 border-radius:20px;
-width:320px;
 overflow:hidden;
-transition:transform .6s cubic-bezier(.22,1,.36,1), box-shadow .6s;
+transition:transform .5s ease, box-shadow .5s ease;
 opacity:0;
 transform:translateY(60px);
 }
-.card.animate{
+.card.show{
 opacity:1;
 transform:translateY(0);
 }
 .card img{
 width:100%;
-height:200px;
+height:220px;
 object-fit:cover;
 transition:transform .6s ease;
 }
@@ -203,8 +200,13 @@ transform:scale(.9);
 transition:.4s;
 }
 .modal.active .modal-content{transform:scale(1);}
-.close{float:right;font-size:25px;cursor:pointer;}
+.close{
+float:right;
+font-size:25px;
+cursor:pointer;
+}
 
+/* Social */
 .social-icons{margin-top:20px;}
 .social-icons a{
 color:rgba(255,255,255,.6);
@@ -213,7 +215,10 @@ margin:0 15px;
 transition:.3s;
 text-decoration:none;
 }
-.social-icons a:hover{color:#00d9ff;transform:scale(1.2);}
+.social-icons a:hover{
+color:#00d9ff;
+transform:scale(1.2);
+}
 
 .cursor{
 display:inline-block;
@@ -246,7 +251,12 @@ animation:blink .7s infinite;
 </div>
 </section>
 
-<section id="about"><div class="container"><h2>About</h2><p>Focused on Power Systems & Embedded Technologies.</p></div></section>
+<section id="about">
+<div class="container">
+<h2>About</h2>
+<p>Focused on Power Systems & Embedded Technologies.</p>
+</div>
+</section>
 
 <section id="skills">
 <div class="container">
@@ -255,13 +265,21 @@ animation:blink .7s infinite;
 <div class="skill-column">
 <h3>Technical Skills</h3>
 <ul>
-<li>C</li><li>C++</li><li>MATLAB</li><li>Embedded Systems</li><li>Power Systems</li>
+<li>C</li>
+<li>C++</li>
+<li>MATLAB</li>
+<li>Embedded Systems</li>
+<li>Power Systems</li>
 </ul>
 </div>
 <div class="skill-column">
 <h3>Soft Skills</h3>
 <ul>
-<li>Communication Skills</li><li>Teamwork</li><li>Adaptability</li><li>Critical Thinking</li><li>Leadership</li>
+<li>Communication Skills</li>
+<li>Teamwork</li>
+<li>Adaptability</li>
+<li>Critical Thinking</li>
+<li>Leadership</li>
 </ul>
 </div>
 </div>
@@ -272,9 +290,21 @@ animation:blink .7s infinite;
 <div class="container">
 <h2>Certifications</h2>
 <div class="grid">
-<div class="card cert-card"><img src="nptel.jpg"><h3>Digital Electronics</h3><button onclick="openCert('nptel.jpg')">View Certificate</button></div>
-<div class="card cert-card"><img src="iot.jpg"><h3>Introduction to IoT</h3><button onclick="openCert('iot.jpg')">View Certificate</button></div>
-<div class="card cert-card"><img src="matlab.jpg"><h3>MATLAB Onramp</h3><button onclick="openCert('matlab.jpg')">View Certificate</button></div>
+<div class="card cert-card">
+<img src="nptel.jpg">
+<h3>Digital Electronics</h3>
+<button onclick="openCert('nptel.jpg')">View Certificate</button>
+</div>
+<div class="card cert-card">
+<img src="iot.jpg">
+<h3>Introduction to IoT</h3>
+<button onclick="openCert('iot.jpg')">View Certificate</button>
+</div>
+<div class="card cert-card">
+<img src="matlab.jpg">
+<h3>MATLAB Onramp</h3>
+<button onclick="openCert('matlab.jpg')">View Certificate</button>
+</div>
 </div>
 </div>
 </section>
@@ -283,9 +313,21 @@ animation:blink .7s infinite;
 <div class="container">
 <h2>Projects</h2>
 <div class="grid">
-<div class="card project-card"><img src="solar.jpg"><h3>Solar PV Modeling</h3><button onclick="openProject('solar')">View Details</button></div>
-<div class="card project-card"><img src="streetlight.jpg"><h3>Smart Street Lighting</h3><button onclick="openProject('street')">View Details</button></div>
-<div class="card project-card"><img src="robot.jpg"><h3>Cable Inspection Robot</h3><button onclick="openProject('robot')">View Details</button></div>
+<div class="card project-card">
+<img src="solar.jpg">
+<h3>Solar PV Modeling</h3>
+<button onclick="openProject('solar')">View Details</button>
+</div>
+<div class="card project-card">
+<img src="streetlight.jpg">
+<h3>Smart Street Lighting</h3>
+<button onclick="openProject('street')">View Details</button>
+</div>
+<div class="card project-card">
+<img src="robot.jpg">
+<h3>Cable Inspection Robot</h3>
+<button onclick="openProject('robot')">View Details</button>
+</div>
 </div>
 </div>
 </section>
@@ -313,23 +355,59 @@ animation:blink .7s infinite;
 <script>
 window.scrollTo(0,0);
 
+/* Loader */
 window.addEventListener("load",()=>{
-setTimeout(()=>loader.style.display="none",800);
-type();
+setTimeout(()=>loader.style.opacity=0,500);
+setTimeout(()=>loader.style.display="none",900);
+startTyping();
 });
 
 /* Typing */
+function startTyping(){
 const text="Nandam Satya Bhaskar";
 let i=0;
 function type(){
 if(i<text.length){
 typing.innerHTML+=text.charAt(i);
-i++;setTimeout(type,70);
-}
+i++;
+setTimeout(type,70);
+}}
+type();
 }
 
-/* Active Navbar */
+/* Section Reveal */
 const sections=document.querySelectorAll("section");
+const cards=document.querySelectorAll(".card");
+
+function reveal(){
+sections.forEach(sec=>{
+if(sec.getBoundingClientRect().top<window.innerHeight-100){
+sec.classList.add("visible");
+}
+});
+}
+window.addEventListener("scroll",reveal);
+reveal();
+
+/* Repeatable Card Animation */
+function animateCards(sectionId,cardClass){
+const section=document.getElementById(sectionId);
+const rect=section.getBoundingClientRect();
+const cards=document.querySelectorAll(cardClass);
+if(rect.top<window.innerHeight*0.8 && rect.bottom>100){
+cards.forEach((card,i)=>{
+setTimeout(()=>card.classList.add("show"),i*150);
+});
+}else{
+cards.forEach(card=>card.classList.remove("show"));
+}
+}
+window.addEventListener("scroll",()=>{
+animateCards("projects",".project-card");
+animateCards("certifications",".cert-card");
+});
+
+/* Active Navbar */
 const navLinks=document.querySelectorAll("nav a");
 window.addEventListener("scroll",()=>{
 let current="";
@@ -343,34 +421,13 @@ link.classList.toggle("active",link.getAttribute("href")==="#"+current);
 
 /* Arrow Navigation */
 document.addEventListener("keydown",e=>{
-const active=document.querySelector("nav a.active");
-if(!active) return;
-let index=[...sections].findIndex(sec=>sec.id===active.getAttribute("href").substring(1));
-if(e.key==="ArrowRight"&&index<sections.length-1)
-sections[index+1].scrollIntoView({behavior:"smooth"});
-if(e.key==="ArrowLeft"&&index>0)
-sections[index-1].scrollIntoView({behavior:"smooth"});
-});
-
-/* Repeatable Animations */
-function animateSection(section,cards){
-const rect=section.getBoundingClientRect();
-if(rect.top<window.innerHeight*0.7 && rect.bottom>100){
-cards.forEach((card,index)=>{
-setTimeout(()=>card.classList.add("animate"),index*150);
-});
-}else{
-cards.forEach(card=>card.classList.remove("animate"));
+let currentIndex=[...sections].findIndex(sec=>sec.classList.contains("visible"));
+if(e.key==="ArrowRight" && currentIndex<sections.length-1){
+sections[currentIndex+1].scrollIntoView({behavior:"smooth"});
 }
+if(e.key==="ArrowLeft" && currentIndex>0){
+sections[currentIndex-1].scrollIntoView({behavior:"smooth"});
 }
-const projectSection=document.getElementById("projects");
-const certSection=document.getElementById("certifications");
-const projectCards=document.querySelectorAll(".project-card");
-const certCards=document.querySelectorAll(".cert-card");
-
-window.addEventListener("scroll",()=>{
-animateSection(projectSection,projectCards);
-animateSection(certSection,certCards);
 });
 
 /* Modal */
@@ -405,8 +462,13 @@ ctx.clearRect(0,0,canvas.width,canvas.height);
 ctx.fillStyle="rgba(255,255,255,.4)";
 particles.forEach(p=>{
 ctx.beginPath();
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
-p.y+=p.s;if(p.y>canvas.height){p.y=0;p.x=Math.random()*canvas.width;}
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fill();
+p.y+=p.s;
+if(p.y>canvas.height){
+p.y=0;
+p.x=Math.random()*canvas.width;
+}
 });
 requestAnimationFrame(animate);
 }
