@@ -192,85 +192,43 @@
     </div>
 </header>
 
-<section id="about">
-<div class="container">
-<h2>About Me</h2>
+<section id="about"><div class="container"><h2>About Me</h2>
 <p>Electrical and Electronics Engineering student specializing in power systems and embedded technologies.</p>
-</div>
-</section>
+</div></section>
 
-<section id="skills">
-<div class="container">
-<h2>Skills</h2>
+<section id="skills"><div class="container"><h2>Skills</h2>
 <p>C | C++ | MATLAB | Embedded Systems | Power Systems</p>
-</div>
-</section>
+</div></section>
 
 <section id="certifications">
 <div class="container">
 <h2>Certifications</h2>
 <div class="cards">
-
-<div class="card">
-<img src="nptel.jpg">
-<div class="card-content">
+<div class="card"><img src="nptel.jpg"><div class="card-content">
 <h3>Digital Electronics – NPTEL</h3>
-<button onclick="openCert('nptel.jpg')">View Certificate</button>
-</div>
-</div>
-
-<div class="card">
-<img src="iot.jpg">
-<div class="card-content">
+<button onclick="openCert('nptel.jpg')">View Certificate</button></div></div>
+<div class="card"><img src="iot.jpg"><div class="card-content">
 <h3>Introduction to IoT – Cisco</h3>
-<button onclick="openCert('iot.jpg')">View Certificate</button>
-</div>
-</div>
-
-<div class="card">
-<img src="matlab.jpg">
-<div class="card-content">
+<button onclick="openCert('iot.jpg')">View Certificate</button></div></div>
+<div class="card"><img src="matlab.jpg"><div class="card-content">
 <h3>MATLAB Onramp – MathWorks</h3>
-<button onclick="openCert('matlab.jpg')">View Certificate</button>
-</div>
-</div>
-
-</div>
-</div>
-</section>
+<button onclick="openCert('matlab.jpg')">View Certificate</button></div></div>
+</div></div></section>
 
 <section id="projects">
 <div class="container">
 <h2>Projects</h2>
 <div class="cards">
-
-<div class="card">
-<img src="solar.jpg">
-<div class="card-content">
+<div class="card"><img src="solar.jpg"><div class="card-content">
 <h3>Solar PV Modeling</h3>
-<button onclick="openProject('solar')">View Details</button>
-</div>
-</div>
-
-<div class="card">
-<img src="streetlight.jpg">
-<div class="card-content">
+<button onclick="openProject('solar')">View Details</button></div></div>
+<div class="card"><img src="streetlight.jpg"><div class="card-content">
 <h3>Smart Street Lighting</h3>
-<button onclick="openProject('street')">View Details</button>
-</div>
-</div>
-
-<div class="card">
-<img src="robot.jpg">
-<div class="card-content">
+<button onclick="openProject('street')">View Details</button></div></div>
+<div class="card"><img src="robot.jpg"><div class="card-content">
 <h3>Cable Inspection Robot</h3>
-<button onclick="openProject('robot')">View Details</button>
-</div>
-</div>
-
-</div>
-</div>
-</section>
+<button onclick="openProject('robot')">View Details</button></div></div>
+</div></div></section>
 
 <section id="contact">
 <div class="container">
@@ -281,9 +239,7 @@
 <a href="https://github.com/satyabhaskarnandam" target="_blank"><i class="fab fa-github"></i></a>
 <a href="https://linkedin.com/in/nandam-satya-bhaskar" target="_blank"><i class="fab fa-linkedin"></i></a>
 <a href="https://wa.me/917780603821" target="_blank"><i class="fab fa-whatsapp"></i></a>
-</div>
-</div>
-</section>
+</div></div></section>
 
 <footer>© 2026 SB Portfolio</footer>
 
@@ -291,80 +247,91 @@
 <div class="modal-content">
 <span class="close" onclick="closeModal()">&times;</span>
 <div id="modalBody"></div>
-</div>
-</div>
+</div></div>
 
 <script>
 
-/* White Floating Dots */
+/* Arrow Navigation */
+const sections = ["home","about","skills","certifications","projects","contact"];
+let currentIndex = 0;
+
+function goToSection(index){
+    if(index >= 0 && index < sections.length){
+        currentIndex = index;
+        document.getElementById(sections[index]).scrollIntoView({behavior:"smooth"});
+    }
+}
+
+document.addEventListener("keydown", function(e){
+    if(e.key === "ArrowRight"){
+        goToSection(currentIndex + 1);
+    }
+    if(e.key === "ArrowLeft"){
+        goToSection(currentIndex - 1);
+    }
+});
+
+/* White Dots */
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-let particles = [];
-for (let i = 0; i < 150; i++) {
-    particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 2,
-        speed: Math.random() * 0.6 + 0.2
-    });
+let particles=[];
+for(let i=0;i<150;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2,
+speed:Math.random()*0.6+0.2
+});
 }
 
-function drawParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "rgba(255,255,255,0.7)";
-    particles.forEach(p => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-        p.y += p.speed;
-        if (p.y > canvas.height) {
-            p.y = 0;
-            p.x = Math.random() * canvas.width;
-        }
-    });
-    requestAnimationFrame(drawParticles);
+function drawParticles(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="rgba(255,255,255,0.7)";
+particles.forEach(p=>{
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fill();
+p.y+=p.speed;
+if(p.y>canvas.height){
+p.y=0;
+p.x=Math.random()*canvas.width;
+}
+});
+requestAnimationFrame(drawParticles);
 }
 drawParticles();
 
-window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-});
-
 /* Modal */
-const modal = document.getElementById("modal");
-const modalContent = document.querySelector(".modal-content");
+const modal=document.getElementById("modal");
+const modalContent=document.querySelector(".modal-content");
 
 function openCert(src){
-    modalBody.innerHTML = `<img src="${src}">`;
-    modal.classList.add("active");
+modalBody.innerHTML=`<img src="${src}">`;
+modal.classList.add("active");
 }
 
 function openProject(type){
 let content="";
 if(type==="solar"){
-content=`<img src="solar.jpg">
-<h3>Solar PV Modeling</h3>
-<h4>Working:</h4><p>Detailed simulation of PV array with MPPT algorithm to extract maximum power under varying temperature and irradiation.</p>
-<h4>Key Components:</h4><p>PV Module, MPPT Controller, DC-DC Converter, MATLAB Simulink Blocks.</p>
-<h4>Output:</h4><p>Improved efficiency and graphical performance analysis.</p>`;
+content=`<img src="solar.jpg"><h3>Solar PV Modeling</h3>
+<h4>Working:</h4><p>Detailed PV simulation with MPPT algorithm.</p>
+<h4>Key Components:</h4><p>PV Module, MPPT Controller, DC-DC Converter.</p>
+<h4>Output:</h4><p>Optimized efficiency and power extraction.</p>`;
 }
 if(type==="street"){
-content=`<img src="streetlight.jpg">
-<h3>Smart Street Lighting</h3>
-<h4>Working:</h4><p>Automatic intensity control using LDR and PIR sensors to detect light and motion.</p>
-<h4>Key Components:</h4><p>LDR Sensor, PIR Sensor, Microcontroller, LED Driver.</p>
-<h4>Output:</h4><p>Energy saving and intelligent lighting system.</p>`;
+content=`<img src="streetlight.jpg"><h3>Smart Street Lighting</h3>
+<h4>Working:</h4><p>Automatic brightness control using sensors.</p>
+<h4>Key Components:</h4><p>LDR, PIR, Microcontroller.</p>
+<h4>Output:</h4><p>Energy-efficient lighting.</p>`;
 }
 if(type==="robot"){
-content=`<img src="robot.jpg">
-<h3>Cable Inspection Robot</h3>
-<h4>Working:</h4><p>Robot navigates underground cables detecting faults using sensors and camera.</p>
-<h4>Key Components:</h4><p>Motor Driver, Gas Sensor, Camera Module, Microcontroller.</p>
-<h4>Output:</h4><p>Real-time monitoring and cable fault detection.</p>`;
+content=`<img src="robot.jpg"><h3>Cable Inspection Robot</h3>
+<h4>Working:</h4><p>Robot detects cable faults using sensors.</p>
+<h4>Key Components:</h4><p>Motor Driver, Camera, Sensors.</p>
+<h4>Output:</h4><p>Real-time monitoring.</p>`;
 }
 modalBody.innerHTML=content;
 modal.classList.add("active");
@@ -372,11 +339,11 @@ modal.classList.add("active");
 
 function closeModal(){ modal.classList.remove("active"); }
 
-modal.addEventListener("click", function(e){
+modal.addEventListener("click",function(e){
 if(!modalContent.contains(e.target)){ closeModal(); }
 });
 
-document.addEventListener("keydown", function(e){
+document.addEventListener("keydown",function(e){
 if(e.key==="Escape"){ closeModal(); }
 });
 </script>
