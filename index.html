@@ -10,6 +10,7 @@
 <style>
 html{
 scroll-behavior:smooth;
+scroll-snap-type:y mandatory;
 }
 
 body{
@@ -20,7 +21,7 @@ color:#fff;
 overflow-x:hidden;
 }
 
-/* ================= LOADER ================= */
+/* LOADER */
 #loader{
 position:fixed;
 inset:0;
@@ -32,18 +33,15 @@ z-index:5000;
 transition:opacity .6s ease;
 }
 .loader-circle{
-width:60px;
-height:60px;
+width:60px;height:60px;
 border:4px solid rgba(255,255,255,.2);
 border-top:4px solid #00d9ff;
 border-radius:50%;
 animation:spin 1s linear infinite;
 }
-@keyframes spin{
-100%{transform:rotate(360deg);}
-}
+@keyframes spin{100%{transform:rotate(360deg);}}
 
-/* ================= PARTICLES ================= */
+/* PARTICLES */
 canvas{
 position:fixed;
 top:0;
@@ -51,7 +49,7 @@ left:0;
 z-index:-1;
 }
 
-/* ================= NAVBAR ================= */
+/* NAVBAR */
 nav{
 position:fixed;
 top:0;
@@ -73,11 +71,9 @@ font-size:18px;
 transition:.3s;
 }
 nav a.active,
-nav a:hover{
-color:#00d9ff;
-}
+nav a:hover{color:#00d9ff;}
 
-/* ================= SECTIONS ================= */
+/* SECTIONS */
 section{
 min-height:100vh;
 display:flex;
@@ -85,9 +81,11 @@ align-items:center;
 justify-content:center;
 text-align:center;
 scroll-margin-top:80px;
+scroll-snap-align:start;
+scroll-snap-stop:always;
 opacity:0;
 transform:translateY(40px);
-transition:all .8s ease;
+transition:.8s ease;
 }
 section.visible{
 opacity:1;
@@ -103,7 +101,7 @@ max-width:1200px;
 margin:auto;
 }
 
-/* ================= HOME ================= */
+/* HOME */
 .home-wrapper{
 display:flex;
 align-items:center;
@@ -129,28 +127,19 @@ box-shadow:0 0 35px rgba(0,217,255,.9);
 from{box-shadow:0 0 15px rgba(0,217,255,.4);}
 to{box-shadow:0 0 25px rgba(0,217,255,.8);}
 }
-.home-text{
-text-align:left;
-}
+.home-text{text-align:left;}
 @media(max-width:768px){
-.home-wrapper{
-flex-direction:column;
-text-align:center;
-}
-.home-text{
-text-align:center;
-}
+.home-wrapper{flex-direction:column;text-align:center;}
+.home-text{text-align:center;}
 }
 
-/* ================= SKILLS ================= */
+/* SKILLS */
 .skills-wrapper{
 display:flex;
 width:100%;
 margin-top:40px;
 }
-.skill-column{
-width:50%;
-}
+.skill-column{width:50%;}
 .skill-column:first-child{
 text-align:left;
 padding-right:30px;
@@ -159,26 +148,14 @@ padding-right:30px;
 text-align:right;
 padding-left:30px;
 }
-.skill-column ul{
-list-style:none;
-padding:0;
-}
-.skill-column li{
-margin:12px 0;
-}
+.skill-column ul{list-style:none;padding:0;}
+.skill-column li{margin:12px 0;}
 @media(max-width:768px){
-.skills-wrapper{
-flex-direction:column;
-}
-.skill-column{
-width:100%;
-text-align:left!important;
-padding:0;
-margin-bottom:30px;
-}
+.skills-wrapper{flex-direction:column;}
+.skill-column{width:100%;text-align:left!important;padding:0;margin-bottom:30px;}
 }
 
-/* ================= GRID ================= */
+/* GRID */
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
@@ -187,7 +164,7 @@ margin-top:50px;
 padding:0 40px;
 }
 
-/* ================= CARDS ================= */
+/* CARDS */
 .card{
 background:rgba(255,255,255,.05);
 border:1px solid rgba(255,255,255,.1);
@@ -204,9 +181,6 @@ transform:translateY(0);
 .card:hover{
 transform:translateY(-6px) scale(1.02);
 }
-
-/* Removed glow from cards */
-
 .image-wrapper{
 width:100%;
 height:220px;
@@ -222,15 +196,13 @@ transition:transform .6s ease;
 transform:scale(1.05);
 }
 
-/* Only 3rd project fully visible */
+/* 3rd project fully visible */
 .project-contain img{
 object-fit:contain !important;
 background:#111;
 }
 
-.card h3{
-padding:15px;
-}
+.card h3{padding:15px;}
 .card button{
 margin-bottom:20px;
 padding:10px 18px;
@@ -242,7 +214,7 @@ font-weight:600;
 cursor:pointer;
 }
 
-/* ================= MODAL ================= */
+/* MODAL */
 .modal{
 position:fixed;
 inset:0;
@@ -270,9 +242,7 @@ overflow-y:auto;
 transform:scale(.9);
 transition:.4s;
 }
-.modal.active .modal-content{
-transform:scale(1);
-}
+.modal.active .modal-content{transform:scale(1);}
 .modal-content img{
 width:100%;
 height:auto;
@@ -284,10 +254,8 @@ font-size:25px;
 cursor:pointer;
 }
 
-/* ================= SOCIAL ================= */
-.social-icons{
-margin-top:20px;
-}
+/* SOCIAL */
+.social-icons{margin-top:20px;}
 .social-icons a{
 color:rgba(255,255,255,.6);
 font-size:28px;
@@ -306,18 +274,13 @@ width:2px;
 background:#00d9ff;
 animation:blink .7s infinite;
 }
-@keyframes blink{
-50%{opacity:0;}
-}
+@keyframes blink{50%{opacity:0;}}
 </style>
 </head>
 
 <body>
 
-<div id="loader">
-<div class="loader-circle"></div>
-</div>
-
+<div id="loader"><div class="loader-circle"></div></div>
 <canvas id="particles"></canvas>
 
 <nav>
@@ -371,7 +334,7 @@ animation:blink .7s infinite;
 </div>
 </section>
 
-<!-- Certifications, Projects, Contact remain exactly same as previous version -->
+<!-- Certifications, Projects, Contact remain same as previous final version -->
 
 <script>
 window.scrollTo(0,0);
@@ -424,6 +387,64 @@ if(e.key==="ArrowLeft" && currentIndex>0){
 sections[currentIndex-1].scrollIntoView({behavior:"smooth"});
 }
 });
+
+/* Active Navbar */
+const navLinks=document.querySelectorAll("nav a");
+window.addEventListener("scroll",()=>{
+let current="";
+sections.forEach(sec=>{
+if(pageYOffset>=sec.offsetTop-200){
+current=sec.id;
+}
+});
+navLinks.forEach(link=>{
+link.classList.toggle("active",link.getAttribute("href")==="#"+current);
+});
+});
+
+/* Modal */
+function openCert(img){
+modalBody.innerHTML=`<img src="${img}">`;
+modal.classList.add("active");
+}
+function openProject(type){
+let content="";
+if(type==="solar") content=`<img src="solar.jpg"><h2>Solar PV Modeling</h2><p>Simulated PV array with MPPT under varying conditions.</p>`;
+if(type==="street") content=`<img src="streetlight.jpg"><h2>Smart Street Lighting</h2><p>Automated lighting using LDR and motion detection.</p>`;
+if(type==="robot") content=`<img src="robot.jpg"><h2>Cable Inspection Robot</h2><p>Autonomous underground fault detection robot.</p>`;
+modalBody.innerHTML=content;
+modal.classList.add("active");
+}
+function closeModal(){modal.classList.remove("active");}
+window.onclick=e=>{if(e.target==modal)closeModal();}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
+
+/* Particles */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}
+resize();
+window.addEventListener("resize",resize);
+let particles=[];
+for(let i=0;i<120;i++){
+particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2,s:Math.random()*0.7+0.2});
+}
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="rgba(255,255,255,.4)";
+particles.forEach(p=>{
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fill();
+p.y+=p.s;
+if(p.y>canvas.height){
+p.y=0;
+p.x=Math.random()*canvas.width;
+}
+});
+requestAnimationFrame(animate);
+}
+animate();
 </script>
 
 </body>
