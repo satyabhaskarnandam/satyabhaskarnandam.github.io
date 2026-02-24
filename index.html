@@ -8,8 +8,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-
-/* ================= GLOBAL ================= */
 html{
 scroll-behavior:smooth;
 scroll-snap-type:y mandatory;
@@ -22,7 +20,7 @@ color:#fff;
 overflow-x:hidden;
 }
 
-/* ================= LOADER ================= */
+/* LOADER */
 #loader{
 position:fixed;
 inset:0;
@@ -31,7 +29,7 @@ display:flex;
 justify-content:center;
 align-items:center;
 z-index:5000;
-transition:.6s;
+transition:opacity .6s ease;
 }
 .loader-circle{
 width:60px;height:60px;
@@ -42,7 +40,7 @@ animation:spin 1s linear infinite;
 }
 @keyframes spin{100%{transform:rotate(360deg);}}
 
-/* ================= PARTICLES ================= */
+/* PARTICLES */
 canvas{
 position:fixed;
 top:0;
@@ -50,7 +48,7 @@ left:0;
 z-index:-1;
 }
 
-/* ================= NAVBAR ================= */
+/* NAVBAR */
 nav{
 position:fixed;
 top:0;
@@ -76,14 +74,13 @@ nav a:hover{
 color:#00d9ff;
 }
 
-/* ================= SECTIONS ================= */
+/* SECTIONS (NO TRANSLATE SHIFT) */
 section{
 height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
 text-align:center;
-scroll-margin-top:70px;
 scroll-snap-align:start;
 scroll-snap-stop:always;
 opacity:0;
@@ -101,7 +98,7 @@ max-width:1200px;
 margin:auto;
 }
 
-/* ================= HOME ================= */
+/* HOME */
 .home-wrapper{
 display:flex;
 align-items:center;
@@ -110,8 +107,10 @@ gap:60px;
 flex-wrap:wrap;
 }
 .profile-pic{
-width:220px;height:220px;border-radius:50%;
-object-fit:cover;border:4px solid #00d9ff;
+width:220px;height:220px;
+border-radius:50%;
+object-fit:cover;
+border:4px solid #00d9ff;
 box-shadow:0 0 15px rgba(0,217,255,.5);
 transition:transform .5s ease, box-shadow .5s ease;
 animation:glow 3s infinite alternate;
@@ -130,8 +129,12 @@ to{box-shadow:0 0 25px rgba(0,217,255,.8);}
 .home-text{text-align:center;}
 }
 
-/* ================= SKILLS ================= */
-.skills-wrapper{display:flex;width:100%;margin-top:40px;}
+/* SKILLS */
+.skills-wrapper{
+display:flex;
+width:100%;
+margin-top:40px;
+}
 .skill-column{width:50%;}
 .skill-column:first-child{text-align:left;padding-right:30px;}
 .skill-column:last-child{text-align:right;padding-left:30px;}
@@ -142,7 +145,7 @@ to{box-shadow:0 0 25px rgba(0,217,255,.8);}
 .skill-column{width:100%;text-align:left!important;padding:0;margin-bottom:30px;}
 }
 
-/* ================= GRID ================= */
+/* GRID */
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
@@ -151,14 +154,14 @@ margin-top:50px;
 padding:0 40px;
 }
 
-/* ================= CARDS ================= */
+/* CARDS (TRANSLATE ONLY HERE) */
 .card{
 background:rgba(255,255,255,.05);
 border:1px solid rgba(255,255,255,.1);
 border-radius:20px;
 overflow:hidden;
 opacity:0;
-transform:translateY(20px);
+transform:translateY(25px);
 transition:all .6s ease;
 }
 .card.animate{
@@ -183,19 +186,8 @@ transform:scale(1.05);
 object-fit:contain !important;
 background:#111;
 }
-.card h3{padding:15px;}
-.card button{
-margin-bottom:20px;
-padding:10px 18px;
-border:none;
-border-radius:25px;
-background:#00d9ff;
-color:#000;
-font-weight:600;
-cursor:pointer;
-}
 
-/* ================= MODAL ================= */
+/* MODAL */
 .modal{
 position:fixed;
 inset:0;
@@ -208,10 +200,7 @@ visibility:hidden;
 transition:.4s;
 z-index:3000;
 }
-.modal.active{
-opacity:1;
-visibility:visible;
-}
+.modal.active{opacity:1;visibility:visible;}
 .modal-content{
 background:#111;
 padding:30px;
@@ -231,7 +220,6 @@ object-fit:contain;
 }
 .close{float:right;font-size:25px;cursor:pointer;}
 
-/* ================= SOCIAL ================= */
 .social-icons{margin-top:20px;}
 .social-icons a{
 color:rgba(255,255,255,.6);
@@ -248,7 +236,6 @@ display:inline-block;width:2px;background:#00d9ff;
 animation:blink .7s infinite;
 }
 @keyframes blink{50%{opacity:0;}}
-
 </style>
 </head>
 
@@ -266,11 +253,11 @@ animation:blink .7s infinite;
 <a href="#contact">Contact</a>
 </nav>
 
-<!-- ALL SECTIONS SAME AS BEFORE (home, about, skills, certifications, projects, contact) -->
+<!-- KEEP YOUR SECTIONS SAME AS BEFORE -->
 
 <script>
 
-/* Force start at top */
+/* Start at top */
 window.scrollTo(0,0);
 
 /* Loader */
@@ -293,7 +280,7 @@ setTimeout(type,70);
 type();
 }
 
-/* Section Fade Only (no translate) */
+/* Section fade only */
 const sections=document.querySelectorAll("section");
 const sectionObserver=new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
@@ -321,81 +308,6 @@ cards.forEach(card=>card.classList.remove("animate"));
 });
 },{threshold:0.4});
 grids.forEach(grid=>gridObserver.observe(grid));
-
-/* Arrow Navigation */
-document.addEventListener("keydown",function(e){
-let currentIndex=0;
-sections.forEach((sec,index)=>{
-const rect=sec.getBoundingClientRect();
-if(rect.top<=150 && rect.bottom>=150){
-currentIndex=index;
-}
-});
-if(e.key==="ArrowRight" && currentIndex<sections.length-1){
-sections[currentIndex+1].scrollIntoView({behavior:"smooth"});
-}
-if(e.key==="ArrowLeft" && currentIndex>0){
-sections[currentIndex-1].scrollIntoView({behavior:"smooth"});
-}
-});
-
-/* Active Navbar */
-const navLinks=document.querySelectorAll("nav a");
-window.addEventListener("scroll",()=>{
-let current="";
-sections.forEach(sec=>{
-if(pageYOffset>=sec.offsetTop-200){
-current=sec.id;
-}
-});
-navLinks.forEach(link=>{
-link.classList.toggle("active",link.getAttribute("href")==="#"+current);
-});
-});
-
-/* Modal */
-function openCert(img){
-modalBody.innerHTML=`<img src="${img}">`;
-modal.classList.add("active");
-}
-function openProject(type){
-let content="";
-if(type==="solar") content=`<img src="solar.jpg"><h2>Solar PV Modeling</h2><p>Simulated PV array with MPPT under varying conditions.</p>`;
-if(type==="street") content=`<img src="streetlight.jpg"><h2>Smart Street Lighting</h2><p>Automated lighting using LDR and motion detection.</p>`;
-if(type==="robot") content=`<img src="robot.jpg"><h2>Cable Inspection Robot</h2><p>Autonomous underground fault detection robot.</p>`;
-modalBody.innerHTML=content;
-modal.classList.add("active");
-}
-function closeModal(){modal.classList.remove("active");}
-window.onclick=e=>{if(e.target==modal)closeModal();}
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
-
-/* Particles */
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}
-resize();
-window.addEventListener("resize",resize);
-let particles=[];
-for(let i=0;i<120;i++){
-particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2,s:Math.random()*0.7+0.2});
-}
-function animate(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-ctx.fillStyle="rgba(255,255,255,.4)";
-particles.forEach(p=>{
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-ctx.fill();
-p.y+=p.s;
-if(p.y>canvas.height){
-p.y=0;
-p.x=Math.random()*canvas.width;
-}
-});
-requestAnimationFrame(animate);
-}
-animate();
 
 </script>
 
