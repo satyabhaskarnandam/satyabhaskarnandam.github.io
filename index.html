@@ -10,11 +10,14 @@
 
 <style>
 
-/* ================= ROOT ================= */
+/* ================= GLOBAL ================= */
 
 :root{
 --accent:#00d9ff;
---bg:#0f2027;
+--bg1:#0f2027;
+--bg2:#203a43;
+--bg3:#2c5364;
+--bg4:#1e3c72;
 --glass:rgba(255,255,255,.05);
 --glass-border:rgba(255,255,255,.12);
 }
@@ -28,9 +31,17 @@ scroll-snap-type:y mandatory;
 
 body{
 font-family:'Poppins',sans-serif;
-background:var(--bg);
 color:#fff;
 overflow-x:hidden;
+background:linear-gradient(-45deg,var(--bg1),var(--bg2),var(--bg3),var(--bg4));
+background-size:400% 400%;
+animation:gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
 
 /* ================= LOADER ================= */
@@ -38,7 +49,7 @@ overflow-x:hidden;
 #loader{
 position:fixed;
 inset:0;
-background:var(--bg);
+background:#0f2027;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -54,9 +65,7 @@ border-radius:50%;
 animation:spin 1s linear infinite;
 }
 
-@keyframes spin{
-100%{transform:rotate(360deg);}
-}
+@keyframes spin{100%{transform:rotate(360deg);}}
 
 /* ================= PARTICLES ================= */
 
@@ -73,14 +82,14 @@ position:fixed;
 top:0;width:100%;height:70px;
 display:flex;justify-content:center;align-items:center;
 gap:40px;
-background:rgba(15,32,39,.2);
+background:rgba(0,0,0,.25);
 backdrop-filter:blur(12px);
 transition:.4s;
 z-index:1000;
 }
 
 nav.scrolled{
-background:rgba(15,32,39,.75);
+background:rgba(0,0,0,.65);
 backdrop-filter:blur(25px);
 box-shadow:0 10px 35px rgba(0,0,0,.5);
 }
@@ -98,7 +107,7 @@ nav a:hover{
 color:var(--accent);
 }
 
-/* ================= SECTION ================= */
+/* ================= SECTIONS ================= */
 
 .section{
 height:100vh;
@@ -302,7 +311,8 @@ transform:scale(1.2);
 .contact-footer{
 text-align:center;
 padding:18px 0;
-opacity:.8;
+background:transparent;
+opacity:.9;
 }
 
 /* ================= CURSOR ================= */
@@ -313,10 +323,7 @@ width:2px;
 background:var(--accent);
 animation:blink .7s infinite;
 }
-
-@keyframes blink{
-50%{opacity:0;}
-}
+@keyframes blink{50%{opacity:0;}}
 
 </style>
 </head>
@@ -334,8 +341,7 @@ animation:blink .7s infinite;
 <a href="#contact">Contact</a>
 </nav>
 
-<!-- ================= SECTIONS ================= -->
-
+<!-- HOME -->
 <section id="home" class="section visible">
 <div class="inner home-layout">
 <img src="profile.jpg" class="profile">
@@ -346,13 +352,15 @@ animation:blink .7s infinite;
 </div>
 </section>
 
+<!-- ABOUT -->
 <section id="about" class="section">
 <div class="inner">
 <h2>About</h2>
-<p>Focused on Power Systems & Embedded Technologies.</p>
+<p>Electrical & Electronics Engineering student specializing in Power Systems and Embedded Technologies.</p>
 </div>
 </section>
 
+<!-- SKILLS -->
 <section id="skills" class="section">
 <div class="inner">
 <h2>Skills</h2>
@@ -376,52 +384,7 @@ animation:blink .7s infinite;
 </div>
 </section>
 
-<section id="certifications" class="section">
-<div class="inner">
-<h2>Certifications</h2>
-<div class="cards">
-<div class="card">
-<div class="card-img"><img src="nptel.jpg"></div>
-<h3>Digital Electronics</h3>
-<button onclick="openCert('nptel.jpg')">View Certificate</button>
-</div>
-<div class="card">
-<div class="card-img"><img src="iot.jpg"></div>
-<h3>Introduction to IoT</h3>
-<button onclick="openCert('iot.jpg')">View Certificate</button>
-</div>
-<div class="card">
-<div class="card-img"><img src="matlab.jpg"></div>
-<h3>MATLAB Onramp</h3>
-<button onclick="openCert('matlab.jpg')">View Certificate</button>
-</div>
-</div>
-</div>
-</section>
-
-<section id="projects" class="section">
-<div class="inner">
-<h2>Projects</h2>
-<div class="cards">
-<div class="card">
-<div class="card-img"><img src="solar.jpg"></div>
-<h3>Solar PV Modeling</h3>
-<button onclick="openProject('solar')">View Details</button>
-</div>
-<div class="card">
-<div class="card-img"><img src="streetlight.jpg"></div>
-<h3>Smart Street Lighting</h3>
-<button onclick="openProject('street')">View Details</button>
-</div>
-<div class="card contain">
-<div class="card-img"><img src="robot.jpg"></div>
-<h3>Cable Inspection Robot</h3>
-<button onclick="openProject('robot')">View Details</button>
-</div>
-</div>
-</div>
-</section>
-
+<!-- CONTACT -->
 <section id="contact" class="section">
 <div class="inner contact-grid">
 <div class="contact-center">
@@ -442,14 +405,14 @@ animation:blink .7s infinite;
 
 <script>
 
-/* ===== SAFE LOADER REMOVE ===== */
+/* LOADER */
 document.addEventListener("DOMContentLoaded",()=>{
 setTimeout(()=>{
 document.getElementById("loader").style.display="none";
 },800);
 });
 
-/* ===== TYPING ===== */
+/* TYPING */
 const typing=document.getElementById("typing");
 const text="Nandam Satya Bhaskar";
 let i=0;
@@ -461,13 +424,13 @@ setTimeout(type,70);
 }}
 type();
 
-/* ===== NAVBAR FADE ===== */
+/* NAVBAR FADE */
 const navbar=document.getElementById("navbar");
 window.addEventListener("scroll",()=>{
 navbar.classList.toggle("scrolled",window.scrollY>10);
 });
 
-/* ===== SECTION VISIBILITY ===== */
+/* SECTION FADE */
 const sections=document.querySelectorAll(".section");
 const observer=new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
@@ -477,6 +440,64 @@ entry.target.classList.add("visible");
 });
 },{threshold:0.6});
 sections.forEach(sec=>observer.observe(sec));
+
+/* ARROW NAVIGATION */
+let currentIndex=0;
+window.addEventListener("scroll",()=>{
+const mid=window.scrollY+window.innerHeight/2;
+sections.forEach((sec,i)=>{
+if(mid>=sec.offsetTop && mid<sec.offsetTop+sec.offsetHeight){
+currentIndex=i;
+}
+});
+});
+document.addEventListener("keydown",e=>{
+if(e.key==="ArrowDown"||e.key==="ArrowRight"){
+if(currentIndex<sections.length-1){
+sections[++currentIndex].scrollIntoView({behavior:"smooth"});
+}}
+if(e.key==="ArrowUp"||e.key==="ArrowLeft"){
+if(currentIndex>0){
+sections[--currentIndex].scrollIntoView({behavior:"smooth"});
+}}
+});
+
+/* PARTICLES */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+function resize(){
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+}
+resize();
+window.addEventListener("resize",resize);
+
+let particles=[];
+for(let i=0;i<100;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2,
+speed:Math.random()*0.5+0.2
+});
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="rgba(255,255,255,.4)";
+particles.forEach(p=>{
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fill();
+p.y+=p.speed;
+if(p.y>canvas.height){
+p.y=0;
+p.x=Math.random()*canvas.width;
+}
+});
+requestAnimationFrame(animate);
+}
+animate();
 
 </script>
 
