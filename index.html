@@ -10,12 +10,13 @@
 
 <style>
 
-/* ===== ROOT ===== */
+/* ================= ROOT ================= */
+
 :root{
 --accent:#00d9ff;
 --bg:#0f2027;
 --glass:rgba(255,255,255,.05);
---glass-border:rgba(255,255,255,.1);
+--glass-border:rgba(255,255,255,.12);
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -32,7 +33,8 @@ color:#fff;
 overflow-x:hidden;
 }
 
-/* ===== LOADER ===== */
+/* ================= LOADER ================= */
+
 #loader{
 position:fixed;
 inset:0;
@@ -41,7 +43,7 @@ display:flex;
 justify-content:center;
 align-items:center;
 z-index:9999;
-transition:opacity .5s ease, visibility .5s ease;
+transition:opacity .6s ease;
 }
 
 .loader-ring{
@@ -52,16 +54,20 @@ border-radius:50%;
 animation:spin 1s linear infinite;
 }
 
-@keyframes spin{100%{transform:rotate(360deg);}}
+@keyframes spin{
+100%{transform:rotate(360deg);}
+}
 
-/* ===== PARTICLES ===== */
+/* ================= PARTICLES ================= */
+
 canvas{
 position:fixed;
 top:0;left:0;
 z-index:-1;
 }
 
-/* ===== NAVBAR ===== */
+/* ================= NAVBAR ================= */
+
 nav{
 position:fixed;
 top:0;width:100%;height:70px;
@@ -74,7 +80,7 @@ z-index:1000;
 }
 
 nav.scrolled{
-background:rgba(15,32,39,.7);
+background:rgba(15,32,39,.75);
 backdrop-filter:blur(25px);
 box-shadow:0 10px 35px rgba(0,0,0,.5);
 }
@@ -92,7 +98,8 @@ nav a:hover{
 color:var(--accent);
 }
 
-/* ===== SECTION ===== */
+/* ================= SECTION ================= */
+
 .section{
 height:100vh;
 scroll-snap-align:start;
@@ -112,8 +119,9 @@ padding:0 25px;
 text-align:center;
 }
 
-/* ===== HOME ===== */
-.home-flex{
+/* ================= HOME ================= */
+
+.home-layout{
 display:flex;
 align-items:center;
 justify-content:center;
@@ -132,25 +140,26 @@ transition:.5s;
 
 .profile:hover{
 transform:scale(1.08);
-box-shadow:0 0 45px rgba(0,217,255,.8);
+box-shadow:0 0 45px rgba(0,217,255,.9);
 }
 
 .home-text{text-align:left;}
 
 @media(max-width:768px){
-.home-flex{flex-direction:column;text-align:center;}
+.home-layout{flex-direction:column;text-align:center;}
 .home-text{text-align:center;}
 }
 
-/* ===== SKILLS ===== */
+/* ================= SKILLS ================= */
+
 .skills-flex{
 display:flex;
 margin-top:40px;
 }
 
 .skills-flex>div{width:50%;}
-.skills-flex>div:first-child{text-align:left;padding-right:30px;}
-.skills-flex>div:last-child{text-align:right;padding-left:30px;}
+.skills-flex>div:first-child{text-align:left;padding-right:35px;}
+.skills-flex>div:last-child{text-align:right;padding-left:35px;}
 
 .skills-flex ul{list-style:none;margin-top:15px;}
 .skills-flex li{margin:8px 0;}
@@ -160,7 +169,8 @@ margin-top:40px;
 .skills-flex>div{width:100%;text-align:left!important;padding:0;margin-bottom:25px;}
 }
 
-/* ===== CARDS ===== */
+/* ================= CARDS ================= */
+
 .cards{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
@@ -220,7 +230,8 @@ background:#00b8d4;
 transform:scale(1.05);
 }
 
-/* ===== MODAL ===== */
+/* ================= MODAL ================= */
+
 .modal{
 position:fixed;
 inset:0;
@@ -260,7 +271,8 @@ cursor:pointer;
 font-size:24px;
 }
 
-/* ===== CONTACT ===== */
+/* ================= CONTACT ================= */
+
 .contact-grid{
 height:100%;
 display:grid;
@@ -293,14 +305,18 @@ padding:18px 0;
 opacity:.8;
 }
 
-/* ===== CURSOR ===== */
+/* ================= CURSOR ================= */
+
 .cursor{
 display:inline-block;
 width:2px;
 background:var(--accent);
 animation:blink .7s infinite;
 }
-@keyframes blink{50%{opacity:0;}}
+
+@keyframes blink{
+50%{opacity:0;}
+}
 
 </style>
 </head>
@@ -318,8 +334,10 @@ animation:blink .7s infinite;
 <a href="#contact">Contact</a>
 </nav>
 
+<!-- ================= SECTIONS ================= -->
+
 <section id="home" class="section visible">
-<div class="inner home-flex">
+<div class="inner home-layout">
 <img src="profile.jpg" class="profile">
 <div class="home-text">
 <h1><span id="typing"></span><span class="cursor"></span></h1>
@@ -358,6 +376,52 @@ animation:blink .7s infinite;
 </div>
 </section>
 
+<section id="certifications" class="section">
+<div class="inner">
+<h2>Certifications</h2>
+<div class="cards">
+<div class="card">
+<div class="card-img"><img src="nptel.jpg"></div>
+<h3>Digital Electronics</h3>
+<button onclick="openCert('nptel.jpg')">View Certificate</button>
+</div>
+<div class="card">
+<div class="card-img"><img src="iot.jpg"></div>
+<h3>Introduction to IoT</h3>
+<button onclick="openCert('iot.jpg')">View Certificate</button>
+</div>
+<div class="card">
+<div class="card-img"><img src="matlab.jpg"></div>
+<h3>MATLAB Onramp</h3>
+<button onclick="openCert('matlab.jpg')">View Certificate</button>
+</div>
+</div>
+</div>
+</section>
+
+<section id="projects" class="section">
+<div class="inner">
+<h2>Projects</h2>
+<div class="cards">
+<div class="card">
+<div class="card-img"><img src="solar.jpg"></div>
+<h3>Solar PV Modeling</h3>
+<button onclick="openProject('solar')">View Details</button>
+</div>
+<div class="card">
+<div class="card-img"><img src="streetlight.jpg"></div>
+<h3>Smart Street Lighting</h3>
+<button onclick="openProject('street')">View Details</button>
+</div>
+<div class="card contain">
+<div class="card-img"><img src="robot.jpg"></div>
+<h3>Cable Inspection Robot</h3>
+<button onclick="openProject('robot')">View Details</button>
+</div>
+</div>
+</div>
+</section>
+
 <section id="contact" class="section">
 <div class="inner contact-grid">
 <div class="contact-center">
@@ -380,12 +444,39 @@ animation:blink .7s infinite;
 
 /* ===== SAFE LOADER REMOVE ===== */
 document.addEventListener("DOMContentLoaded",()=>{
-const loader=document.getElementById("loader");
 setTimeout(()=>{
-loader.style.opacity="0";
-loader.style.visibility="hidden";
-},600);
+document.getElementById("loader").style.display="none";
+},800);
 });
+
+/* ===== TYPING ===== */
+const typing=document.getElementById("typing");
+const text="Nandam Satya Bhaskar";
+let i=0;
+function type(){
+if(i<text.length){
+typing.innerHTML+=text.charAt(i);
+i++;
+setTimeout(type,70);
+}}
+type();
+
+/* ===== NAVBAR FADE ===== */
+const navbar=document.getElementById("navbar");
+window.addEventListener("scroll",()=>{
+navbar.classList.toggle("scrolled",window.scrollY>10);
+});
+
+/* ===== SECTION VISIBILITY ===== */
+const sections=document.querySelectorAll(".section");
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("visible");
+}
+});
+},{threshold:0.6});
+sections.forEach(sec=>observer.observe(sec));
 
 </script>
 
