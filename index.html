@@ -38,17 +38,6 @@ animation:spin 1s linear infinite;
 }
 @keyframes spin{100%{transform:rotate(360deg);}}
 
-/* Scroll Progress */
-#progress{
-position:fixed;
-top:0;
-left:0;
-height:4px;
-background:#00d9ff;
-width:0%;
-z-index:4000;
-}
-
 /* Particles */
 canvas{
 position:fixed;
@@ -196,18 +185,19 @@ font-size:25px;
 cursor:pointer;
 }
 
-/* Social */
+/* Transparent Social Icons */
 .social-icons{
 margin-top:20px;
 }
 .social-icons a{
-color:#aaa;
+color:rgba(255,255,255,0.5);
 font-size:28px;
 margin:0 15px;
 transition:0.3s;
 }
 .social-icons a:hover{
 color:#00d9ff;
+transform:scale(1.2);
 }
 
 .cursor{
@@ -222,7 +212,6 @@ animation:blink 0.7s infinite;
 <body>
 
 <div id="loader"><div class="loader-circle"></div></div>
-<div id="progress"></div>
 <canvas id="particles"></canvas>
 
 <nav>
@@ -294,11 +283,13 @@ animation:blink 0.7s infinite;
 <div class="container">
 <h2>Contact</h2>
 <p>Email: satyabhaskarnandam@gmail.com</p>
+
 <div class="social-icons">
-<a href="#"><i class="fab fa-github"></i></a>
-<a href="#"><i class="fab fa-linkedin"></i></a>
-<a href="#"><i class="fab fa-whatsapp"></i></a>
+<a href="https://github.com/" target="_blank"><i class="fab fa-github"></i></a>
+<a href="https://linkedin.com/" target="_blank"><i class="fab fa-linkedin"></i></a>
+<a href="https://wa.me/" target="_blank"><i class="fab fa-whatsapp"></i></a>
 </div>
+
 </div>
 </section>
 
@@ -329,15 +320,11 @@ i++; setTimeout(type,70);
 document.getElementById("typing").innerHTML="";
 type();
 
-/* Scroll Progress + Fade + Active Nav */
+/* Fade + Active Nav */
 const sections=document.querySelectorAll("section");
 const navLinks=document.querySelectorAll("nav a");
 
 window.addEventListener("scroll",()=>{
-let scrollTop=document.documentElement.scrollTop;
-let height=document.documentElement.scrollHeight-document.documentElement.clientHeight;
-document.getElementById("progress").style.width=(scrollTop/height)*100+"%";
-
 sections.forEach(sec=>{
 if(sec.getBoundingClientRect().top < window.innerHeight-100){
 sec.classList.add("show");
