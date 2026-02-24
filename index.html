@@ -4,11 +4,14 @@
     <title>SB Portfolio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
-        html { scroll-behavior: smooth; height:100%; }
+        html { scroll-behavior: smooth; }
 
         body {
             margin: 0;
@@ -18,11 +21,6 @@
             animation: gradientBG 12s ease infinite;
             color: #fff;
             overflow-x: hidden;
-
-            /* Added only for bottom contact */
-            min-height:100vh;
-            display:flex;
-            flex-direction:column;
         }
 
         @keyframes gradientBG {
@@ -105,11 +103,6 @@
         }
 
         button:hover { transform: scale(1.05); }
-
-        /* Push contact section to bottom */
-        #contact {
-            margin-top:auto;
-        }
 
         footer {
             text-align: center;
@@ -223,9 +216,208 @@
     <p>Electrical & Electronics Engineering Student</p>
 </header>
 
-<!-- Everything below remains exactly same as your previous working version -->
+<section id="about">
+<div class="container">
+<h2>About Me</h2>
+<p>Electrical and Electronics Engineering student specializing in power systems and embedded technologies.</p>
+</div>
+</section>
 
-<!-- (Rest of your sections: About, Skills, Certifications, Projects, Contact, Footer, Modal, and JS stays unchanged) -->
+<section id="skills">
+<div class="container">
+<h2>Skills</h2>
+<p>C | C++ | MATLAB | Embedded Systems | Power Systems</p>
+</div>
+</section>
+
+<section id="certifications">
+<div class="container">
+<h2>Certifications</h2>
+<div class="cards">
+<div class="card">
+<img src="nptel.jpg">
+<div class="card-content">
+<h3>Digital Electronics</h3>
+<button onclick="openCert('nptel.jpg')">View Certificate</button>
+</div>
+</div>
+
+<div class="card">
+<img src="iot.jpg">
+<div class="card-content">
+<h3>Introduction to IoT</h3>
+<button onclick="openCert('iot.jpg')">View Certificate</button>
+</div>
+</div>
+
+<div class="card">
+<img src="matlab.jpg">
+<div class="card-content">
+<h3>MATLAB Onramp</h3>
+<button onclick="openCert('matlab.jpg')">View Certificate</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="projects">
+<div class="container">
+<h2>Projects</h2>
+<div class="cards">
+
+<div class="card">
+<img src="solar.jpg">
+<div class="card-content">
+<h3>Solar PV Modeling</h3>
+<button onclick="openProject('solar')">View Details</button>
+</div>
+</div>
+
+<div class="card">
+<img src="streetlight.jpg">
+<div class="card-content">
+<h3>Smart Street Lighting</h3>
+<button onclick="openProject('street')">View Details</button>
+</div>
+</div>
+
+<div class="card">
+<img src="robot.jpg">
+<div class="card-content">
+<h3>Cable Inspection Robot</h3>
+<button onclick="openProject('robot')">View Details</button>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<section id="contact">
+<div class="container">
+<h2>Contact Me</h2>
+<p>Email: satyabhaskarnandam@gmail.com</p>
+<p>Mobile: +91 7780603821</p>
+
+<div class="social-icons">
+<a href="https://github.com/satyabhaskarnandam" target="_blank"><i class="fab fa-github"></i></a>
+<a href="https://linkedin.com/in/nandam-satya-bhaskar" target="_blank"><i class="fab fa-linkedin"></i></a>
+<a href="https://wa.me/917780603821" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</div>
+</div>
+</section>
+
+<footer>
+© 2026 SB Portfolio
+</footer>
+
+<div id="modal" class="modal">
+<div class="modal-content">
+<span class="close" onclick="closeModal()">&times;</span>
+<div id="modalBody"></div>
+</div>
+</div>
+
+<script>
+if ('scrollRestoration' in history) {
+history.scrollRestoration = 'manual';
+}
+window.addEventListener("load", function() {
+window.scrollTo(0,0);
+});
+
+/* Typing */
+const text="Nandam Satya Bhaskar";
+let i=0;
+function typeEffect(){
+if(i<text.length){
+document.getElementById("typing").innerHTML+=text.charAt(i);
+i++;
+setTimeout(typeEffect,80);
+}}
+typeEffect();
+
+/* White Floating Dots */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+for(let i=0;i<120;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2,
+speed:Math.random()*0.7+0.2
+});
+}
+
+function drawParticles(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="rgba(255,255,255,0.4)";
+particles.forEach(p=>{
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fill();
+p.y+=p.speed;
+if(p.y>canvas.height){
+p.y=0;
+p.x=Math.random()*canvas.width;
+}
+});
+requestAnimationFrame(drawParticles);
+}
+drawParticles();
+
+window.addEventListener("resize",function(){
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+});
+
+/* Modal Functions */
+function openCert(src){
+document.getElementById("modalBody").innerHTML=`<img src="${src}">`;
+document.getElementById("modal").classList.add("active");
+}
+
+function openProject(type){
+let content="";
+if(type==="solar"){
+content=`<img src="solar-detail.jpg">
+<h3>Solar PV Modeling</h3>
+<h4>Working:</h4><p>Simulated PV array with MPPT algorithm under varying irradiation and temperature conditions.</p>
+<h4>Key Components:</h4><p>PV Array, MPPT Controller, DC-DC Converter, MATLAB Simulink.</p>
+<h4>Output:</h4><p>Maximum power extraction with performance curves.</p>`;
+}
+if(type==="street"){
+content=`<img src="street-detail.jpg">
+<h3>Smart Street Lighting</h3>
+<h4>Working:</h4><p>Brightness adjusts automatically using LDR and motion sensors.</p>
+<h4>Key Components:</h4><p>LDR, PIR Sensor, Microcontroller.</p>
+<h4>Output:</h4><p>Energy-efficient smart lighting.</p>`;
+}
+if(type==="robot"){
+content=`<img src="robot-detail.jpg">
+<h3>Cable Inspection Robot</h3>
+<h4>Working:</h4><p>Robot navigates underground cables and detects faults.</p>
+<h4>Key Components:</h4><p>Motor Driver, Sensors, Microcontroller.</p>
+<h4>Output:</h4><p>Real-time cable monitoring.</p>`;
+}
+document.getElementById("modalBody").innerHTML=content;
+document.getElementById("modal").classList.add("active");
+}
+
+function closeModal(){
+document.getElementById("modal").classList.remove("active");
+}
+
+window.onclick=function(e){
+if(e.target==document.getElementById("modal")){
+closeModal();
+}};
+</script>
 
 </body>
 </html>
