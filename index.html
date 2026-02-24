@@ -10,12 +10,12 @@
 
 <style>
 
-/* ================= ROOT ================= */
+/* ================= BASE ================= */
 
 :root{
 --accent:#00d9ff;
 --bg:#0f2027;
---glass:rgba(255,255,255,.08);
+--glass:rgba(255,255,255,.06);
 --glass-border:rgba(255,255,255,.1);
 }
 
@@ -40,24 +40,25 @@ position:fixed;
 inset:0;
 background:var(--bg);
 display:flex;
-align-items:center;
 justify-content:center;
+align-items:center;
 z-index:9999;
 transition:.6s;
 }
 
-.loader-ring{
+.loader-core{
 width:60px;height:60px;
 border:4px solid rgba(255,255,255,.2);
 border-top:4px solid var(--accent);
 border-radius:50%;
 animation:spin 1s linear infinite;
 }
+
 @keyframes spin{100%{transform:rotate(360deg);}}
 
 /* ================= PARTICLES ================= */
 
-#particles{
+canvas{
 position:fixed;
 top:0;left:0;
 z-index:-1;
@@ -67,8 +68,12 @@ z-index:-1;
 
 nav{
 position:fixed;
-top:0;width:100%;height:70px;
-display:flex;align-items:center;justify-content:center;
+top:0;
+width:100%;
+height:70px;
+display:flex;
+justify-content:center;
+align-items:center;
 gap:40px;
 background:rgba(15,32,39,.2);
 backdrop-filter:blur(12px);
@@ -78,15 +83,15 @@ z-index:1000;
 
 nav.scrolled{
 background:rgba(15,32,39,.7);
-backdrop-filter:blur(24px);
-box-shadow:0 10px 30px rgba(0,0,0,.4);
+backdrop-filter:blur(25px);
+box-shadow:0 10px 35px rgba(0,0,0,.5);
 }
 
 nav a{
 color:#ddd;
 text-decoration:none;
-font-size:17px;
 font-weight:500;
+font-size:17px;
 transition:.3s;
 }
 
@@ -95,7 +100,7 @@ nav a:hover{
 color:var(--accent);
 }
 
-/* ================= SECTIONS ================= */
+/* ================= SECTION CORE ================= */
 
 .section{
 height:100vh;
@@ -109,16 +114,16 @@ transition:opacity .8s ease;
 
 .section.visible{opacity:1;}
 
-.wrapper{
+.section-inner{
 width:100%;
 max-width:1200px;
-padding:0 20px;
+padding:0 25px;
 text-align:center;
 }
 
 /* ================= HOME ================= */
 
-.home-flex{
+.home-layout{
 display:flex;
 align-items:center;
 justify-content:center;
@@ -126,8 +131,9 @@ gap:60px;
 flex-wrap:wrap;
 }
 
-.avatar{
-width:220px;height:220px;
+.profile{
+width:220px;
+height:220px;
 border-radius:50%;
 object-fit:cover;
 border:4px solid var(--accent);
@@ -135,61 +141,65 @@ box-shadow:0 0 20px rgba(0,217,255,.4);
 transition:.5s;
 }
 
-.avatar:hover{
-transform:scale(1.07);
-box-shadow:0 0 40px rgba(0,217,255,.8);
+.profile:hover{
+transform:scale(1.08);
+box-shadow:0 0 45px rgba(0,217,255,.8);
 }
 
 .home-text{text-align:left;}
 
 @media(max-width:768px){
-.home-flex{flex-direction:column;text-align:center;}
+.home-layout{flex-direction:column;text-align:center;}
 .home-text{text-align:center;}
 }
 
 /* ================= SKILLS ================= */
 
-.skills-flex{
+.skills-grid{
 display:flex;
 margin-top:40px;
 }
 
-.skills-flex>div{
+.skills-grid>div{
 width:50%;
 }
 
-.skills-flex>div:first-child{
+.skills-grid>div:first-child{
 text-align:left;
-padding-right:35px;
+padding-right:30px;
 }
 
-.skills-flex>div:last-child{
+.skills-grid>div:last-child{
 text-align:right;
-padding-left:35px;
+padding-left:30px;
 }
 
-.skills-flex ul{list-style:none;margin-top:15px;}
-.skills-flex li{margin:8px 0;}
+.skills-grid ul{
+list-style:none;
+margin-top:15px;
+}
+
+.skills-grid li{
+margin:8px 0;
+}
 
 @media(max-width:768px){
-.skills-flex{flex-direction:column;}
-.skills-flex>div{
+.skills-grid{flex-direction:column;}
+.skills-grid>div{
 width:100%;
 text-align:left!important;
 padding:0;margin-bottom:25px;
 }
 }
 
-/* ================= GRID ================= */
+/* ================= CARDS ================= */
 
-.cards{
+.card-wrap{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 gap:40px;
 margin-top:50px;
 }
-
-/* ================= CARD ================= */
 
 .card{
 background:var(--glass);
@@ -221,7 +231,7 @@ height:100%;
 object-fit:cover;
 }
 
-.contain img{
+.card.contain img{
 object-fit:contain!important;
 background:#111;
 }
@@ -284,13 +294,24 @@ cursor:pointer;
 font-size:24px;
 }
 
-/* ================= CONTACT ================= */
+/* ================= CONTACT STRUCTURE ================= */
 
-.social{
+.contact-structure{
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+height:100%;
+}
+
+.contact-top{
+margin-top:100px;
+}
+
+.social-links{
 margin-top:20px;
 }
 
-.social a{
+.social-links a{
 color:rgba(255,255,255,.6);
 font-size:28px;
 margin:0 15px;
@@ -298,19 +319,19 @@ transition:.3s;
 text-decoration:none;
 }
 
-.social a:hover{
+.social-links a:hover{
 color:var(--accent);
 transform:scale(1.2);
 }
 
 .contact-footer{
-margin-top:40px;
 background:#000;
 padding:18px 0;
 letter-spacing:1px;
+margin-top:20px;
 }
 
-/* ================= TYPING CURSOR ================= */
+/* ================= CURSOR ================= */
 
 .cursor{
 display:inline-block;
@@ -324,10 +345,10 @@ animation:blink .7s infinite;
 </head>
 <body>
 
-<div id="loader"><div class="loader-ring"></div></div>
+<div id="loader"><div class="loader-core"></div></div>
 <canvas id="particles"></canvas>
 
-<nav id="nav">
+<nav id="navbar">
 <a href="#home" class="active"><i class="fa-solid fa-house"></i></a>
 <a href="#about">About</a>
 <a href="#skills">Skills</a>
@@ -337,8 +358,8 @@ animation:blink .7s infinite;
 </nav>
 
 <section id="home" class="section visible">
-<div class="wrapper home-flex">
-<img src="profile.jpg" class="avatar">
+<div class="section-inner home-layout">
+<img src="profile.jpg" class="profile">
 <div class="home-text">
 <h1><span id="typing"></span><span class="cursor"></span></h1>
 <p>Electrical & Electronics Engineering Student</p>
@@ -347,61 +368,98 @@ animation:blink .7s infinite;
 </section>
 
 <section id="about" class="section">
-<div class="wrapper">
+<div class="section-inner">
 <h2>About</h2>
 <p>Focused on Power Systems & Embedded Technologies.</p>
 </div>
 </section>
 
 <section id="skills" class="section">
-<div class="wrapper">
+<div class="section-inner">
 <h2>Skills</h2>
-<div class="skills-flex">
+<div class="skills-grid">
 <div>
 <h3>Technical Skills</h3>
-<ul><li>C</li><li>C++</li><li>MATLAB</li><li>Embedded Systems</li><li>Power Systems</li></ul>
+<ul>
+<li>C</li><li>C++</li><li>MATLAB</li>
+<li>Embedded Systems</li><li>Power Systems</li>
+</ul>
 </div>
 <div>
 <h3>Soft Skills</h3>
-<ul><li>Communication Skills</li><li>Teamwork</li><li>Adaptability</li><li>Critical Thinking</li><li>Leadership</li></ul>
+<ul>
+<li>Communication Skills</li><li>Teamwork</li>
+<li>Adaptability</li><li>Critical Thinking</li>
+<li>Leadership</li>
+</ul>
 </div>
 </div>
 </div>
 </section>
 
 <section id="certifications" class="section">
-<div class="wrapper">
+<div class="section-inner">
 <h2>Certifications</h2>
-<div class="cards">
-<div class="card"><div class="card-img"><img src="nptel.jpg"></div><h3>Digital Electronics</h3><button onclick="openCert('nptel.jpg')">View Certificate</button></div>
-<div class="card"><div class="card-img"><img src="iot.jpg"></div><h3>Introduction to IoT</h3><button onclick="openCert('iot.jpg')">View Certificate</button></div>
-<div class="card"><div class="card-img"><img src="matlab.jpg"></div><h3>MATLAB Onramp</h3><button onclick="openCert('matlab.jpg')">View Certificate</button></div>
+<div class="card-wrap">
+<div class="card">
+<div class="card-img"><img src="nptel.jpg"></div>
+<h3>Digital Electronics</h3>
+<button onclick="openCert('nptel.jpg')">View Certificate</button>
+</div>
+<div class="card">
+<div class="card-img"><img src="iot.jpg"></div>
+<h3>Introduction to IoT</h3>
+<button onclick="openCert('iot.jpg')">View Certificate</button>
+</div>
+<div class="card">
+<div class="card-img"><img src="matlab.jpg"></div>
+<h3>MATLAB Onramp</h3>
+<button onclick="openCert('matlab.jpg')">View Certificate</button>
+</div>
 </div>
 </div>
 </section>
 
 <section id="projects" class="section">
-<div class="wrapper">
+<div class="section-inner">
 <h2>Projects</h2>
-<div class="cards">
-<div class="card"><div class="card-img"><img src="solar.jpg"></div><h3>Solar PV Modeling</h3><button onclick="openProject('solar')">View Details</button></div>
-<div class="card"><div class="card-img"><img src="streetlight.jpg"></div><h3>Smart Street Lighting</h3><button onclick="openProject('street')">View Details</button></div>
-<div class="card contain"><div class="card-img"><img src="robot.jpg"></div><h3>Cable Inspection Robot</h3><button onclick="openProject('robot')">View Details</button></div>
+<div class="card-wrap">
+<div class="card">
+<div class="card-img"><img src="solar.jpg"></div>
+<h3>Solar PV Modeling</h3>
+<button onclick="openProject('solar')">View Details</button>
+</div>
+<div class="card">
+<div class="card-img"><img src="streetlight.jpg"></div>
+<h3>Smart Street Lighting</h3>
+<button onclick="openProject('street')">View Details</button>
+</div>
+<div class="card contain">
+<div class="card-img"><img src="robot.jpg"></div>
+<h3>Cable Inspection Robot</h3>
+<button onclick="openProject('robot')">View Details</button>
+</div>
 </div>
 </div>
 </section>
 
 <section id="contact" class="section">
-<div class="wrapper">
+<div class="section-inner contact-structure">
+<div class="contact-top">
 <h2>Contact</h2>
 <p>Email: satyabhaskarnandam@gmail.com</p>
 <p>Mobile: +91 7780603821</p>
-<div class="social">
+<div class="social-links">
 <a href="https://github.com/satyabhaskarnandam" target="_blank"><i class="fab fa-github"></i></a>
 <a href="https://linkedin.com/in/nandam-satya-bhaskar" target="_blank"><i class="fab fa-linkedin"></i></a>
 <a href="https://wa.me/917780603821" target="_blank"><i class="fab fa-whatsapp"></i></a>
 </div>
-<div class="contact-footer">© SB | PORTFOLIO</div>
+</div>
+
+<div class="contact-footer">
+© SB | PORTFOLIO
+</div>
+
 </div>
 </section>
 
@@ -434,12 +492,12 @@ setTimeout(type,70);
 type();
 }
 
-/* Navbar Scroll */
+/* Navbar */
 window.addEventListener("scroll",()=>{
-nav.classList.toggle("scrolled",window.scrollY>10);
+navbar.classList.toggle("scrolled",window.scrollY>10);
 });
 
-/* Section Observer */
+/* Section Fade */
 const sections=document.querySelectorAll(".section");
 const observer=new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
@@ -448,11 +506,11 @@ entry.target.classList.add("visible");
 }
 });
 },{threshold:.6});
-sections.forEach(s=>observer.observe(s));
+sections.forEach(sec=>observer.observe(sec));
 
-/* Card Animation */
+/* Cards */
 const cards=document.querySelectorAll(".card");
-const cardObserver=new IntersectionObserver(entries=>{
+const cardObs=new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
 if(entry.isIntersecting){
 entry.target.classList.add("show");
@@ -461,43 +519,43 @@ entry.target.classList.remove("show");
 }
 });
 },{threshold:.4});
-cards.forEach(c=>cardObserver.observe(c));
+cards.forEach(card=>cardObs.observe(card));
 
 /* Arrow Navigation */
-let index=0;
+let current=0;
 const list=[...sections];
 
 window.addEventListener("scroll",()=>{
 const mid=window.scrollY+window.innerHeight/2;
 list.forEach((sec,i)=>{
 if(mid>=sec.offsetTop && mid<sec.offsetTop+sec.offsetHeight){
-index=i;
+current=i;
 }
 });
 });
 
 document.addEventListener("keydown",e=>{
 if(e.key==="ArrowDown"||e.key==="ArrowRight"){
-if(index<list.length-1){
-list[++index].scrollIntoView({behavior:"smooth"});
+if(current<list.length-1){
+list[++current].scrollIntoView({behavior:"smooth"});
 }}
 if(e.key==="ArrowUp"||e.key==="ArrowLeft"){
-if(index>0){
-list[--index].scrollIntoView({behavior:"smooth"});
+if(current>0){
+list[--current].scrollIntoView({behavior:"smooth"});
 }}
 });
 
 /* Active Nav */
 const navLinks=document.querySelectorAll("nav a");
 window.addEventListener("scroll",()=>{
-let current="";
+let active="";
 sections.forEach(sec=>{
 if(pageYOffset>=sec.offsetTop-200){
-current=sec.id;
+active=sec.id;
 }
 });
 navLinks.forEach(link=>{
-link.classList.toggle("active",link.getAttribute("href")==="#"+current);
+link.classList.toggle("active",link.getAttribute("href")==="#"+active);
 });
 });
 
@@ -524,7 +582,7 @@ window.onclick=e=>{if(e.target==modal)closeModal();}
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
 
 /* Particles */
-const canvas=document.getElementById("particles");
+const canvas=document.querySelector("canvas");
 const ctx=canvas.getContext("2d");
 function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}
 resize();window.addEventListener("resize",resize);
@@ -547,5 +605,6 @@ requestAnimationFrame(animate);
 animate();
 
 </script>
+
 </body>
 </html>
