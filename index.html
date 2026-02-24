@@ -8,8 +8,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-html { scroll-behavior: smooth; }
-
+html{scroll-behavior:smooth;}
 body{
 margin:0;
 font-family:'Poppins',sans-serif;
@@ -95,38 +94,47 @@ max-width:1200px;
 margin:auto;
 }
 
-/* SKILLS 50/50 */
+/* HOME LAYOUT */
+.home-wrapper{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:50px;
+flex-wrap:wrap;
+}
+.profile-pic{
+width:220px;
+height:220px;
+border-radius:50%;
+object-fit:cover;
+border:4px solid #00d9ff;
+box-shadow:0 0 25px rgba(0,217,255,.5);
+transition:.4s ease;
+}
+.profile-pic:hover{
+transform:scale(1.05);
+box-shadow:0 0 40px rgba(0,217,255,.8);
+}
+.home-text{text-align:left;}
+@media(max-width:768px){
+.home-wrapper{flex-direction:column;text-align:center;}
+.home-text{text-align:center;}
+}
+
+/* SKILLS */
 .skills-wrapper{
 display:flex;
 width:100%;
 margin-top:40px;
 }
-.skill-column{
-width:50%;
-}
-.skill-column:first-child{
-text-align:left;
-padding-right:60px;
-}
-.skill-column:last-child{
-text-align:right;
-padding-left:60px;
-}
-.skill-column ul{
-list-style:none;
-padding:0;
-}
-.skill-column li{
-margin:12px 0;
-}
+.skill-column{width:50%;}
+.skill-column:first-child{text-align:left;padding-right:60px;}
+.skill-column:last-child{text-align:right;padding-left:60px;}
+.skill-column ul{list-style:none;padding:0;}
+.skill-column li{margin:12px 0;}
 @media(max-width:768px){
 .skills-wrapper{flex-direction:column;}
-.skill-column{
-width:100%;
-text-align:left!important;
-padding:0;
-margin-bottom:30px;
-}
+.skill-column{width:100%;text-align:left!important;padding:0;margin-bottom:30px;}
 }
 
 /* GRID */
@@ -148,17 +156,8 @@ transition:transform .5s ease, box-shadow .5s ease;
 opacity:0;
 transform:translateY(60px);
 }
-.card.show{
-opacity:1;
-transform:translateY(0);
-}
-.card img{
-width:100%;
-height:220px;
-object-fit:cover;
-transition:transform .6s ease;
-}
-.card:hover img{transform:scale(1.08);}
+.card.show{opacity:1;transform:translateY(0);}
+.card img{width:100%;height:220px;object-fit:cover;}
 .card:hover{box-shadow:0 0 30px rgba(0,217,255,.5);}
 .card h3{padding:15px;}
 .card button{
@@ -185,10 +184,7 @@ visibility:hidden;
 transition:.4s;
 z-index:3000;
 }
-.modal.active{
-opacity:1;
-visibility:visible;
-}
+.modal.active{opacity:1;visibility:visible;}
 .modal-content{
 background:#111;
 padding:30px;
@@ -201,13 +197,8 @@ transform:scale(.9);
 transition:.4s;
 }
 .modal.active .modal-content{transform:scale(1);}
-.close{
-float:right;
-font-size:25px;
-cursor:pointer;
-}
+.close{float:right;font-size:25px;cursor:pointer;}
 
-/* SOCIAL */
 .social-icons{margin-top:20px;}
 .social-icons a{
 color:rgba(255,255,255,.6);
@@ -216,10 +207,7 @@ margin:0 15px;
 transition:.3s;
 text-decoration:none;
 }
-.social-icons a:hover{
-color:#00d9ff;
-transform:scale(1.2);
-}
+.social-icons a:hover{color:#00d9ff;transform:scale(1.2);}
 
 .cursor{
 display:inline-block;
@@ -247,17 +235,17 @@ animation:blink .7s infinite;
 
 <section id="home">
 <div class="container">
+<div class="home-wrapper">
+<img src="profile.jpg" class="profile-pic">
+<div class="home-text">
 <h1><span id="typing"></span><span class="cursor"></span></h1>
 <p>Electrical & Electronics Engineering Student</p>
 </div>
-</section>
-
-<section id="about">
-<div class="container">
-<h2>About</h2>
-<p>Focused on Power Systems & Embedded Technologies.</p>
+</div>
 </div>
 </section>
+
+<section id="about"><div class="container"><h2>About</h2><p>Focused on Power Systems & Embedded Technologies.</p></div></section>
 
 <section id="skills">
 <div class="container">
@@ -265,23 +253,11 @@ animation:blink .7s infinite;
 <div class="skills-wrapper">
 <div class="skill-column">
 <h3>Technical Skills</h3>
-<ul>
-<li>C</li>
-<li>C++</li>
-<li>MATLAB</li>
-<li>Embedded Systems</li>
-<li>Power Systems</li>
-</ul>
+<ul><li>C</li><li>C++</li><li>MATLAB</li><li>Embedded Systems</li><li>Power Systems</li></ul>
 </div>
 <div class="skill-column">
 <h3>Soft Skills</h3>
-<ul>
-<li>Communication Skills</li>
-<li>Teamwork</li>
-<li>Adaptability</li>
-<li>Critical Thinking</li>
-<li>Leadership</li>
-</ul>
+<ul><li>Communication Skills</li><li>Teamwork</li><li>Adaptability</li><li>Critical Thinking</li><li>Leadership</li></ul>
 </div>
 </div>
 </div>
@@ -291,21 +267,9 @@ animation:blink .7s infinite;
 <div class="container">
 <h2>Certifications</h2>
 <div class="grid">
-<div class="card cert-card">
-<img src="nptel.jpg">
-<h3>Digital Electronics</h3>
-<button onclick="openCert('nptel.jpg')">View Certificate</button>
-</div>
-<div class="card cert-card">
-<img src="iot.jpg">
-<h3>Introduction to IoT</h3>
-<button onclick="openCert('iot.jpg')">View Certificate</button>
-</div>
-<div class="card cert-card">
-<img src="matlab.jpg">
-<h3>MATLAB Onramp</h3>
-<button onclick="openCert('matlab.jpg')">View Certificate</button>
-</div>
+<div class="card cert-card"><img src="nptel.jpg"><h3>Digital Electronics</h3><button onclick="openCert('nptel.jpg')">View Certificate</button></div>
+<div class="card cert-card"><img src="iot.jpg"><h3>Introduction to IoT</h3><button onclick="openCert('iot.jpg')">View Certificate</button></div>
+<div class="card cert-card"><img src="matlab.jpg"><h3>MATLAB Onramp</h3><button onclick="openCert('matlab.jpg')">View Certificate</button></div>
 </div>
 </div>
 </section>
@@ -314,21 +278,9 @@ animation:blink .7s infinite;
 <div class="container">
 <h2>Projects</h2>
 <div class="grid">
-<div class="card project-card">
-<img src="solar.jpg">
-<h3>Solar PV Modeling</h3>
-<button onclick="openProject('solar')">View Details</button>
-</div>
-<div class="card project-card">
-<img src="streetlight.jpg">
-<h3>Smart Street Lighting</h3>
-<button onclick="openProject('street')">View Details</button>
-</div>
-<div class="card project-card">
-<img src="robot.jpg">
-<h3>Cable Inspection Robot</h3>
-<button onclick="openProject('robot')">View Details</button>
-</div>
+<div class="card project-card"><img src="solar.jpg"><h3>Solar PV Modeling</h3><button onclick="openProject('solar')">View Details</button></div>
+<div class="card project-card"><img src="streetlight.jpg"><h3>Smart Street Lighting</h3><button onclick="openProject('street')">View Details</button></div>
+<div class="card project-card"><img src="robot.jpg"><h3>Cable Inspection Robot</h3><button onclick="openProject('robot')">View Details</button></div>
 </div>
 </div>
 </section>
@@ -354,8 +306,6 @@ animation:blink .7s infinite;
 </div>
 
 <script>
-
-/* Scroll to top */
 window.scrollTo(0,0);
 
 /* Loader */
@@ -476,15 +426,11 @@ ctx.beginPath();
 ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
 ctx.fill();
 p.y+=p.s;
-if(p.y>canvas.height){
-p.y=0;
-p.x=Math.random()*canvas.width;
-}
+if(p.y>canvas.height){p.y=0;p.x=Math.random()*canvas.width;}
 });
 requestAnimationFrame(animate);
 }
 animate();
-
 </script>
 
 </body>
