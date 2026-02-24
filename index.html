@@ -194,6 +194,23 @@ object-fit:contain !important;
 background:#111;
 }
 
+/* ================= BLUE ACTION BUTTONS ================= */
+.card button{
+margin:15px 0 25px 0;
+padding:10px 20px;
+border:none;
+border-radius:25px;
+background:#00d9ff;
+color:#000;
+font-weight:600;
+cursor:pointer;
+transition:all .3s ease;
+}
+.card button:hover{
+background:#00b8d4;
+transform:scale(1.05);
+}
+
 /* ================= MODAL ================= */
 .modal{
 position:fixed;
@@ -362,14 +379,11 @@ animation:blink .7s infinite;
 /* START AT HOME */
 window.scrollTo(0,0);
 
-/* APPLE NAV SCROLL EFFECT */
-const navbar = document.getElementById("navbar");
+/* NAVBAR SCROLL EFFECT */
+const navbar=document.getElementById("navbar");
 window.addEventListener("scroll",()=>{
-if(window.scrollY>20){
-navbar.classList.add("scrolled");
-}else{
-navbar.classList.remove("scrolled");
-}
+if(window.scrollY>20){navbar.classList.add("scrolled");}
+else{navbar.classList.remove("scrolled");}
 });
 
 /* LOADER */
@@ -396,9 +410,7 @@ type();
 const sections=document.querySelectorAll("section");
 const sectionObserver=new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.classList.add("visible");
-}
+if(entry.isIntersecting){entry.target.classList.add("visible");}
 });
 },{threshold:0.5});
 sections.forEach(sec=>sectionObserver.observe(sec));
@@ -410,7 +422,7 @@ entries.forEach(entry=>{
 const cards=entry.target.querySelectorAll(".card");
 if(entry.isIntersecting){
 cards.forEach((card,index)=>{
-setTimeout(()=>{card.classList.add("animate");}, index * 120);
+setTimeout(()=>{card.classList.add("animate");}, index*120);
 });
 }else{
 cards.forEach(card=>card.classList.remove("animate"));
@@ -420,32 +432,28 @@ cards.forEach(card=>card.classList.remove("animate"));
 grids.forEach(grid=>gridObserver.observe(grid));
 
 /* STABLE ARROW NAVIGATION */
-let currentSectionIndex = 0;
-const sectionList = Array.from(document.querySelectorAll("section"));
-
-window.addEventListener("scroll", () => {
-const scrollPosition = window.scrollY + window.innerHeight / 2;
-sectionList.forEach((section, index) => {
-if(scrollPosition >= section.offsetTop &&
-scrollPosition < section.offsetTop + section.offsetHeight){
-currentSectionIndex = index;
+let currentSectionIndex=0;
+const sectionList=Array.from(document.querySelectorAll("section"));
+window.addEventListener("scroll",()=>{
+const scrollPosition=window.scrollY+window.innerHeight/2;
+sectionList.forEach((section,index)=>{
+if(scrollPosition>=section.offsetTop &&
+scrollPosition<section.offsetTop+section.offsetHeight){
+currentSectionIndex=index;
 }
 });
 });
-
-document.addEventListener("keydown", (e) => {
-if(e.key==="ArrowRight" || e.key==="ArrowDown"){
-if(currentSectionIndex < sectionList.length-1){
+document.addEventListener("keydown",(e)=>{
+if(e.key==="ArrowRight"||e.key==="ArrowDown"){
+if(currentSectionIndex<sectionList.length-1){
 currentSectionIndex++;
 sectionList[currentSectionIndex].scrollIntoView({behavior:"smooth"});
-}
-}
-if(e.key==="ArrowLeft" || e.key==="ArrowUp"){
+}}
+if(e.key==="ArrowLeft"||e.key==="ArrowUp"){
 if(currentSectionIndex>0){
 currentSectionIndex--;
 sectionList[currentSectionIndex].scrollIntoView({behavior:"smooth"});
-}
-}
+}}
 });
 
 /* ACTIVE NAV */
@@ -453,9 +461,7 @@ const navLinks=document.querySelectorAll("nav a");
 window.addEventListener("scroll",()=>{
 let current="";
 sections.forEach(sec=>{
-if(pageYOffset>=sec.offsetTop-200){
-current=sec.id;
-}
+if(pageYOffset>=sec.offsetTop-200){current=sec.id;}
 });
 navLinks.forEach(link=>{
 link.classList.toggle("active",link.getAttribute("href")==="#"+current);
