@@ -10,317 +10,171 @@
 
 <style>
 
-/* ================= GLOBAL ================= */
-
-:root{
---accent:#00d9ff;
---bg1:#0f2027;
---bg2:#203a43;
---bg3:#2c5364;
---bg4:#1e3c72;
---glass:rgba(255,255,255,.05);
---glass-border:rgba(255,255,255,.12);
-}
-
+/* ================= RESET ================= */
 *{margin:0;padding:0;box-sizing:border-box;}
-
-html{
-scroll-behavior:smooth;
-scroll-snap-type:y mandatory;
-}
-
+html{scroll-behavior:smooth;scroll-snap-type:y mandatory;}
 body{
 font-family:'Poppins',sans-serif;
+background:#0f2027;
 color:#fff;
 overflow-x:hidden;
-background:linear-gradient(-45deg,var(--bg1),var(--bg2),var(--bg3),var(--bg4));
-background-size:400% 400%;
-animation:gradientBG 15s ease infinite;
-}
-
-@keyframes gradientBG{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
 }
 
 /* ================= LOADER ================= */
-
 #loader{
-position:fixed;
-inset:0;
+position:fixed;inset:0;
 background:#0f2027;
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:9999;
+display:flex;justify-content:center;align-items:center;
+z-index:5000;
 transition:opacity .6s ease;
 }
-
-.loader-ring{
+.loader-circle{
 width:60px;height:60px;
 border:4px solid rgba(255,255,255,.2);
-border-top:4px solid var(--accent);
+border-top:4px solid #00d9ff;
 border-radius:50%;
 animation:spin 1s linear infinite;
 }
-
 @keyframes spin{100%{transform:rotate(360deg);}}
 
 /* ================= PARTICLES ================= */
-
 canvas{
-position:fixed;
-top:0;left:0;
-z-index:-1;
+position:fixed;top:0;left:0;z-index:-1;
 }
 
-/* ================= NAVBAR ================= */
-
+/* ================= APPLE NAVBAR ================= */
 nav{
-position:fixed;
-top:0;width:100%;height:70px;
-display:flex;justify-content:center;align-items:center;
-gap:40px;
-background:rgba(0,0,0,.25);
-backdrop-filter:blur(12px);
-transition:.4s;
+position:fixed;top:0;width:100%;height:70px;
+display:flex;justify-content:center;align-items:center;gap:40px;
 z-index:1000;
+background:rgba(15,32,39,0.15);
+backdrop-filter:blur(12px) saturate(160%);
+-webkit-backdrop-filter:blur(12px) saturate(160%);
+border-bottom:1px solid rgba(255,255,255,0.05);
+transition:all .4s ease;
 }
-
 nav.scrolled{
-background:rgba(0,0,0,.65);
-backdrop-filter:blur(25px);
-box-shadow:0 10px 35px rgba(0,0,0,.5);
+background:rgba(15,32,39,0.65);
+backdrop-filter:blur(24px) saturate(200%);
+-webkit-backdrop-filter:blur(24px) saturate(200%);
+box-shadow:0 8px 30px rgba(0,0,0,.4);
+border-bottom:1px solid rgba(255,255,255,0.12);
 }
-
 nav a{
-color:#ddd;
-text-decoration:none;
-font-weight:500;
-font-size:17px;
+color:#e0e0e0;text-decoration:none;font-weight:500;font-size:18px;
 transition:.3s;
 }
-
-nav a.active,
-nav a:hover{
-color:var(--accent);
-}
+nav a.active,nav a:hover{color:#00d9ff;}
 
 /* ================= SECTIONS ================= */
-
-.section{
+section{
 height:100vh;
-scroll-snap-align:start;
-display:flex;
-align-items:center;
-justify-content:center;
-opacity:0;
-transition:opacity .8s ease;
-}
-
-.section.visible{opacity:1;}
-
-.inner{
-width:100%;
-max-width:1200px;
-padding:0 25px;
+display:flex;align-items:center;justify-content:center;
 text-align:center;
+scroll-snap-align:start;scroll-snap-stop:always;
+opacity:0;transition:opacity .8s ease;
 }
+section.visible{opacity:1;}
+#home{opacity:1;}
+
+.container{max-width:1200px;width:100%;padding:0 20px;}
 
 /* ================= HOME ================= */
-
-.home-layout{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:60px;
-flex-wrap:wrap;
+.home-wrapper{
+display:flex;align-items:center;justify-content:center;
+gap:60px;flex-wrap:wrap;
 }
-
-.profile{
-width:220px;height:220px;
-border-radius:50%;
-object-fit:cover;
-border:4px solid var(--accent);
-box-shadow:0 0 20px rgba(0,217,255,.4);
+.profile-pic{
+width:220px;height:220px;border-radius:50%;
+object-fit:cover;border:4px solid #00d9ff;
+box-shadow:0 0 15px rgba(0,217,255,.5);
+animation:glow 3s infinite alternate;
 transition:.5s;
 }
-
-.profile:hover{
+.profile-pic:hover{
 transform:scale(1.08);
-box-shadow:0 0 45px rgba(0,217,255,.9);
+box-shadow:0 0 35px rgba(0,217,255,.9);
 }
-
+@keyframes glow{
+from{box-shadow:0 0 15px rgba(0,217,255,.4);}
+to{box-shadow:0 0 25px rgba(0,217,255,.8);}
+}
 .home-text{text-align:left;}
-
 @media(max-width:768px){
-.home-layout{flex-direction:column;text-align:center;}
+.home-wrapper{flex-direction:column;text-align:center;}
 .home-text{text-align:center;}
 }
 
 /* ================= SKILLS ================= */
-
-.skills-flex{
-display:flex;
-margin-top:40px;
+.skills-wrapper{display:flex;margin-top:40px;}
+.skill-column{width:50%;}
+.skill-column:first-child{text-align:left;padding-right:40px;}
+.skill-column:last-child{text-align:right;padding-left:40px;}
+.skill-column ul{list-style:none;margin-top:15px;}
+.skill-column li{margin:10px 0;}
+@media(max-width:768px){
+.skills-wrapper{flex-direction:column;}
+.skill-column{width:100%;text-align:left!important;padding:0;margin-bottom:30px;}
 }
 
-.skills-flex>div{width:50%;}
-.skills-flex>div:first-child{text-align:left;padding-right:35px;}
-.skills-flex>div:last-child{text-align:right;padding-left:35px;}
-
-.skills-flex ul{list-style:none;margin-top:15px;}
-.skills-flex li{margin:8px 0;}
-
-@media(max-width:768px){
-.skills-flex{flex-direction:column;}
-.skills-flex>div{width:100%;text-align:left!important;padding:0;margin-bottom:25px;}
+/* ================= GRID ================= */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:40px;margin-top:50px;
 }
 
 /* ================= CARDS ================= */
-
-.cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:40px;
-margin-top:50px;
-}
-
 .card{
-background:var(--glass);
-border:1px solid var(--glass-border);
-border-radius:20px;
-overflow:hidden;
-opacity:0;
-transform:translateY(30px);
-transition:.6s;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.1);
+border-radius:20px;overflow:hidden;
+opacity:0;transform:translateY(25px);
+transition:all .6s ease;
 }
+.card.animate{opacity:1;transform:translateY(0);}
+.card:hover{transform:translateY(-6px) scale(1.02);}
+.image-wrapper{height:220px;overflow:hidden;}
+.image-wrapper img{width:100%;height:100%;object-fit:cover;transition:.6s;}
+.card:hover .image-wrapper img{transform:scale(1.05);}
+.project-contain img{object-fit:contain!important;background:#111;}
 
-.card.show{
-opacity:1;
-transform:translateY(0);
-}
-
-.card:hover{
-transform:translateY(-6px) scale(1.02);
-}
-
-.card-img{
-height:220px;
-overflow:hidden;
-}
-
-.card-img img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-.card.contain img{
-object-fit:contain!important;
-background:#111;
-}
-
+/* ================= BUTTONS ================= */
 .card button{
 margin:15px 0 25px;
-padding:10px 20px;
-border:none;
-border-radius:25px;
-background:var(--accent);
-color:#000;
-font-weight:600;
-cursor:pointer;
-transition:.3s;
+padding:10px 20px;border:none;border-radius:25px;
+background:#00d9ff;color:#000;font-weight:600;
+cursor:pointer;transition:.3s;
 }
-
-.card button:hover{
-background:#00b8d4;
-transform:scale(1.05);
-}
+.card button:hover{background:#00b8d4;transform:scale(1.05);}
 
 /* ================= MODAL ================= */
-
 .modal{
-position:fixed;
-inset:0;
+position:fixed;inset:0;
 background:rgba(0,0,0,.85);
-display:flex;
-align-items:center;
-justify-content:center;
-opacity:0;
-visibility:hidden;
-transition:.4s;
-z-index:2000;
+display:flex;justify-content:center;align-items:center;
+opacity:0;visibility:hidden;transition:.4s;z-index:3000;
 }
-
-.modal.active{
-opacity:1;
-visibility:visible;
+.modal.active{opacity:1;visibility:visible;}
+.modal-content{
+background:#111;padding:30px;width:90%;max-width:900px;
+border-radius:15px;max-height:85vh;overflow-y:auto;
+transform:scale(.9);transition:.4s;
 }
+.modal.active .modal-content{transform:scale(1);}
+.modal-content img{width:100%;object-fit:contain;}
+.close{float:right;font-size:25px;cursor:pointer;}
 
-.modal-box{
-background:#111;
-padding:30px;
-width:90%;
-max-width:900px;
-border-radius:15px;
-max-height:85vh;
-overflow:auto;
-}
-
-.modal-box img{
-width:100%;
-object-fit:contain;
-}
-
-.close{
-float:right;
-cursor:pointer;
-font-size:24px;
-}
-
-/* ================= CONTACT ================= */
-
-.contact-grid{
-height:100%;
-display:grid;
-grid-template-rows:1fr auto;
-}
-
-.contact-center{
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-}
-
-.social a{
+/* ================= SOCIAL ================= */
+.social-icons{margin-top:20px;}
+.social-icons a{
 color:rgba(255,255,255,.6);
-font-size:28px;
-margin:0 15px;
-transition:.3s;
-text-decoration:none;
+font-size:28px;margin:0 15px;
+transition:.3s;text-decoration:none;
 }
-
-.social a:hover{
-color:var(--accent);
-transform:scale(1.2);
-}
-
-.contact-footer{
-text-align:center;
-padding:18px 0;
-background:transparent;
-opacity:.9;
-}
-
-/* ================= CURSOR ================= */
-
+.social-icons a:hover{color:#00d9ff;transform:scale(1.2);}
 .cursor{
-display:inline-block;
-width:2px;
-background:var(--accent);
+display:inline-block;width:2px;background:#00d9ff;
 animation:blink .7s infinite;
 }
 @keyframes blink{50%{opacity:0;}}
@@ -329,7 +183,7 @@ animation:blink .7s infinite;
 </head>
 <body>
 
-<div id="loader"><div class="loader-ring"></div></div>
+<div id="loader"><div class="loader-circle"></div></div>
 <canvas id="particles"></canvas>
 
 <nav id="navbar">
@@ -341,79 +195,88 @@ animation:blink .7s infinite;
 <a href="#contact">Contact</a>
 </nav>
 
-<!-- HOME -->
-<section id="home" class="section visible">
-<div class="inner home-layout">
-<img src="profile.jpg" class="profile">
+<section id="home">
+<div class="container home-wrapper">
+<img src="profile.jpg" class="profile-pic">
 <div class="home-text">
 <h1><span id="typing"></span><span class="cursor"></span></h1>
-<p>Electrical & Electronics Engineering Student</p>
+<p>3rd Year Electrical & Electronics Engineering at Lovely Professional University</p>
 </div>
 </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about" class="section">
-<div class="inner">
-<h2>About</h2>
-<p>Electrical & Electronics Engineering student specializing in Power Systems and Embedded Technologies.</p>
-</div>
-</section>
+<section id="about"><div class="container"><h2>About</h2><p>Focused on Power Systems & Embedded Technologies.</p></div></section>
 
-<!-- SKILLS -->
-<section id="skills" class="section">
-<div class="inner">
+<section id="skills">
+<div class="container">
 <h2>Skills</h2>
-<div class="skills-flex">
-<div>
+<div class="skills-wrapper">
+<div class="skill-column">
 <h3>Technical Skills</h3>
-<ul>
-<li>C</li><li>C++</li><li>MATLAB</li>
-<li>Embedded Systems</li><li>Power Systems</li>
-</ul>
+<ul><li>C</li><li>C++</li><li>MATLAB</li><li>Embedded Systems</li><li>Power Systems</li></ul>
 </div>
-<div>
+<div class="skill-column">
 <h3>Soft Skills</h3>
-<ul>
-<li>Communication Skills</li><li>Teamwork</li>
-<li>Adaptability</li><li>Critical Thinking</li>
-<li>Leadership</li>
-</ul>
+<ul><li>Communication Skills</li><li>Teamwork</li><li>Adaptability</li><li>Critical Thinking</li><li>Leadership</li></ul>
 </div>
 </div>
 </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact" class="section">
-<div class="inner contact-grid">
-<div class="contact-center">
+<section id="certifications">
+<div class="container">
+<h2>Certifications</h2>
+<div class="grid">
+<div class="card"><div class="image-wrapper"><img src="nptel.jpg"></div><h3>Digital Electronics</h3><button onclick="openCert('nptel.jpg')">View Certificate</button></div>
+<div class="card"><div class="image-wrapper"><img src="iot.jpg"></div><h3>Introduction to IoT</h3><button onclick="openCert('iot.jpg')">View Certificate</button></div>
+<div class="card"><div class="image-wrapper"><img src="matlab.jpg"></div><h3>MATLAB Onramp</h3><button onclick="openCert('matlab.jpg')">View Certificate</button></div>
+</div>
+</div>
+</section>
+
+<section id="projects">
+<div class="container">
+<h2>Projects</h2>
+<div class="grid">
+<div class="card"><div class="image-wrapper"><img src="solar.jpg"></div><h3>Solar PV Modeling</h3><button onclick="openProject('solar')">View Details</button></div>
+<div class="card"><div class="image-wrapper"><img src="streetlight.jpg"></div><h3>Smart Street Lighting</h3><button onclick="openProject('street')">View Details</button></div>
+<div class="card project-contain"><div class="image-wrapper"><img src="robot.jpg"></div><h3>Underground Cable Inspection Robot</h3><button onclick="openProject('robot')">View Details</button></div>
+</div>
+</div>
+</section>
+
+<section id="contact">
+<div class="container">
 <h2>Contact</h2>
 <p>Email: satyabhaskarnandam@gmail.com</p>
 <p>Mobile: +91 7780603821</p>
-<div class="social">
+<div class="social-icons">
 <a href="https://github.com/satyabhaskarnandam" target="_blank"><i class="fab fa-github"></i></a>
 <a href="https://linkedin.com/in/nandam-satya-bhaskar" target="_blank"><i class="fab fa-linkedin"></i></a>
 <a href="https://wa.me/917780603821" target="_blank"><i class="fab fa-whatsapp"></i></a>
 </div>
 </div>
-<div class="contact-footer">
-© SB | PORTFOLIO
-</div>
-</div>
 </section>
+
+<div id="modal" class="modal">
+<div class="modal-content">
+<span class="close" onclick="closeModal()">&times;</span>
+<div id="modalBody"></div>
+</div>
+</div>
 
 <script>
 
-/* LOADER */
-document.addEventListener("DOMContentLoaded",()=>{
-setTimeout(()=>{
-document.getElementById("loader").style.display="none";
-},800);
+/* LOADER + START */
+window.scrollTo(0,0);
+window.addEventListener("load",()=>{
+setTimeout(()=>loader.style.opacity=0,500);
+setTimeout(()=>loader.style.display="none",1000);
+startTyping();
 });
 
 /* TYPING */
-const typing=document.getElementById("typing");
+function startTyping(){
 const text="Nandam Satya Bhaskar";
 let i=0;
 function type(){
@@ -423,65 +286,102 @@ i++;
 setTimeout(type,70);
 }}
 type();
+}
 
 /* NAVBAR FADE */
 const navbar=document.getElementById("navbar");
 window.addEventListener("scroll",()=>{
-navbar.classList.toggle("scrolled",window.scrollY>10);
+if(window.scrollY>10)navbar.classList.add("scrolled");
+else navbar.classList.remove("scrolled");
 });
 
 /* SECTION FADE */
-const sections=document.querySelectorAll(".section");
-const observer=new IntersectionObserver(entries=>{
+const sections=document.querySelectorAll("section");
+const sectionObserver=new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.classList.add("visible");
-}
+if(entry.isIntersecting)entry.target.classList.add("visible");
 });
 },{threshold:0.6});
-sections.forEach(sec=>observer.observe(sec));
+sections.forEach(sec=>sectionObserver.observe(sec));
+
+/* STAGGER CARDS */
+const grids=document.querySelectorAll(".grid");
+const gridObserver=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+const cards=entry.target.querySelectorAll(".card");
+if(entry.isIntersecting){
+cards.forEach((card,index)=>{
+setTimeout(()=>card.classList.add("animate"),index*120);
+});
+}else{
+cards.forEach(card=>card.classList.remove("animate"));
+}
+});
+},{threshold:0.4});
+grids.forEach(grid=>gridObserver.observe(grid));
 
 /* ARROW NAVIGATION */
 let currentIndex=0;
+const sectionList=[...document.querySelectorAll("section")];
 window.addEventListener("scroll",()=>{
-const mid=window.scrollY+window.innerHeight/2;
-sections.forEach((sec,i)=>{
-if(mid>=sec.offsetTop && mid<sec.offsetTop+sec.offsetHeight){
-currentIndex=i;
-}
+const pos=window.scrollY+window.innerHeight/2;
+sectionList.forEach((sec,i)=>{
+if(pos>=sec.offsetTop && pos<sec.offsetTop+sec.offsetHeight)currentIndex=i;
 });
 });
 document.addEventListener("keydown",e=>{
-if(e.key==="ArrowDown"||e.key==="ArrowRight"){
-if(currentIndex<sections.length-1){
-sections[++currentIndex].scrollIntoView({behavior:"smooth"});
+if(e.key==="ArrowRight"||e.key==="ArrowDown"){
+if(currentIndex<sectionList.length-1){
+currentIndex++;
+sectionList[currentIndex].scrollIntoView({behavior:"smooth"});
 }}
-if(e.key==="ArrowUp"||e.key==="ArrowLeft"){
+if(e.key==="ArrowLeft"||e.key==="ArrowUp"){
 if(currentIndex>0){
-sections[--currentIndex].scrollIntoView({behavior:"smooth"});
+currentIndex--;
+sectionList[currentIndex].scrollIntoView({behavior:"smooth"});
 }}
 });
+
+/* ACTIVE NAV */
+const navLinks=document.querySelectorAll("nav a");
+window.addEventListener("scroll",()=>{
+let current="";
+sections.forEach(sec=>{
+if(pageYOffset>=sec.offsetTop-200)current=sec.id;
+});
+navLinks.forEach(link=>{
+link.classList.toggle("active",link.getAttribute("href")==="#"+current);
+});
+});
+
+/* MODAL */
+const modal=document.getElementById("modal");
+const modalBody=document.getElementById("modalBody");
+function openCert(img){
+modalBody.innerHTML=`<img src="${img}">`;
+modal.classList.add("active");
+}
+function openProject(type){
+let content="";
+if(type==="solar")content=`<img src="solar.jpg"><h2>Solar PV Modeling</h2><p>Simulated PV array with MPPT under varying conditions.</p>`;
+if(type==="street")content=`<img src="streetlight.jpg"><h2>Smart Street Lighting</h2><p>Automated brightness using LDR & motion sensors.</p>`;
+if(type==="robot")content=`<img src="robot.jpg"><h2>Cable Inspection Robot</h2><p>Autonomous underground fault detection robot.</p>`;
+modalBody.innerHTML=content;
+modal.classList.add("active");
+}
+function closeModal(){modal.classList.remove("active");}
+window.onclick=e=>{if(e.target==modal)closeModal();}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
 
 /* PARTICLES */
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
-function resize(){
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-}
-resize();
-window.addEventListener("resize",resize);
-
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}
+resize();window.addEventListener("resize",resize);
 let particles=[];
-for(let i=0;i<100;i++){
-particles.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-r:Math.random()*2,
-speed:Math.random()*0.5+0.2
-});
+for(let i=0;i<120;i++){
+particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2,s:Math.random()*0.7+0.2});
 }
-
 function animate(){
 ctx.clearRect(0,0,canvas.width,canvas.height);
 ctx.fillStyle="rgba(255,255,255,.4)";
@@ -489,11 +389,8 @@ particles.forEach(p=>{
 ctx.beginPath();
 ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
 ctx.fill();
-p.y+=p.speed;
-if(p.y>canvas.height){
-p.y=0;
-p.x=Math.random()*canvas.width;
-}
+p.y+=p.s;
+if(p.y>canvas.height){p.y=0;p.x=Math.random()*canvas.width;}
 });
 requestAnimationFrame(animate);
 }
