@@ -30,7 +30,7 @@ display:flex;
 justify-content:center;
 align-items:center;
 z-index:5000;
-transition:opacity .6s ease;
+transition:.6s;
 }
 .loader-circle{
 width:60px;height:60px;
@@ -140,14 +140,8 @@ width:100%;
 margin-top:40px;
 }
 .skill-column{width:50%;}
-.skill-column:first-child{
-text-align:left;
-padding-right:30px;
-}
-.skill-column:last-child{
-text-align:right;
-padding-left:30px;
-}
+.skill-column:first-child{text-align:left;padding-right:30px;}
+.skill-column:last-child{text-align:right;padding-left:30px;}
 .skill-column ul{list-style:none;padding:0;}
 .skill-column li{margin:12px 0;}
 @media(max-width:768px){
@@ -174,7 +168,7 @@ transition:transform .5s ease;
 opacity:0;
 transform:translateY(40px);
 }
-.card.show{
+.card.animate{
 opacity:1;
 transform:translateY(0);
 }
@@ -195,13 +189,10 @@ transition:transform .6s ease;
 .card:hover .image-wrapper img{
 transform:scale(1.05);
 }
-
-/* 3rd project fully visible */
 .project-contain img{
 object-fit:contain !important;
 background:#111;
 }
-
 .card h3{padding:15px;}
 .card button{
 margin-bottom:20px;
@@ -304,12 +295,7 @@ animation:blink .7s infinite;
 </div>
 </section>
 
-<section id="about">
-<div class="container">
-<h2>About</h2>
-<p>Focused on Power Systems & Embedded Technologies.</p>
-</div>
-</section>
+<section id="about"><div class="container"><h2>About</h2><p>Focused on Power Systems & Embedded Technologies.</p></div></section>
 
 <section id="skills">
 <div class="container">
@@ -334,7 +320,47 @@ animation:blink .7s infinite;
 </div>
 </section>
 
-<!-- Certifications, Projects, Contact remain same as previous final version -->
+<section id="certifications">
+<div class="container">
+<h2>Certifications</h2>
+<div class="grid">
+<div class="card"><div class="image-wrapper"><img src="nptel.jpg"></div><h3>Digital Electronics</h3><button onclick="openCert('nptel.jpg')">View Certificate</button></div>
+<div class="card"><div class="image-wrapper"><img src="iot.jpg"></div><h3>Introduction to IoT</h3><button onclick="openCert('iot.jpg')">View Certificate</button></div>
+<div class="card"><div class="image-wrapper"><img src="matlab.jpg"></div><h3>MATLAB Onramp</h3><button onclick="openCert('matlab.jpg')">View Certificate</button></div>
+</div>
+</div>
+</section>
+
+<section id="projects">
+<div class="container">
+<h2>Projects</h2>
+<div class="grid">
+<div class="card"><div class="image-wrapper"><img src="solar.jpg"></div><h3>Solar PV Modeling</h3><button onclick="openProject('solar')">View Details</button></div>
+<div class="card"><div class="image-wrapper"><img src="streetlight.jpg"></div><h3>Smart Street Lighting</h3><button onclick="openProject('street')">View Details</button></div>
+<div class="card project-contain"><div class="image-wrapper"><img src="robot.jpg"></div><h3>Cable Inspection Robot</h3><button onclick="openProject('robot')">View Details</button></div>
+</div>
+</div>
+</section>
+
+<section id="contact">
+<div class="container">
+<h2>Contact</h2>
+<p>Email: satyabhaskarnandam@gmail.com</p>
+<p>Mobile: +91 7780603821</p>
+<div class="social-icons">
+<a href="https://github.com/satyabhaskarnandam" target="_blank"><i class="fab fa-github"></i></a>
+<a href="https://linkedin.com/in/nandam-satya-bhaskar" target="_blank"><i class="fab fa-linkedin"></i></a>
+<a href="https://wa.me/917780603821" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</div>
+</div>
+</section>
+
+<div id="modal" class="modal">
+<div class="modal-content">
+<span class="close" onclick="closeModal()">&times;</span>
+<div id="modalBody"></div>
+</div>
+</div>
 
 <script>
 window.scrollTo(0,0);
@@ -359,19 +385,31 @@ setTimeout(type,70);
 type();
 }
 
-/* Reveal */
+/* Reveal Sections */
 const sections=document.querySelectorAll("section");
-function reveal(){
-sections.forEach(sec=>{
-if(sec.getBoundingClientRect().top<window.innerHeight-100){
-sec.classList.add("visible");
+const sectionObserver=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("visible");
 }
 });
-}
-window.addEventListener("scroll",reveal);
-reveal();
+},{threshold:0.4});
+sections.forEach(sec=>sectionObserver.observe(sec));
 
-/* Arrow Nav */
+/* Card Animation */
+const cards=document.querySelectorAll(".card");
+const cardObserver=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("animate");
+}else{
+entry.target.classList.remove("animate");
+}
+});
+},{threshold:0.4});
+cards.forEach(card=>cardObserver.observe(card));
+
+/* Arrow Navigation */
 document.addEventListener("keydown",function(e){
 let currentIndex=0;
 sections.forEach((sec,index)=>{
