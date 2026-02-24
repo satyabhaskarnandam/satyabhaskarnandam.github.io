@@ -13,9 +13,17 @@ html { scroll-behavior: smooth; }
 body{
 margin:0;
 font-family:'Poppins',sans-serif;
-background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+background:#0f2027;
 color:#fff;
 overflow-x:hidden;
+}
+
+/* White Floating Dots */
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
 }
 
 /* Navbar */
@@ -23,8 +31,8 @@ nav{
 position:fixed;
 top:0;
 width:100%;
-background:rgba(0,0,0,0.7);
-backdrop-filter:blur(15px);
+background:rgba(0,0,0,0.8);
+backdrop-filter:blur(10px);
 padding:18px 0;
 display:flex;
 justify-content:center;
@@ -39,56 +47,52 @@ font-weight:500;
 transition:0.3s;
 }
 
-nav a:hover,
-nav a.active{
-color:#00d9ff;
-}
+nav a:hover{color:#00d9ff;}
 
-/* Sections */
 section{
 min-height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
 padding:120px 20px;
-opacity:0;
-transform:translateY(40px);
-transition:1s ease;
-}
-
-section.show{
-opacity:1;
-transform:translateY(0);
+text-align:center;
 }
 
 .container{
 max-width:1100px;
 width:100%;
-text-align:center;
 }
 
-/* Typing */
-.cursor{
-display:inline-block;
-width:2px;
-background:#00d9ff;
-animation:blink 0.7s infinite;
+/* Skills 50/50 */
+.skills-wrapper{
+display:flex;
+gap:40px;
+margin-top:40px;
 }
 
-@keyframes blink{
-50%{opacity:0;}
+.skill-column{
+width:50%;
+text-align:left;
 }
 
-/* Grid */
+.skill-column ul{
+list-style:none;
+padding:0;
+}
+
+.skill-column li{
+margin:12px 0;
+}
+
+/* Cards */
 .grid{
 display:flex;
 flex-wrap:wrap;
 justify-content:center;
 gap:40px;
-margin-top:50px;
+margin-top:40px;
 }
 
-/* Card Style */
 .card{
 background:rgba(255,255,255,0.05);
 backdrop-filter:blur(15px);
@@ -96,7 +100,7 @@ border:1px solid rgba(255,255,255,0.1);
 border-radius:20px;
 width:320px;
 overflow:hidden;
-transition:0.4s ease;
+transition:0.4s;
 }
 
 .card img{
@@ -118,7 +122,6 @@ background:linear-gradient(90deg,#00d9ff,#00ffb3);
 color:#000;
 font-weight:600;
 cursor:pointer;
-transition:0.3s;
 }
 
 .card:hover{
@@ -153,12 +156,6 @@ max-width:900px;
 border-radius:15px;
 max-height:85vh;
 overflow-y:auto;
-transform:scale(0.8);
-transition:0.4s;
-}
-
-.modal.active .modal-content{
-transform:scale(1);
 }
 
 .modal-content img{
@@ -173,10 +170,29 @@ font-size:25px;
 cursor:pointer;
 }
 
+/* Social */
+.social-icons{
+margin-top:20px;
+}
+
+.social-icons a{
+color:#aaa;
+font-size:28px;
+margin:0 15px;
+transition:0.3s;
+}
+
+.social-icons a:hover{
+color:#00ffb3;
+transform:scale(1.2);
+}
+
 </style>
 </head>
 
 <body>
+
+<canvas id="particles"></canvas>
 
 <nav>
 <a href="#home">Home</a>
@@ -187,9 +203,9 @@ cursor:pointer;
 <a href="#contact">Contact</a>
 </nav>
 
-<section id="home" class="show">
+<section id="home">
 <div class="container">
-<h1><span id="typing"></span><span class="cursor"></span></h1>
+<h1>Nandam Satya Bhaskar</h1>
 <p>Electrical & Electronics Engineering Student</p>
 </div>
 </section>
@@ -204,11 +220,35 @@ cursor:pointer;
 <section id="skills">
 <div class="container">
 <h2>Skills</h2>
-<p>C | C++ | MATLAB | Embedded Systems | Power Systems</p>
+
+<div class="skills-wrapper">
+
+<div class="skill-column">
+<h3>Technical Skills</h3>
+<ul>
+<li>C</li>
+<li>C++</li>
+<li>MATLAB</li>
+<li>Embedded Systems</li>
+<li>Power Systems</li>
+</ul>
+</div>
+
+<div class="skill-column">
+<h3>Soft Skills</h3>
+<ul>
+<li>Communication Skills</li>
+<li>Teamwork</li>
+<li>Adaptability</li>
+<li>Critical Thinking</li>
+<li>Leadership</li>
+</ul>
+</div>
+
+</div>
 </div>
 </section>
 
-<!-- CERTIFICATIONS -->
 <section id="certifications">
 <div class="container">
 <h2>Certifications</h2>
@@ -218,32 +258,25 @@ cursor:pointer;
 <div class="card">
 <img src="solar.jpg">
 <h3>Digital Electronics</h3>
-<button onclick="openCertificate('solar.jpg','Digital Electronics Certification')">
-View Certificate
-</button>
+<button onclick="openCertificate('solar.jpg')">View Certificate</button>
 </div>
 
 <div class="card">
 <img src="streetlight.jpg">
 <h3>Introduction to IoT</h3>
-<button onclick="openCertificate('streetlight.jpg','Introduction to IoT Certification')">
-View Certificate
-</button>
+<button onclick="openCertificate('streetlight.jpg')">View Certificate</button>
 </div>
 
 <div class="card">
 <img src="robot.jpg">
 <h3>MATLAB Onramp</h3>
-<button onclick="openCertificate('robot.jpg','MATLAB Onramp Certification')">
-View Certificate
-</button>
+<button onclick="openCertificate('robot.jpg')">View Certificate</button>
 </div>
 
 </div>
 </div>
 </section>
 
-<!-- PROJECTS -->
 <section id="projects">
 <div class="container">
 <h2>Projects</h2>
@@ -258,13 +291,13 @@ View Certificate
 
 <div class="card">
 <img src="streetlight.jpg">
-<h3>Smart Street Lighting System</h3>
+<h3>Smart Street Lighting</h3>
 <button onclick="openProject('street')">View Details</button>
 </div>
 
 <div class="card">
 <img src="robot.jpg">
-<h3>Autonomous Cable Inspection Robot</h3>
+<h3>Cable Inspection Robot</h3>
 <button onclick="openProject('robot')">View Details</button>
 </div>
 
@@ -276,10 +309,16 @@ View Certificate
 <div class="container">
 <h2>Contact</h2>
 <p>Email: satyabhaskarnandam@gmail.com</p>
+
+<div class="social-icons">
+<a href="#"><i class="fab fa-github"></i></a>
+<a href="#"><i class="fab fa-linkedin"></i></a>
+<a href="#"><i class="fab fa-whatsapp"></i></a>
+</div>
+
 </div>
 </section>
 
-<!-- Modal -->
 <div id="mainModal" class="modal">
 <div class="modal-content">
 <span class="close" onclick="closeModal()">&times;</span>
@@ -289,51 +328,78 @@ View Certificate
 
 <script>
 
-/* Typing */
-const text="Nandam Satya Bhaskar";
-let i=0;
-function type(){
-if(i<text.length){
-document.getElementById("typing").innerHTML+=text.charAt(i);
-i++;
-setTimeout(type,70);
-}}
-type();
+/* Floating Dots */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
 
-/* Scroll Animation */
-const sections=document.querySelectorAll("section");
-window.addEventListener("scroll",()=>{
-sections.forEach(sec=>{
-if(sec.getBoundingClientRect().top<window.innerHeight-100){
-sec.classList.add("show");
+let particles=[];
+for(let i=0;i<120;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2,
+speed:Math.random()*0.7+0.2
+});
+}
+
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="rgba(255,255,255,0.4)";
+particles.forEach(p=>{
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fill();
+p.y+=p.speed;
+if(p.y>canvas.height){
+p.y=0;
+p.x=Math.random()*canvas.width;
 }
 });
+requestAnimationFrame(draw);
+}
+draw();
+
+/* Arrow Navigation */
+const sections=["home","about","skills","certifications","projects","contact"];
+let currentIndex=0;
+
+document.addEventListener("keydown",function(e){
+if(e.key==="ArrowRight"){
+if(currentIndex<sections.length-1){
+currentIndex++;
+location.href="#"+sections[currentIndex];
+}}
+if(e.key==="ArrowLeft"){
+if(currentIndex>0){
+currentIndex--;
+location.href="#"+sections[currentIndex];
+}}
 });
 
-/* Certificate */
-function openCertificate(image,title){
-document.getElementById("modalContent").innerHTML=
-`<h2>${title}</h2><img src="${image}">`;
+/* Modal */
+function openCertificate(img){
+document.getElementById("modalContent").innerHTML=`<img src="${img}">`;
 document.getElementById("mainModal").classList.add("active");
 }
 
-/* Project */
 function openProject(type){
 let content="";
 if(type==="solar"){
 content=`<img src="solar.jpg">
-<h2>Solar PV Modeling with MPPT</h2>
-<p>Designed PV system with MPPT for maximum efficiency.</p>`;
+<h2>Solar PV Modeling</h2>
+<p>Designed and simulated a PV system with MPPT using MATLAB Simulink to maximize power extraction under varying conditions.</p>`;
 }
 if(type==="street"){
 content=`<img src="streetlight.jpg">
 <h2>Smart Street Lighting</h2>
-<p>Automated lighting using LDR and PIR sensors.</p>`;
+<p>Implemented automated lighting using LDR and PIR sensors to improve energy efficiency.</p>`;
 }
 if(type==="robot"){
 content=`<img src="robot.jpg">
 <h2>Cable Inspection Robot</h2>
-<p>Autonomous robot for underground cable fault detection.</p>`;
+<p>Developed an autonomous robot for underground cable fault detection and real-time monitoring.</p>`;
 }
 document.getElementById("modalContent").innerHTML=content;
 document.getElementById("mainModal").classList.add("active");
