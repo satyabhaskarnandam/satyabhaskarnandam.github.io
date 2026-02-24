@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; height:100%; }
 
         body {
             margin: 0;
@@ -21,6 +21,10 @@
             animation: gradientBG 12s ease infinite;
             color: #fff;
             overflow-x: hidden;
+
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
         }
 
         @keyframes gradientBG {
@@ -103,6 +107,10 @@
         }
 
         button:hover { transform: scale(1.05); }
+
+        #contact {
+            margin-top:auto;
+        }
 
         footer {
             text-align: center;
@@ -327,7 +335,6 @@ window.addEventListener("load", function() {
 window.scrollTo(0,0);
 });
 
-/* Typing */
 const text="Nandam Satya Bhaskar";
 let i=0;
 function typeEffect(){
@@ -376,7 +383,6 @@ canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 });
 
-/* Modal Functions */
 function openCert(src){
 document.getElementById("modalBody").innerHTML=`<img src="${src}">`;
 document.getElementById("modal").classList.add("active");
@@ -395,7 +401,7 @@ if(type==="street"){
 content=`<img src="street-detail.jpg">
 <h3>Smart Street Lighting</h3>
 <h4>Working:</h4><p>Brightness adjusts automatically using LDR and motion sensors.</p>
-<h4>Key Components:</h4><p>Arduino UNO, LDR, PIR Sensor.</p>
+<h4>Key Components:</h4><p>LDR, PIR Sensor, Microcontroller.</p>
 <h4>Output:</h4><p>Energy-efficient smart lighting.</p>`;
 }
 if(type==="robot"){
