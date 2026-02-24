@@ -1,21 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>SB | Premium Portfolio</title>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SB | Premium Portfolio</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 
-/* ================= GLOBAL ================= */
-html{
-scroll-behavior:smooth;
-scroll-snap-type:y mandatory;
-}
+/* ================= RESET ================= */
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-snap-type:y mandatory;}
 body{
-margin:0;
 font-family:'Poppins',sans-serif;
 background:#0f2027;
 color:#fff;
@@ -24,12 +22,9 @@ overflow-x:hidden;
 
 /* ================= LOADER ================= */
 #loader{
-position:fixed;
-inset:0;
+position:fixed;inset:0;
 background:#0f2027;
-display:flex;
-justify-content:center;
-align-items:center;
+display:flex;justify-content:center;align-items:center;
 z-index:5000;
 transition:opacity .6s ease;
 }
@@ -44,80 +39,57 @@ animation:spin 1s linear infinite;
 
 /* ================= PARTICLES ================= */
 canvas{
-position:fixed;
-top:0;
-left:0;
-z-index:-1;
+position:fixed;top:0;left:0;z-index:-1;
 }
 
 /* ================= APPLE NAVBAR ================= */
 nav{
-position:fixed;
-top:0;
-width:100%;
-height:70px;
-display:flex;
-justify-content:center;
-align-items:center;
-gap:40px;
+position:fixed;top:0;width:100%;height:70px;
+display:flex;justify-content:center;align-items:center;gap:40px;
 z-index:1000;
-background:rgba(15,32,39,0.25);
-backdrop-filter:blur(20px) saturate(180%);
--webkit-backdrop-filter:blur(20px) saturate(180%);
-border-bottom:1px solid rgba(255,255,255,0.08);
+background:rgba(15,32,39,0.15);
+backdrop-filter:blur(12px) saturate(160%);
+-webkit-backdrop-filter:blur(12px) saturate(160%);
+border-bottom:1px solid rgba(255,255,255,0.05);
 transition:all .4s ease;
 }
 nav.scrolled{
-background:rgba(15,32,39,0.55);
+background:rgba(15,32,39,0.65);
+backdrop-filter:blur(24px) saturate(200%);
+-webkit-backdrop-filter:blur(24px) saturate(200%);
+box-shadow:0 8px 30px rgba(0,0,0,.4);
+border-bottom:1px solid rgba(255,255,255,0.12);
 }
 nav a{
-color:#e0e0e0;
-text-decoration:none;
-font-weight:500;
-font-size:18px;
+color:#e0e0e0;text-decoration:none;font-weight:500;font-size:18px;
 transition:.3s;
 }
-nav a.active,
-nav a:hover{
-color:#00d9ff;
-}
+nav a.active,nav a:hover{color:#00d9ff;}
 
 /* ================= SECTIONS ================= */
 section{
 height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
+display:flex;align-items:center;justify-content:center;
 text-align:center;
-scroll-snap-align:start;
-scroll-snap-stop:always;
-opacity:0;
-transition:opacity .8s ease;
+scroll-snap-align:start;scroll-snap-stop:always;
+opacity:0;transition:opacity .8s ease;
 }
 section.visible{opacity:1;}
 #home{opacity:1;}
-.container{
-width:100%;
-max-width:1200px;
-margin:auto;
-}
+
+.container{max-width:1200px;width:100%;padding:0 20px;}
 
 /* ================= HOME ================= */
 .home-wrapper{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:60px;
-flex-wrap:wrap;
+display:flex;align-items:center;justify-content:center;
+gap:60px;flex-wrap:wrap;
 }
 .profile-pic{
-width:220px;height:220px;
-border-radius:50%;
-object-fit:cover;
-border:4px solid #00d9ff;
+width:220px;height:220px;border-radius:50%;
+object-fit:cover;border:4px solid #00d9ff;
 box-shadow:0 0 15px rgba(0,217,255,.5);
-transition:transform .5s ease, box-shadow .5s ease;
 animation:glow 3s infinite alternate;
+transition:.5s;
 }
 .profile-pic:hover{
 transform:scale(1.08);
@@ -134,16 +106,12 @@ to{box-shadow:0 0 25px rgba(0,217,255,.8);}
 }
 
 /* ================= SKILLS ================= */
-.skills-wrapper{
-display:flex;
-width:100%;
-margin-top:40px;
-}
+.skills-wrapper{display:flex;margin-top:40px;}
 .skill-column{width:50%;}
-.skill-column:first-child{text-align:left;padding-right:30px;}
-.skill-column:last-child{text-align:right;padding-left:30px;}
-.skill-column ul{list-style:none;padding:0;}
-.skill-column li{margin:12px 0;}
+.skill-column:first-child{text-align:left;padding-right:40px;}
+.skill-column:last-child{text-align:right;padding-left:40px;}
+.skill-column ul{list-style:none;margin-top:15px;}
+.skill-column li{margin:10px 0;}
 @media(max-width:768px){
 .skills-wrapper{flex-direction:column;}
 .skill-column{width:100%;text-align:left!important;padding:0;margin-bottom:30px;}
@@ -153,129 +121,66 @@ margin-top:40px;
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:40px;
-margin-top:50px;
-padding:0 40px;
+gap:40px;margin-top:50px;
 }
 
 /* ================= CARDS ================= */
 .card{
 background:rgba(255,255,255,.05);
 border:1px solid rgba(255,255,255,.1);
-border-radius:20px;
-overflow:hidden;
-opacity:0;
-transform:translateY(25px);
+border-radius:20px;overflow:hidden;
+opacity:0;transform:translateY(25px);
 transition:all .6s ease;
 }
-.card.animate{
-opacity:1;
-transform:translateY(0);
-}
-.card:hover{
-transform:translateY(-6px) scale(1.02);
-}
-.image-wrapper{
-width:100%;
-height:220px;
-overflow:hidden;
-}
-.image-wrapper img{
-width:100%;
-height:100%;
-object-fit:cover;
-transition:transform .6s ease;
-}
-.card:hover .image-wrapper img{
-transform:scale(1.05);
-}
-.project-contain img{
-object-fit:contain !important;
-background:#111;
-}
+.card.animate{opacity:1;transform:translateY(0);}
+.card:hover{transform:translateY(-6px) scale(1.02);}
+.image-wrapper{height:220px;overflow:hidden;}
+.image-wrapper img{width:100%;height:100%;object-fit:cover;transition:.6s;}
+.card:hover .image-wrapper img{transform:scale(1.05);}
+.project-contain img{object-fit:contain!important;background:#111;}
 
-/* ================= BLUE ACTION BUTTONS ================= */
+/* ================= BUTTONS ================= */
 .card button{
-margin:15px 0 25px 0;
-padding:10px 20px;
-border:none;
-border-radius:25px;
-background:#00d9ff;
-color:#000;
-font-weight:600;
-cursor:pointer;
-transition:all .3s ease;
+margin:15px 0 25px;
+padding:10px 20px;border:none;border-radius:25px;
+background:#00d9ff;color:#000;font-weight:600;
+cursor:pointer;transition:.3s;
 }
-.card button:hover{
-background:#00b8d4;
-transform:scale(1.05);
-}
+.card button:hover{background:#00b8d4;transform:scale(1.05);}
 
 /* ================= MODAL ================= */
 .modal{
-position:fixed;
-inset:0;
+position:fixed;inset:0;
 background:rgba(0,0,0,.85);
-display:flex;
-justify-content:center;
-align-items:center;
-opacity:0;
-visibility:hidden;
-transition:.4s;
-z-index:3000;
+display:flex;justify-content:center;align-items:center;
+opacity:0;visibility:hidden;transition:.4s;z-index:3000;
 }
-.modal.active{
-opacity:1;
-visibility:visible;
-}
+.modal.active{opacity:1;visibility:visible;}
 .modal-content{
-background:#111;
-padding:30px;
-width:90%;
-max-width:900px;
-border-radius:15px;
-max-height:85vh;
-overflow-y:auto;
-transform:scale(.9);
-transition:.4s;
+background:#111;padding:30px;width:90%;max-width:900px;
+border-radius:15px;max-height:85vh;overflow-y:auto;
+transform:scale(.9);transition:.4s;
 }
 .modal.active .modal-content{transform:scale(1);}
-.modal-content img{
-width:100%;
-height:auto;
-object-fit:contain;
-}
-.close{
-float:right;
-font-size:25px;
-cursor:pointer;
-}
+.modal-content img{width:100%;object-fit:contain;}
+.close{float:right;font-size:25px;cursor:pointer;}
 
 /* ================= SOCIAL ================= */
 .social-icons{margin-top:20px;}
 .social-icons a{
 color:rgba(255,255,255,.6);
-font-size:28px;
-margin:0 15px;
-transition:.3s;
-text-decoration:none;
+font-size:28px;margin:0 15px;
+transition:.3s;text-decoration:none;
 }
-.social-icons a:hover{
-color:#00d9ff;
-transform:scale(1.2);
-}
-
+.social-icons a:hover{color:#00d9ff;transform:scale(1.2);}
 .cursor{
-display:inline-block;
-width:2px;
-background:#00d9ff;
+display:inline-block;width:2px;background:#00d9ff;
 animation:blink .7s infinite;
 }
 @keyframes blink{50%{opacity:0;}}
 
 </style>
 </head>
-
 <body>
 
 <div id="loader"><div class="loader-circle"></div></div>
@@ -291,23 +196,16 @@ animation:blink .7s infinite;
 </nav>
 
 <section id="home">
-<div class="container">
-<div class="home-wrapper">
+<div class="container home-wrapper">
 <img src="profile.jpg" class="profile-pic">
 <div class="home-text">
 <h1><span id="typing"></span><span class="cursor"></span></h1>
 <p>Electrical & Electronics Engineering Student</p>
 </div>
 </div>
-</div>
 </section>
 
-<section id="about">
-<div class="container">
-<h2>About</h2>
-<p>Focused on Power Systems & Embedded Technologies.</p>
-</div>
-</section>
+<section id="about"><div class="container"><h2>About</h2><p>Focused on Power Systems & Embedded Technologies.</p></div></section>
 
 <section id="skills">
 <div class="container">
@@ -315,18 +213,11 @@ animation:blink .7s infinite;
 <div class="skills-wrapper">
 <div class="skill-column">
 <h3>Technical Skills</h3>
-<ul>
-<li>C</li><li>C++</li><li>MATLAB</li>
-<li>Embedded Systems</li><li>Power Systems</li>
-</ul>
+<ul><li>C</li><li>C++</li><li>MATLAB</li><li>Embedded Systems</li><li>Power Systems</li></ul>
 </div>
 <div class="skill-column">
 <h3>Soft Skills</h3>
-<ul>
-<li>Communication Skills</li><li>Teamwork</li>
-<li>Adaptability</li><li>Critical Thinking</li>
-<li>Leadership</li>
-</ul>
+<ul><li>Communication Skills</li><li>Teamwork</li><li>Adaptability</li><li>Critical Thinking</li><li>Leadership</li></ul>
 </div>
 </div>
 </div>
@@ -376,20 +267,11 @@ animation:blink .7s infinite;
 
 <script>
 
-/* START AT HOME */
+/* LOADER + START */
 window.scrollTo(0,0);
-
-/* NAVBAR SCROLL EFFECT */
-const navbar=document.getElementById("navbar");
-window.addEventListener("scroll",()=>{
-if(window.scrollY>20){navbar.classList.add("scrolled");}
-else{navbar.classList.remove("scrolled");}
-});
-
-/* LOADER */
 window.addEventListener("load",()=>{
 setTimeout(()=>loader.style.opacity=0,500);
-setTimeout(()=>loader.style.display="none",900);
+setTimeout(()=>loader.style.display="none",1000);
 startTyping();
 });
 
@@ -406,13 +288,20 @@ setTimeout(type,70);
 type();
 }
 
+/* NAVBAR FADE */
+const navbar=document.getElementById("navbar");
+window.addEventListener("scroll",()=>{
+if(window.scrollY>10)navbar.classList.add("scrolled");
+else navbar.classList.remove("scrolled");
+});
+
 /* SECTION FADE */
 const sections=document.querySelectorAll("section");
 const sectionObserver=new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
-if(entry.isIntersecting){entry.target.classList.add("visible");}
+if(entry.isIntersecting)entry.target.classList.add("visible");
 });
-},{threshold:0.5});
+},{threshold:0.6});
 sections.forEach(sec=>sectionObserver.observe(sec));
 
 /* STAGGER CARDS */
@@ -422,7 +311,7 @@ entries.forEach(entry=>{
 const cards=entry.target.querySelectorAll(".card");
 if(entry.isIntersecting){
 cards.forEach((card,index)=>{
-setTimeout(()=>{card.classList.add("animate");}, index*120);
+setTimeout(()=>card.classList.add("animate"),index*120);
 });
 }else{
 cards.forEach(card=>card.classList.remove("animate"));
@@ -431,28 +320,25 @@ cards.forEach(card=>card.classList.remove("animate"));
 },{threshold:0.4});
 grids.forEach(grid=>gridObserver.observe(grid));
 
-/* STABLE ARROW NAVIGATION */
-let currentSectionIndex=0;
-const sectionList=Array.from(document.querySelectorAll("section"));
+/* ARROW NAVIGATION */
+let currentIndex=0;
+const sectionList=[...document.querySelectorAll("section")];
 window.addEventListener("scroll",()=>{
-const scrollPosition=window.scrollY+window.innerHeight/2;
-sectionList.forEach((section,index)=>{
-if(scrollPosition>=section.offsetTop &&
-scrollPosition<section.offsetTop+section.offsetHeight){
-currentSectionIndex=index;
-}
+const pos=window.scrollY+window.innerHeight/2;
+sectionList.forEach((sec,i)=>{
+if(pos>=sec.offsetTop && pos<sec.offsetTop+sec.offsetHeight)currentIndex=i;
 });
 });
-document.addEventListener("keydown",(e)=>{
+document.addEventListener("keydown",e=>{
 if(e.key==="ArrowRight"||e.key==="ArrowDown"){
-if(currentSectionIndex<sectionList.length-1){
-currentSectionIndex++;
-sectionList[currentSectionIndex].scrollIntoView({behavior:"smooth"});
+if(currentIndex<sectionList.length-1){
+currentIndex++;
+sectionList[currentIndex].scrollIntoView({behavior:"smooth"});
 }}
 if(e.key==="ArrowLeft"||e.key==="ArrowUp"){
-if(currentSectionIndex>0){
-currentSectionIndex--;
-sectionList[currentSectionIndex].scrollIntoView({behavior:"smooth"});
+if(currentIndex>0){
+currentIndex--;
+sectionList[currentIndex].scrollIntoView({behavior:"smooth"});
 }}
 });
 
@@ -461,7 +347,7 @@ const navLinks=document.querySelectorAll("nav a");
 window.addEventListener("scroll",()=>{
 let current="";
 sections.forEach(sec=>{
-if(pageYOffset>=sec.offsetTop-200){current=sec.id;}
+if(pageYOffset>=sec.offsetTop-200)current=sec.id;
 });
 navLinks.forEach(link=>{
 link.classList.toggle("active",link.getAttribute("href")==="#"+current);
@@ -469,15 +355,17 @@ link.classList.toggle("active",link.getAttribute("href")==="#"+current);
 });
 
 /* MODAL */
+const modal=document.getElementById("modal");
+const modalBody=document.getElementById("modalBody");
 function openCert(img){
 modalBody.innerHTML=`<img src="${img}">`;
 modal.classList.add("active");
 }
 function openProject(type){
 let content="";
-if(type==="solar") content=`<img src="solar.jpg"><h2>Solar PV Modeling</h2><p>Simulated PV array with MPPT under varying conditions.</p>`;
-if(type==="street") content=`<img src="streetlight.jpg"><h2>Smart Street Lighting</h2><p>Automated lighting using LDR and motion detection.</p>`;
-if(type==="robot") content=`<img src="robot.jpg"><h2>Cable Inspection Robot</h2><p>Autonomous underground fault detection robot.</p>`;
+if(type==="solar")content=`<img src="solar.jpg"><h2>Solar PV Modeling</h2><p>Simulated PV array with MPPT under varying conditions.</p>`;
+if(type==="street")content=`<img src="streetlight.jpg"><h2>Smart Street Lighting</h2><p>Automated brightness using LDR & motion sensors.</p>`;
+if(type==="robot")content=`<img src="robot.jpg"><h2>Cable Inspection Robot</h2><p>Autonomous underground fault detection robot.</p>`;
 modalBody.innerHTML=content;
 modal.classList.add("active");
 }
@@ -489,8 +377,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
 function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}
-resize();
-window.addEventListener("resize",resize);
+resize();window.addEventListener("resize",resize);
 let particles=[];
 for(let i=0;i<120;i++){
 particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2,s:Math.random()*0.7+0.2});
@@ -503,10 +390,7 @@ ctx.beginPath();
 ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
 ctx.fill();
 p.y+=p.s;
-if(p.y>canvas.height){
-p.y=0;
-p.x=Math.random()*canvas.width;
-}
+if(p.y>canvas.height){p.y=0;p.x=Math.random()*canvas.width;}
 });
 requestAnimationFrame(animate);
 }
