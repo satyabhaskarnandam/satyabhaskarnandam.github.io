@@ -1,293 +1,239 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>SB Portfolio</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SB | Electrical Engineer Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+html { scroll-behavior: smooth; }
 
-    <style>
-        html { scroll-behavior: smooth; }
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:#0f2027;
+color:#fff;
+overflow-x:hidden;
+}
 
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1e3c72);
-            background-size: 400% 400%;
-            animation: gradientBG 12s ease infinite;
-            color: #fff;
-            overflow-x: hidden;
-        }
+/* Scroll Progress Bar */
+#progressBar{
+position:fixed;
+top:0;
+left:0;
+height:4px;
+background:linear-gradient(90deg,#00d9ff,#00ffb3);
+width:0%;
+z-index:3000;
+}
 
-        @keyframes gradientBG {
-            0% {background-position: 0% 50%;}
-            50% {background-position: 100% 50%;}
-            100% {background-position: 0% 50%;}
-        }
+/* Navbar */
+nav{
+position:fixed;
+top:0;
+width:100%;
+background:rgba(0,0,0,0.7);
+backdrop-filter:blur(15px);
+padding:18px 0;
+display:flex;
+justify-content:center;
+gap:40px;
+z-index:1000;
+}
 
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(10px);
-            padding: 18px 0;
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            z-index: 1000;
-        }
+nav a{
+color:#aaa;
+text-decoration:none;
+font-weight:500;
+transition:0.3s;
+}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: 0.3s;
-        }
+nav a.active,
+nav a:hover{
+color:#00d9ff;
+}
 
-        nav a:hover { color: #00d9ff; }
+/* Sections */
+section{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:100px 20px;
+opacity:0;
+transform:translateY(40px);
+transition:1s ease;
+}
 
-        header {
-            padding-top: 120px;
-            text-align: center;
-        }
+section.show{
+opacity:1;
+transform:translateY(0);
+}
 
-        section {
-            padding: 100px 20px;
-            scroll-margin-top: 100px;
-        }
+.container{
+max-width:1100px;
+width:100%;
+text-align:center;
+}
 
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            text-align: center;
-        }
+/* Premium Glass Card */
+.card{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,0.1);
+border-radius:20px;
+padding:25px;
+width:300px;
+transition:0.4s ease;
+}
 
-        .cards {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-        }
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 25px rgba(0,217,255,0.4);
+}
 
-        .card {
-            background: rgba(0,0,0,0.6);
-            width: 300px;
-            border-radius: 15px;
-            overflow: hidden;
-            transition: 0.3s ease;
-        }
+/* Skills Bars */
+.skill{
+margin:20px 0;
+text-align:left;
+}
 
-        .card:hover { transform: translateY(-8px); }
+.bar{
+height:8px;
+background:rgba(255,255,255,0.1);
+border-radius:20px;
+overflow:hidden;
+}
 
-        .card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
+.fill{
+height:100%;
+background:linear-gradient(90deg,#00d9ff,#00ffb3);
+width:0;
+transition:1.5s ease;
+}
 
-        .card-content { padding: 20px; }
+/* Buttons */
+button{
+padding:10px 18px;
+border:none;
+border-radius:25px;
+background:linear-gradient(90deg,#00d9ff,#00ffb3);
+color:#000;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+}
 
-        button {
-            margin-top: 10px;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 6px;
-            background: #00d9ff;
-            font-weight: 600;
-            cursor: pointer;
-        }
+button:hover{
+transform:scale(1.08);
+box-shadow:0 0 20px rgba(0,255,179,0.6);
+}
 
-        button:hover { transform: scale(1.05); }
+/* Social */
+.social-icons a{
+color:#aaa;
+font-size:26px;
+margin:0 12px;
+transition:0.3s;
+}
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: rgba(0,0,0,0.8);
-        }
+.social-icons a:hover{
+color:#00ffb3;
+transform:scale(1.2);
+}
 
-        .social-icons {
-            margin-top: 15px;
-            text-align: center;
-        }
+/* Typing Cursor */
+.cursor{
+display:inline-block;
+width:2px;
+background:#00d9ff;
+animation:blink 0.7s infinite;
+}
 
-        .social-icons a {
-            color: rgba(255,255,255,0.6);
-            font-size: 28px;
-            margin: 0 15px;
-            transition: 0.3s ease;
-        }
+@keyframes blink{
+50%{opacity:0;}
+}
 
-        .social-icons a:hover {
-            color: #ffffff;
-            transform: scale(1.2);
-            text-shadow: 0 0 10px #00d9ff;
-        }
-
-        canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-
-        .cursor {
-            display: inline-block;
-            width: 2px;
-            background: #00d9ff;
-            animation: blink 0.7s infinite;
-        }
-
-        @keyframes blink {
-            0% { opacity: 1; }
-            50% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        .modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.85);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: 0.4s;
-            z-index: 2000;
-        }
-
-        .modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-content {
-            background: #111;
-            padding: 30px;
-            width: 90%;
-            max-width: 800px;
-            border-radius: 15px;
-            transform: scale(0.8);
-            transition: 0.4s;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .modal.active .modal-content {
-            transform: scale(1);
-        }
-
-        .modal-content img {
-            width: 100%;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        .close {
-            float: right;
-            font-size: 25px;
-            cursor: pointer;
-        }
-
-        h4 { color: #00d9ff; margin-top:20px; }
-    </style>
+</style>
 </head>
 
 <body>
 
-<canvas id="particles"></canvas>
+<div id="progressBar"></div>
 
 <nav>
-    <a href="#home"><i class="fa-solid fa-house"></i></a>
-    <a href="#about">About</a>
-    <a href="#skills">Skills</a>
-    <a href="#certifications">Certifications</a>
-    <a href="#projects">Projects</a>
-    <a href="#contact">Contact</a>
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#skills">Skills</a>
+<a href="#projects">Projects</a>
+<a href="#contact">Contact</a>
 </nav>
 
-<header id="home">
-    <h1><span id="typing"></span><span class="cursor"></span></h1>
-    <p>Electrical & Electronics Engineering Student</p>
-</header>
+<section id="home" class="show">
+<div class="container">
+<h1><span id="typing"></span><span class="cursor"></span></h1>
+<p>Electrical & Electronics Engineer</p>
+</div>
+</section>
 
 <section id="about">
 <div class="container">
 <h2>About Me</h2>
-<p>Electrical and Electronics Engineering student specializing in power systems and embedded technologies.</p>
+<p>Focused on Power Systems, Embedded Systems & Intelligent Automation.</p>
 </div>
 </section>
 
 <section id="skills">
 <div class="container">
-<h2>Skills</h2>
-<p>C | C++ | MATLAB | Embedded Systems | Power Systems</p>
-</div>
-</section>
+<h2>Technical Skills</h2>
 
-<section id="certifications">
-<div class="container">
-<h2>Certifications</h2>
-<div class="cards">
-<div class="card">
-<img src="nptel.jpg">
-<div class="card-content">
-<h3>Digital Electronics</h3>
-<button onclick="openCert('nptel.jpg')">View Certificate</button>
-</div>
+<div class="skill">
+C / C++
+<div class="bar"><div class="fill" style="width:85%"></div></div>
 </div>
 
-<div class="card">
-<img src="iot.jpg">
-<div class="card-content">
-<h3>Introduction to IoT</h3>
-<button onclick="openCert('iot.jpg')">View Certificate</button>
-</div>
+<div class="skill">
+MATLAB / Simulink
+<div class="bar"><div class="fill" style="width:80%"></div></div>
 </div>
 
-<div class="card">
-<img src="matlab.jpg">
-<div class="card-content">
-<h3>MATLAB Onramp</h3>
-<button onclick="openCert('matlab.jpg')">View Certificate</button>
+<div class="skill">
+Embedded Systems
+<div class="bar"><div class="fill" style="width:75%"></div></div>
 </div>
+
+<div class="skill">
+Power Systems
+<div class="bar"><div class="fill" style="width:88%"></div></div>
 </div>
-</div>
+
 </div>
 </section>
 
 <section id="projects">
 <div class="container">
 <h2>Projects</h2>
-<div class="cards">
+
+<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:30px;margin-top:40px;">
 
 <div class="card">
-<img src="solar.jpg">
-<div class="card-content">
-<h3>Solar PV Modeling</h3>
-<button onclick="openProject('solar')">View Details</button>
-</div>
+<h3>Solar PV with MPPT</h3>
+<p>Simulated dynamic PV model with adaptive MPPT for optimal power extraction.</p>
+<button>View Details</button>
 </div>
 
 <div class="card">
-<img src="streetlight.jpg">
-<div class="card-content">
 <h3>Smart Street Lighting</h3>
-<button onclick="openProject('street')">View Details</button>
-</div>
+<p>IoT-enabled energy saving system with motion sensing and auto brightness.</p>
+<button>View Details</button>
 </div>
 
 <div class="card">
-<img src="robot.jpg">
-<div class="card-content">
 <h3>Cable Inspection Robot</h3>
-<button onclick="openProject('robot')">View Details</button>
-</div>
+<p>Autonomous underground robot for real-time cable fault detection.</p>
+<button>View Details</button>
 </div>
 
 </div>
@@ -296,127 +242,60 @@
 
 <section id="contact">
 <div class="container">
-<h2>Contact Me</h2>
+<h2>Contact</h2>
 <p>Email: satyabhaskarnandam@gmail.com</p>
-<p>Mobile: +91 7780603821</p>
 
 <div class="social-icons">
-<a href="https://github.com/satyabhaskarnandam" target="_blank"><i class="fab fa-github"></i></a>
-<a href="https://linkedin.com/in/nandam-satya-bhaskar" target="_blank"><i class="fab fa-linkedin"></i></a>
-<a href="https://wa.me/917780603821" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<a href="#"><i class="fab fa-github"></i></a>
+<a href="#"><i class="fab fa-linkedin"></i></a>
+<a href="#"><i class="fab fa-whatsapp"></i></a>
 </div>
+
 </div>
 </section>
 
-<footer>
-© 2026 SB Portfolio
-</footer>
-
-<div id="modal" class="modal">
-<div class="modal-content">
-<span class="close" onclick="closeModal()">&times;</span>
-<div id="modalBody"></div>
-</div>
-</div>
-
 <script>
-if ('scrollRestoration' in history) {
-history.scrollRestoration = 'manual';
-}
-window.addEventListener("load", function() {
-window.scrollTo(0,0);
-});
 
-/* Typing */
+/* Typing Effect */
 const text="Nandam Satya Bhaskar";
 let i=0;
-function typeEffect(){
+function type(){
 if(i<text.length){
 document.getElementById("typing").innerHTML+=text.charAt(i);
 i++;
-setTimeout(typeEffect,80);
+setTimeout(type,70);
 }}
-typeEffect();
+type();
 
-/* White Floating Dots */
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let particles=[];
-for(let i=0;i<120;i++){
-particles.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-r:Math.random()*2,
-speed:Math.random()*0.7+0.2
-});
-}
-
-function drawParticles(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-ctx.fillStyle="rgba(255,255,255,0.4)";
-particles.forEach(p=>{
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-ctx.fill();
-p.y+=p.speed;
-if(p.y>canvas.height){
-p.y=0;
-p.x=Math.random()*canvas.width;
+/* Scroll Animation */
+const sections=document.querySelectorAll("section");
+window.addEventListener("scroll",()=>{
+sections.forEach(sec=>{
+const rect=sec.getBoundingClientRect();
+if(rect.top<window.innerHeight-100){
+sec.classList.add("show");
 }
 });
-requestAnimationFrame(drawParticles);
-}
-drawParticles();
 
-window.addEventListener("resize",function(){
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
+/* Navbar Active */
+document.querySelectorAll("nav a").forEach(link=>{
+const section=document.querySelector(link.getAttribute("href"));
+if(section.getBoundingClientRect().top<=100 &&
+section.getBoundingClientRect().bottom>=100){
+link.classList.add("active");
+}else{
+link.classList.remove("active");
+}
 });
 
-/* Modal Functions */
-function openCert(src){
-document.getElementById("modalBody").innerHTML=`<img src="${src}">`;
-document.getElementById("modal").classList.add("active");
-}
+/* Progress Bar */
+let winScroll=document.body.scrollTop || document.documentElement.scrollTop;
+let height=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+let scrolled=(winScroll/height)*100;
+document.getElementById("progressBar").style.width=scrolled+"%";
 
-function openProject(type){
-let content="";
-if(type==="solar"){
-content=`<img src="solar-detail.jpg">
-<h3>Solar PV Modeling</h3>
-<h4>Working:</h4><p>Simulated PV array with MPPT algorithm under varying irradiation and temperature conditions.</p>
-<h4>Key Components:</h4><p>PV Array, MPPT Controller, DC-DC Converter, MATLAB Simulink.</p>
-<h4>Output:</h4><p>Maximum power extraction with performance curves.</p>`;
-}
-if(type==="street"){
-content=`<img src="street-detail.jpg">
-<h3>Smart Street Lighting</h3>
-<h4>Working:</h4><p>Brightness adjusts automatically using LDR and motion sensors.</p>
-<h4>Key Components:</h4><p>LDR, PIR Sensor, Microcontroller.</p>
-<h4>Output:</h4><p>Energy-efficient smart lighting.</p>`;
-}
-if(type==="robot"){
-content=`<img src="robot-detail.jpg">
-<h3>Cable Inspection Robot</h3>
-<h4>Working:</h4><p>Robot navigates underground cables and detects faults.</p>
-<h4>Key Components:</h4><p>Motor Driver, Sensors, Microcontroller.</p>
-<h4>Output:</h4><p>Real-time cable monitoring.</p>`;
-}
-document.getElementById("modalBody").innerHTML=content;
-document.getElementById("modal").classList.add("active");
-}
+});
 
-function closeModal(){
-document.getElementById("modal").classList.remove("active");
-}
-
-window.onclick=function(e){
-if(e.target==document.getElementById("modal")){
-closeModal();
-}};
 </script>
 
 </body>
