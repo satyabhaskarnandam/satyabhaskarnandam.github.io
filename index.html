@@ -89,7 +89,6 @@ transform:translateY(0);
 opacity:1;
 transform:none;
 }
-
 .container{
 width:100%;
 max-width:1200px;
@@ -131,12 +130,7 @@ margin-top:40px;
 .skill-column li{margin:12px 0;}
 @media(max-width:768px){
 .skills-wrapper{flex-direction:column;}
-.skill-column{
-width:100%;
-text-align:left!important;
-padding:0;
-margin-bottom:30px;
-}
+.skill-column{width:100%;text-align:left!important;padding:0;margin-bottom:30px;}
 }
 
 /* ================= GRID ================= */
@@ -162,8 +156,6 @@ transform:translateY(60px);
 opacity:1;
 transform:translateY(0);
 }
-
-/* IMAGE WRAPPER */
 .image-wrapper{
 width:100%;
 height:220px;
@@ -172,7 +164,13 @@ overflow:hidden;
 .image-wrapper img{
 width:100%;
 height:100%;
-object-fit:cover;   /* PERFECT FIT */
+object-fit:cover;
+}
+
+/* Only 3rd project fully visible */
+.project-contain img{
+object-fit:contain !important;
+background:#111;
 }
 
 .card:hover{
@@ -321,13 +319,11 @@ animation:blink .7s infinite;
 <h3>Digital Electronics</h3>
 <button onclick="openCert('nptel.jpg')">View Certificate</button>
 </div>
-
 <div class="card cert-card">
 <div class="image-wrapper"><img src="iot.jpg"></div>
 <h3>Introduction to IoT</h3>
 <button onclick="openCert('iot.jpg')">View Certificate</button>
 </div>
-
 <div class="card cert-card">
 <div class="image-wrapper"><img src="matlab.jpg"></div>
 <h3>MATLAB Onramp</h3>
@@ -341,6 +337,7 @@ animation:blink .7s infinite;
 <div class="container">
 <h2>Projects</h2>
 <div class="grid">
+
 <div class="card project-card">
 <div class="image-wrapper"><img src="solar.jpg"></div>
 <h3>Solar PV Modeling</h3>
@@ -353,11 +350,12 @@ animation:blink .7s infinite;
 <button onclick="openProject('street')">View Details</button>
 </div>
 
-<div class="card project-card">
+<div class="card project-card project-contain">
 <div class="image-wrapper"><img src="robot.jpg"></div>
 <h3>Cable Inspection Robot</h3>
 <button onclick="openProject('robot')">View Details</button>
 </div>
+
 </div>
 </div>
 </section>
@@ -375,7 +373,16 @@ animation:blink .7s infinite;
 </div>
 </section>
 
+<div id="modal" class="modal">
+<div class="modal-content">
+<span class="close" onclick="closeModal()">&times;</span>
+<div id="modalBody"></div>
+</div>
+</div>
+
 <script>
+
+/* Scroll reset */
 window.scrollTo(0,0);
 
 /* Loader */
@@ -409,6 +416,102 @@ sec.classList.add("visible");
 }
 window.addEventListener("scroll",reveal);
 reveal();
+
+/* Card Animation */
+function animateCards(sectionId,cardClass){
+const section=document.getElementById(sectionId);
+const rect=section.getBoundingClientRect();
+const cards=document.querySelectorAll(cardClass);
+if(rect.top < window.innerHeight*0.85 && rect.bottom > 100){
+cards.forEach((card,i)=>{
+setTimeout(()=>card.classList.add("show"),i*150);
+});
+}else{
+cards.forEach(card=>card.classList.remove("show"));
+}
+}
+window.addEventListener("scroll",()=>{
+animateCards("certifications",".cert-card");
+animateCards("projects",".project-card");
+});
+animateCards("certifications",".cert-card");
+animateCards("projects",".project-card");
+
+/* Arrow Nav */
+document.addEventListener("keydown",function(e){
+let currentIndex=0;
+sections.forEach((sec,index)=>{
+const rect=sec.getBoundingClientRect();
+if(rect.top<=150 && rect.bottom>=150){
+currentIndex=index;
+}
+});
+if(e.key==="ArrowRight" && currentIndex<sections.length-1){
+sections[currentIndex+1].scrollIntoView({behavior:"smooth"});
+}
+if(e.key==="ArrowLeft" && currentIndex>0){
+sections[currentIndex-1].scrollIntoView({behavior:"smooth"});
+}
+});
+
+/* Active Nav */
+const navLinks=document.querySelectorAll("nav a");
+window.addEventListener("scroll",()=>{
+let current="";
+sections.forEach(sec=>{
+if(pageYOffset>=sec.offsetTop-200){
+current=sec.id;
+}
+});
+navLinks.forEach(link=>{
+link.classList.toggle("active",link.getAttribute("href")==="#"+current);
+});
+});
+
+/* Modal */
+function openCert(img){
+modalBody.innerHTML=`<img src="${img}">`;
+modal.classList.add("active");
+}
+function openProject(type){
+let content="";
+if(type==="solar") content=`<img src="solar.jpg"><h2>Solar PV Modeling</h2><p>Simulated PV array with MPPT under varying conditions.</p>`;
+if(type==="street") content=`<img src="streetlight.jpg"><h2>Smart Street Lighting</h2><p>Automated lighting using LDR and motion detection.</p>`;
+if(type==="robot") content=`<img src="robot.jpg"><h2>Cable Inspection Robot</h2><p>Autonomous underground fault detection robot.</p>`;
+modalBody.innerHTML=content;
+modal.classList.add("active");
+}
+function closeModal(){modal.classList.remove("active");}
+window.onclick=e=>{if(e.target==modal)closeModal();}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
+
+/* Particles */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}
+resize();
+window.addEventListener("resize",resize);
+let particles=[];
+for(let i=0;i<120;i++){
+particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2,s:Math.random()*0.7+0.2});
+}
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="rgba(255,255,255,.4)";
+particles.forEach(p=>{
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fill();
+p.y+=p.s;
+if(p.y>canvas.height){
+p.y=0;
+p.x=Math.random()*canvas.width;
+}
+});
+requestAnimationFrame(animate);
+}
+animate();
+
 </script>
 
 </body>
