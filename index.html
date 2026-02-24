@@ -79,8 +79,8 @@ animation:blink 0.7s infinite;
 50%{opacity:0;}
 }
 
-/* Projects */
-.project-grid{
+/* Grid */
+.grid{
 display:flex;
 flex-wrap:wrap;
 justify-content:center;
@@ -88,7 +88,8 @@ gap:40px;
 margin-top:50px;
 }
 
-.project-card{
+/* Card Style */
+.card{
 background:rgba(255,255,255,0.05);
 backdrop-filter:blur(15px);
 border:1px solid rgba(255,255,255,0.1);
@@ -98,17 +99,17 @@ overflow:hidden;
 transition:0.4s ease;
 }
 
-.project-card img{
+.card img{
 width:100%;
 height:200px;
 object-fit:cover;
 }
 
-.project-card h3{
+.card h3{
 padding:15px;
 }
 
-.project-card button{
+.card button{
 margin-bottom:20px;
 padding:10px 18px;
 border:none;
@@ -120,7 +121,7 @@ cursor:pointer;
 transition:0.3s;
 }
 
-.project-card:hover{
+.card:hover{
 transform:translateY(-10px);
 box-shadow:0 0 25px rgba(0,217,255,0.4);
 }
@@ -148,9 +149,9 @@ visibility:visible;
 background:#111;
 padding:30px;
 width:90%;
-max-width:800px;
+max-width:900px;
 border-radius:15px;
-max-height:80vh;
+max-height:85vh;
 overflow-y:auto;
 transform:scale(0.8);
 transition:0.4s;
@@ -180,6 +181,8 @@ cursor:pointer;
 <nav>
 <a href="#home">Home</a>
 <a href="#about">About</a>
+<a href="#skills">Skills</a>
+<a href="#certifications">Certifications</a>
 <a href="#projects">Projects</a>
 <a href="#contact">Contact</a>
 </nav>
@@ -198,26 +201,69 @@ cursor:pointer;
 </div>
 </section>
 
+<section id="skills">
+<div class="container">
+<h2>Skills</h2>
+<p>C | C++ | MATLAB | Embedded Systems | Power Systems</p>
+</div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+<div class="container">
+<h2>Certifications</h2>
+
+<div class="grid">
+
+<div class="card">
+<img src="solar.jpg">
+<h3>Digital Electronics</h3>
+<button onclick="openCertificate('solar.jpg','Digital Electronics Certification')">
+View Certificate
+</button>
+</div>
+
+<div class="card">
+<img src="streetlight.jpg">
+<h3>Introduction to IoT</h3>
+<button onclick="openCertificate('streetlight.jpg','Introduction to IoT Certification')">
+View Certificate
+</button>
+</div>
+
+<div class="card">
+<img src="robot.jpg">
+<h3>MATLAB Onramp</h3>
+<button onclick="openCertificate('robot.jpg','MATLAB Onramp Certification')">
+View Certificate
+</button>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- PROJECTS -->
 <section id="projects">
 <div class="container">
 <h2>Projects</h2>
 
-<div class="project-grid">
+<div class="grid">
 
-<div class="project-card">
-<img src="solar.jpg" alt="Solar PV">
+<div class="card">
+<img src="solar.jpg">
 <h3>Solar PV Modeling with MPPT</h3>
 <button onclick="openProject('solar')">View Details</button>
 </div>
 
-<div class="project-card">
-<img src="streetlight.jpg" alt="Street Lighting">
+<div class="card">
+<img src="streetlight.jpg">
 <h3>Smart Street Lighting System</h3>
 <button onclick="openProject('street')">View Details</button>
 </div>
 
-<div class="project-card">
-<img src="robot.jpg" alt="Cable Robot">
+<div class="card">
+<img src="robot.jpg">
 <h3>Autonomous Cable Inspection Robot</h3>
 <button onclick="openProject('robot')">View Details</button>
 </div>
@@ -234,7 +280,7 @@ cursor:pointer;
 </section>
 
 <!-- Modal -->
-<div id="projectModal" class="modal">
+<div id="mainModal" class="modal">
 <div class="modal-content">
 <span class="close" onclick="closeModal()">&times;</span>
 <div id="modalContent"></div>
@@ -243,7 +289,7 @@ cursor:pointer;
 
 <script>
 
-/* Typing Effect */
+/* Typing */
 const text="Nandam Satya Bhaskar";
 let i=0;
 function type(){
@@ -258,60 +304,47 @@ type();
 const sections=document.querySelectorAll("section");
 window.addEventListener("scroll",()=>{
 sections.forEach(sec=>{
-const rect=sec.getBoundingClientRect();
-if(rect.top<window.innerHeight-100){
+if(sec.getBoundingClientRect().top<window.innerHeight-100){
 sec.classList.add("show");
 }
 });
 });
 
-/* Project Modal */
+/* Certificate */
+function openCertificate(image,title){
+document.getElementById("modalContent").innerHTML=
+`<h2>${title}</h2><img src="${image}">`;
+document.getElementById("mainModal").classList.add("active");
+}
+
+/* Project */
 function openProject(type){
 let content="";
-
 if(type==="solar"){
-content=`
-<img src="solar.jpg">
+content=`<img src="solar.jpg">
 <h2>Solar PV Modeling with MPPT</h2>
-<p><strong>Objective:</strong> To design a photovoltaic system capable of extracting maximum power under varying environmental conditions.</p>
-<p><strong>Working:</strong> A PV array feeds a DC-DC boost converter controlled by a Perturb & Observe MPPT algorithm to maintain maximum power point.</p>
-<p><strong>Tools Used:</strong> MATLAB Simulink, PV Module Modeling.</p>
-<p><strong>Outcome:</strong> Increased efficiency and stable output under changing irradiation.</p>
-`;
+<p>Designed PV system with MPPT for maximum efficiency.</p>`;
 }
-
 if(type==="street"){
-content=`
-<img src="streetlight.jpg">
-<h2>Smart Street Lighting System</h2>
-<p><strong>Objective:</strong> To reduce energy consumption through automation.</p>
-<p><strong>Working:</strong> LDR detects daylight while PIR sensor detects motion. Brightness increases when motion is detected and dims otherwise.</p>
-<p><strong>Components:</strong> LDR, PIR Sensor, Microcontroller.</p>
-<p><strong>Outcome:</strong> Energy-efficient and automated lighting system.</p>
-`;
+content=`<img src="streetlight.jpg">
+<h2>Smart Street Lighting</h2>
+<p>Automated lighting using LDR and PIR sensors.</p>`;
 }
-
 if(type==="robot"){
-content=`
-<img src="robot.jpg">
-<h2>Autonomous Underground Cable Inspection Robot</h2>
-<p><strong>Objective:</strong> To detect underground cable faults in real-time without manual inspection.</p>
-<p><strong>Working:</strong> The robot navigates through cable ducts using motor drivers and sensors to detect temperature or insulation faults.</p>
-<p><strong>Components:</strong> Microcontroller, Motor Driver, Sensors, Wireless Module.</p>
-<p><strong>Outcome:</strong> Faster maintenance and improved reliability.</p>
-`;
+content=`<img src="robot.jpg">
+<h2>Cable Inspection Robot</h2>
+<p>Autonomous robot for underground cable fault detection.</p>`;
 }
-
 document.getElementById("modalContent").innerHTML=content;
-document.getElementById("projectModal").classList.add("active");
+document.getElementById("mainModal").classList.add("active");
 }
 
 function closeModal(){
-document.getElementById("projectModal").classList.remove("active");
+document.getElementById("mainModal").classList.remove("active");
 }
 
 window.onclick=function(e){
-if(e.target==document.getElementById("projectModal")){
+if(e.target==document.getElementById("mainModal")){
 closeModal();
 }
 };
