@@ -93,7 +93,7 @@ max-width:1100px;
 margin:auto;
 }
 
-/* Skills 50/50 */
+/* Skills */
 .skills-wrapper{
 display:flex;
 gap:40px;
@@ -185,7 +185,7 @@ font-size:25px;
 cursor:pointer;
 }
 
-/* Premium Transparent Social Icons */
+/* Social Icons */
 .social-icons{
 margin-top:20px;
 }
@@ -293,13 +293,11 @@ animation:blink 0.7s infinite;
 <div class="container">
 <h2>Contact</h2>
 <p>Email: satyabhaskarnandam@gmail.com</p>
-
 <div class="social-icons">
 <a href="#"><i class="fab fa-github"></i></a>
 <a href="#"><i class="fab fa-linkedin"></i></a>
 <a href="#"><i class="fab fa-whatsapp"></i></a>
 </div>
-
 </div>
 </section>
 
@@ -312,12 +310,22 @@ animation:blink 0.7s infinite;
 
 <script>
 
-/* Force Home on Refresh */
-if ('scrollRestoration' in history) history.scrollRestoration='manual';
-window.addEventListener("load",()=>window.scrollTo(0,0));
+/* SINGLE SAFE LOAD HANDLER */
+window.addEventListener("load", function() {
 
-/* Loader */
-window.onload=()=>{setTimeout(()=>{document.getElementById("loader").style.display="none";},700);};
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
+  window.scrollTo(0,0);
+
+  setTimeout(()=> {
+    document.getElementById("loader").style.display="none";
+  },700);
+
+  document.getElementById("typing").innerHTML="";
+  type();
+});
 
 /* Typing */
 const text="Nandam Satya Bhaskar";
@@ -326,9 +334,8 @@ function type(){
 if(i<text.length){
 document.getElementById("typing").innerHTML+=text.charAt(i);
 i++; setTimeout(type,70);
-}}
-document.getElementById("typing").innerHTML="";
-type();
+}
+}
 
 /* Fade + Active Nav */
 const sections=document.querySelectorAll("section");
@@ -340,7 +347,6 @@ if(sec.getBoundingClientRect().top < window.innerHeight-100){
 sec.classList.add("show");
 }
 });
-
 let current="";
 sections.forEach(sec=>{
 if(pageYOffset >= sec.offsetTop-150){
