@@ -1,179 +1,201 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>SB Portfolio</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SB Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-<style>
-html{scroll-behavior:smooth;}
-body{
-margin:0;
-padding-top:70px;
-font-family:'Poppins',sans-serif;
-background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#1e3c72);
-background-size:400% 400%;
-animation:gradientBG 12s ease infinite;
-color:white;
-overflow-x:hidden;
-}
-@keyframes gradientBG{
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
-}
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-nav{
-position:fixed;
-top:0;
-width:100%;
-height:70px;
-background:rgba(0,0,0,0.85);
-backdrop-filter:blur(10px);
-display:flex;
-justify-content:center;
-align-items:center;
-gap:40px;
-z-index:1000;
-}
-nav a{color:white;text-decoration:none;font-weight:500;}
-nav a:hover{color:#00d9ff;}
+    <style>
+        html { scroll-behavior: smooth; }
 
-/* PERFECT CENTERING */
-header,section{
-min-height:calc(100vh - 70px);
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:40px 20px;
-}
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1e3c72);
+            background-size: 400% 400%;
+            animation: gradientBG 12s ease infinite;
+            color: #fff;
+            overflow-x: hidden;
+        }
 
-.container{
-width:100%;
-max-width:1100px;
-margin:auto;
-}
+        @keyframes gradientBG {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
 
-/* Skills */
-.skills-wrapper{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:80px;
-margin-top:30px;
-}
-.skills-column{
-display:flex;
-flex-direction:column;
-align-items:flex-start;
-text-align:left;
-}
-.skills-column h3{color:#00d9ff;margin-bottom:15px;}
-.skills-column h4{margin-top:10px;margin-bottom:5px;color:#00d9ff;}
-.skills-column ul{list-style:none;padding:0;margin:0;}
-.skills-column li{margin-bottom:6px;}
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px);
+            padding: 18px 0;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            z-index: 1000;
+        }
 
-/* Cards */
-.cards{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:30px;
-}
-.card{
-background:rgba(0,0,0,0.6);
-width:300px;
-border-radius:15px;
-overflow:hidden;
-transition:0.3s;
-}
-.card:hover{transform:translateY(-8px);}
-.card img{width:100%;height:180px;object-fit:cover;}
-.card-content{padding:20px;}
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
 
-button{
-margin-top:10px;
-padding:8px 15px;
-border:none;
-border-radius:6px;
-background:#00d9ff;
-font-weight:600;
-cursor:pointer;
-}
-button:hover{transform:scale(1.05);}
+        nav a:hover { color: #00d9ff; }
 
-.social-icons{margin-top:20px;}
-.social-icons a{
-color:rgba(255,255,255,0.6);
-font-size:28px;
-margin:0 15px;
-}
-.social-icons a:hover{color:white;}
+        header {
+            padding-top: 120px;
+            text-align: center;
+        }
 
-canvas{
-position:fixed;
-top:0;
-left:0;
-width:100vw;
-height:100vh;
-z-index:-1;
-}
+        section {
+            padding: 100px 20px;
+            scroll-margin-top: 100px;
+        }
 
-/* Modal */
-.modal{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,0.9);
-display:flex;
-justify-content:center;
-align-items:center;
-opacity:0;
-visibility:hidden;
-transition:0.4s;
-z-index:2000;
-}
-.modal.active{opacity:1;visibility:visible;}
-.modal-content{
-background:#111;
-padding:30px;
-width:90%;
-max-width:800px;
-border-radius:15px;
-max-height:80vh;
-overflow-y:auto;
-text-align:left;
-}
-.modal-content img{
-width:100%;
-border-radius:10px;
-margin-bottom:20px;
-}
-.close{float:right;font-size:25px;cursor:pointer;}
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            text-align: center;
+        }
 
-.cursor{
-display:inline-block;
-width:3px;
-background:#00d9ff;
-margin-left:5px;
-animation:blink 1s infinite;
-}
-@keyframes blink{
-0%{opacity:1;}50%{opacity:0;}100%{opacity:1;}
-}
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
 
-footer{
-text-align:center;
-padding:20px;
-background:rgba(0,0,0,0.8);
-}
+        .card {
+            background: rgba(0,0,0,0.6);
+            width: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: 0.3s ease;
+        }
 
-@media(max-width:900px){
-.skills-wrapper{grid-template-columns:1fr;gap:40px;}
-}
-</style>
+        .card:hover { transform: translateY(-8px); }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .card-content { padding: 20px; }
+
+        button {
+            margin-top: 10px;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 6px;
+            background: #00d9ff;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        button:hover { transform: scale(1.05); }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0,0,0,0.8);
+        }
+
+        .social-icons {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .social-icons a {
+            color: rgba(255,255,255,0.6);
+            font-size: 28px;
+            margin: 0 15px;
+            transition: 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #ffffff;
+            transform: scale(1.2);
+            text-shadow: 0 0 10px #00d9ff;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            background: #00d9ff;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.4s;
+            z-index: 2000;
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: #111;
+            padding: 30px;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 15px;
+            transform: scale(0.8);
+            transition: 0.4s;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-content img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .close {
+            float: right;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        h4 { color: #00d9ff; margin-top:20px; }
+    </style>
 </head>
 
 <body>
@@ -181,22 +203,129 @@ background:rgba(0,0,0,0.8);
 <canvas id="particles"></canvas>
 
 <nav>
-<a href="#home"><i class="fa-solid fa-house"></i></a>
-<a href="#about">About</a>
-<a href="#skills">Skills</a>
-<a href="#certifications">Certifications</a>
-<a href="#projects">Projects</a>
-<a href="#contact">Contact</a>
+    <a href="#home"><i class="fa-solid fa-house"></i></a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
 </nav>
 
 <header id="home">
-<h1><span id="typing"></span><span class="cursor"></span></h1>
-<p>Electrical & Electronics Engineering Student</p>
+    <h1><span id="typing"></span><span class="cursor"></span></h1>
+    <p>Electrical & Electronics Engineering Student</p>
 </header>
 
-<!-- Keep your sections EXACTLY same below (about, skills, certifications, projects, contact) -->
+<section id="about">
+<div class="container">
+<h2>About Me</h2>
+<p>Electrical and Electronics Engineering student specializing in power systems and embedded technologies.</p>
+</div>
+</section>
+
+<section id="skills">
+<div class="container">
+<h2>Skills</h2>
+<p>C | C++ | MATLAB | Embedded Systems | Power Systems</p>
+</div>
+</section>
+
+<section id="certifications">
+<div class="container">
+<h2>Certifications</h2>
+<div class="cards">
+<div class="card">
+<img src="nptel.jpg">
+<div class="card-content">
+<h3>Digital Electronics</h3>
+<button onclick="openCert('nptel.jpg')">View Certificate</button>
+</div>
+</div>
+
+<div class="card">
+<img src="iot.jpg">
+<div class="card-content">
+<h3>Introduction to IoT</h3>
+<button onclick="openCert('iot.jpg')">View Certificate</button>
+</div>
+</div>
+
+<div class="card">
+<img src="matlab.jpg">
+<div class="card-content">
+<h3>MATLAB Onramp</h3>
+<button onclick="openCert('matlab.jpg')">View Certificate</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="projects">
+<div class="container">
+<h2>Projects</h2>
+<div class="cards">
+
+<div class="card">
+<img src="solar.jpg">
+<div class="card-content">
+<h3>Solar PV Modeling</h3>
+<button onclick="openProject('solar')">View Details</button>
+</div>
+</div>
+
+<div class="card">
+<img src="streetlight.jpg">
+<div class="card-content">
+<h3>Smart Street Lighting</h3>
+<button onclick="openProject('street')">View Details</button>
+</div>
+</div>
+
+<div class="card">
+<img src="robot.jpg">
+<div class="card-content">
+<h3>Cable Inspection Robot</h3>
+<button onclick="openProject('robot')">View Details</button>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+<section id="contact">
+<div class="container">
+<h2>Contact Me</h2>
+<p>Email: satyabhaskarnandam@gmail.com</p>
+<p>Mobile: +91 7780603821</p>
+
+<div class="social-icons">
+<a href="https://github.com/satyabhaskarnandam" target="_blank"><i class="fab fa-github"></i></a>
+<a href="https://linkedin.com/in/nandam-satya-bhaskar" target="_blank"><i class="fab fa-linkedin"></i></a>
+<a href="https://wa.me/917780603821" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</div>
+</div>
+</section>
+
+<footer>
+© 2026 SB Portfolio
+</footer>
+
+<div id="modal" class="modal">
+<div class="modal-content">
+<span class="close" onclick="closeModal()">&times;</span>
+<div id="modalBody"></div>
+</div>
+</div>
 
 <script>
+if ('scrollRestoration' in history) {
+history.scrollRestoration = 'manual';
+}
+window.addEventListener("load", function() {
+window.scrollTo(0,0);
+});
 
 /* Typing */
 const text="Nandam Satya Bhaskar";
@@ -205,89 +334,89 @@ function typeEffect(){
 if(i<text.length){
 document.getElementById("typing").innerHTML+=text.charAt(i);
 i++;
-setTimeout(typeEffect,100);
+setTimeout(typeEffect,80);
 }}
 typeEffect();
 
-/* Arrow Navigation */
-const sections=["home","about","skills","certifications","projects","contact"];
-let currentIndex=0;
-
-window.addEventListener("scroll",()=>{
-sections.forEach((id,index)=>{
-const sec=document.getElementById(id);
-if(window.scrollY>=sec.offsetTop-200){
-currentIndex=index;
-}
-});
-});
-
-document.addEventListener("keydown",e=>{
-if(e.key==="ArrowRight" && currentIndex<sections.length-1){
-document.getElementById(sections[currentIndex+1]).scrollIntoView({behavior:"smooth"});
-}
-if(e.key==="ArrowLeft" && currentIndex>0){
-document.getElementById(sections[currentIndex-1]).scrollIntoView({behavior:"smooth"});
-}
-});
-
-/* White Dots */
+/* White Floating Dots */
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 
 let particles=[];
-for(let i=0;i<150;i++){
-particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2,speed:Math.random()*0.5+0.2});
+for(let i=0;i<120;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2,
+speed:Math.random()*0.7+0.2
+});
 }
-function draw(){
+
+function drawParticles(){
 ctx.clearRect(0,0,canvas.width,canvas.height);
-ctx.fillStyle="rgba(255,255,255,0.8)";
+ctx.fillStyle="rgba(255,255,255,0.4)";
 particles.forEach(p=>{
 ctx.beginPath();
 ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
 ctx.fill();
 p.y+=p.speed;
-if(p.y>canvas.height){p.y=0;p.x=Math.random()*canvas.width;}
-});
-requestAnimationFrame(draw);
+if(p.y>canvas.height){
+p.y=0;
+p.x=Math.random()*canvas.width;
 }
-draw();
+});
+requestAnimationFrame(drawParticles);
+}
+drawParticles();
 
-window.addEventListener("resize",()=>{
+window.addEventListener("resize",function(){
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 });
 
-/* Modal */
-const modal=document.getElementById("modal");
-const modalContent=document.querySelector(".modal-content");
-
+/* Modal Functions */
 function openCert(src){
 document.getElementById("modalBody").innerHTML=`<img src="${src}">`;
-modal.classList.add("active");
+document.getElementById("modal").classList.add("active");
 }
 
 function openProject(type){
 let content="";
 if(type==="solar"){
-content=`<img src="solar.jpg"><h3>Solar PV Modeling</h3><p>Designed and simulated a photovoltaic array with MPPT tracking.</p>`;
+content=`<img src="solar-detail.jpg">
+<h3>Solar PV Modeling</h3>
+<h4>Working:</h4><p>Simulated PV array with MPPT algorithm under varying irradiation and temperature conditions.</p>
+<h4>Key Components:</h4><p>PV Array, MPPT Controller, DC-DC Converter, MATLAB Simulink.</p>
+<h4>Output:</h4><p>Maximum power extraction with performance curves.</p>`;
 }
 if(type==="street"){
-content=`<img src="streetlight.jpg"><h3>Smart Street Lighting</h3><p>Developed automatic street lighting using sensors.</p>`;
+content=`<img src="street-detail.jpg">
+<h3>Smart Street Lighting</h3>
+<h4>Working:</h4><p>Brightness adjusts automatically using LDR and motion sensors.</p>
+<h4>Key Components:</h4><p>LDR, PIR Sensor, Microcontroller.</p>
+<h4>Output:</h4><p>Energy-efficient smart lighting.</p>`;
 }
 if(type==="robot"){
-content=`<img src="robot.jpg"><h3>Cable Inspection Robot</h3><p>Built robotic fault detection system.</p>`;
+content=`<img src="robot-detail.jpg">
+<h3>Cable Inspection Robot</h3>
+<h4>Working:</h4><p>Robot navigates underground cables and detects faults.</p>
+<h4>Key Components:</h4><p>Motor Driver, Sensors, Microcontroller.</p>
+<h4>Output:</h4><p>Real-time cable monitoring.</p>`;
 }
 document.getElementById("modalBody").innerHTML=content;
-modal.classList.add("active");
+document.getElementById("modal").classList.add("active");
 }
 
-function closeModal(){modal.classList.remove("active");}
-modal.addEventListener("click",e=>{if(!modalContent.contains(e.target))closeModal();});
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
+function closeModal(){
+document.getElementById("modal").classList.remove("active");
+}
 
+window.onclick=function(e){
+if(e.target==document.getElementById("modal")){
+closeModal();
+}};
 </script>
 
 </body>
