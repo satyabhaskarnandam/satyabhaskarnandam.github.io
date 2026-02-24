@@ -51,20 +51,20 @@
 
         nav a:hover { color: #00d9ff; }
 
-        header {
-            padding-top: 120px;
+        /* FULL SCREEN CENTERED SECTIONS */
+        header, section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
-        }
-
-        section {
-            padding: 100px 20px;
-            scroll-margin-top: 100px;
+            padding: 120px 20px 60px 20px; /* top accounts for navbar */
         }
 
         .container {
             max-width: 1100px;
             margin: auto;
-            text-align: center;
+            width: 100%;
         }
 
         .cards {
@@ -104,15 +104,8 @@
 
         button:hover { transform: scale(1.05); }
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: rgba(0,0,0,0.8);
-        }
-
         .social-icons {
             margin-top: 15px;
-            text-align: center;
         }
 
         .social-icons a {
@@ -146,6 +139,12 @@
             0% { opacity: 1; }
             50% { opacity: 0; }
             100% { opacity: 1; }
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0,0,0,0.8);
         }
 
         .modal {
@@ -212,8 +211,10 @@
 </nav>
 
 <header id="home">
-    <h1><span id="typing"></span><span class="cursor"></span></h1>
-    <p>Electrical & Electronics Engineering Student</p>
+    <div>
+        <h1><span id="typing"></span><span class="cursor"></span></h1>
+        <p>Electrical & Electronics Engineering Student</p>
+    </div>
 </header>
 
 <section id="about">
@@ -265,7 +266,6 @@
 <div class="container">
 <h2>Projects</h2>
 <div class="cards">
-
 <div class="card">
 <img src="solar.jpg">
 <div class="card-content">
@@ -289,7 +289,6 @@
 <button onclick="openProject('robot')">View Details</button>
 </div>
 </div>
-
 </div>
 </div>
 </section>
@@ -312,22 +311,7 @@
 © 2026 SB Portfolio
 </footer>
 
-<div id="modal" class="modal">
-<div class="modal-content">
-<span class="close" onclick="closeModal()">&times;</span>
-<div id="modalBody"></div>
-</div>
-</div>
-
 <script>
-if ('scrollRestoration' in history) {
-history.scrollRestoration = 'manual';
-}
-window.addEventListener("load", function() {
-window.scrollTo(0,0);
-});
-
-/* Typing */
 const text="Nandam Satya Bhaskar";
 let i=0;
 function typeEffect(){
@@ -370,53 +354,6 @@ p.x=Math.random()*canvas.width;
 requestAnimationFrame(drawParticles);
 }
 drawParticles();
-
-window.addEventListener("resize",function(){
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-});
-
-/* Modal Functions */
-function openCert(src){
-document.getElementById("modalBody").innerHTML=`<img src="${src}">`;
-document.getElementById("modal").classList.add("active");
-}
-
-function openProject(type){
-let content="";
-if(type==="solar"){
-content=`<img src="solar-detail.jpg">
-<h3>Solar PV Modeling</h3>
-<h4>Working:</h4><p>Simulated PV array with MPPT algorithm under varying irradiation and temperature conditions.</p>
-<h4>Key Components:</h4><p>PV Array, MPPT Controller, DC-DC Converter, MATLAB Simulink.</p>
-<h4>Output:</h4><p>Maximum power extraction with performance curves.</p>`;
-}
-if(type==="street"){
-content=`<img src="street-detail.jpg">
-<h3>Smart Street Lighting</h3>
-<h4>Working:</h4><p>Brightness adjusts automatically using LDR and motion sensors.</p>
-<h4>Key Components:</h4><p>LDR, PIR Sensor, Microcontroller.</p>
-<h4>Output:</h4><p>Energy-efficient smart lighting.</p>`;
-}
-if(type==="robot"){
-content=`<img src="robot-detail.jpg">
-<h3>Cable Inspection Robot</h3>
-<h4>Working:</h4><p>Robot navigates underground cables and detects faults.</p>
-<h4>Key Components:</h4><p>Motor Driver, Sensors, Microcontroller.</p>
-<h4>Output:</h4><p>Real-time cable monitoring.</p>`;
-}
-document.getElementById("modalBody").innerHTML=content;
-document.getElementById("modal").classList.add("active");
-}
-
-function closeModal(){
-document.getElementById("modal").classList.remove("active");
-}
-
-window.onclick=function(e){
-if(e.target==document.getElementById("modal")){
-closeModal();
-}};
 </script>
 
 </body>
