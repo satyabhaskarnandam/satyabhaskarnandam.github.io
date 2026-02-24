@@ -66,6 +66,8 @@
             width: 100%;
         }
 
+        h2 { margin-bottom: 20px; }
+
         .cards {
             display: flex;
             flex-wrap: wrap;
@@ -103,10 +105,29 @@
 
         button:hover { transform: scale(1.05); }
 
+        .social-icons {
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: rgba(255,255,255,0.6);
+            font-size: 28px;
+            margin: 0 15px;
+            transition: 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #ffffff;
+            transform: scale(1.2);
+            text-shadow: 0 0 10px #00d9ff;
+        }
+
         canvas {
             position: fixed;
             top: 0;
             left: 0;
+            width: 100vw;
+            height: 100vh;
             z-index: -1;
         }
 
@@ -185,7 +206,7 @@
 <section id="about">
 <div class="container">
 <h2>About Me</h2>
-<p>Electrical and Electronics Engineering student passionate about power systems and embedded technologies.</p>
+<p>Electrical and Electronics Engineering student specializing in power systems and embedded technologies.</p>
 </div>
 </section>
 
@@ -200,6 +221,7 @@
 <div class="container">
 <h2>Certifications</h2>
 <div class="cards">
+
 <div class="card">
 <img src="nptel.jpg">
 <div class="card-content">
@@ -207,6 +229,23 @@
 <button onclick="openCert('nptel.jpg')">View Certificate</button>
 </div>
 </div>
+
+<div class="card">
+<img src="iot.jpg">
+<div class="card-content">
+<h3>Introduction to IoT – Cisco</h3>
+<button onclick="openCert('iot.jpg')">View Certificate</button>
+</div>
+</div>
+
+<div class="card">
+<img src="matlab.jpg">
+<div class="card-content">
+<h3>MATLAB Onramp – MathWorks</h3>
+<button onclick="openCert('matlab.jpg')">View Certificate</button>
+</div>
+</div>
+
 </div>
 </div>
 </section>
@@ -249,6 +288,12 @@
 <h2>Contact Me</h2>
 <p>Email: satyabhaskarnandam@gmail.com</p>
 <p>Mobile: +91 7780603821</p>
+
+<div class="social-icons">
+<a href="https://github.com/satyabhaskarnandam" target="_blank"><i class="fab fa-github"></i></a>
+<a href="https://linkedin.com/in/nandam-satya-bhaskar" target="_blank"><i class="fab fa-linkedin"></i></a>
+<a href="https://wa.me/917780603821" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</div>
 </div>
 </section>
 
@@ -262,6 +307,45 @@
 </div>
 
 <script>
+/* White Dots Effect */
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+for (let i = 0; i < 120; i++) {
+    particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 2,
+        speed: Math.random() * 0.5 + 0.2
+    });
+}
+
+function drawParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "rgba(255,255,255,0.7)";
+    particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+        p.y += p.speed;
+        if (p.y > canvas.height) {
+            p.y = 0;
+            p.x = Math.random() * canvas.width;
+        }
+    });
+    requestAnimationFrame(drawParticles);
+}
+drawParticles();
+
+window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+/* Modal */
 function openCert(src){
 document.getElementById("modalBody").innerHTML=`<img src="${src}">`;
 document.getElementById("modal").classList.add("active");
@@ -270,25 +354,13 @@ document.getElementById("modal").classList.add("active");
 function openProject(type){
 let content="";
 if(type==="solar"){
-content=`<img src="solar-detail.jpg">
-<h3>Solar PV Modeling</h3>
-<h4>Working:</h4><p>Simulated PV array using MPPT algorithm to optimize power output under varying conditions.</p>
-<h4>Key Components:</h4><p>PV Module, MPPT Controller, DC-DC Converter, MATLAB Simulink.</p>
-<h4>Output:</h4><p>Maximum power extraction with performance curves.</p>`;
+content=`<img src="solar-detail.jpg"><h3>Solar PV Modeling</h3>`;
 }
 if(type==="street"){
-content=`<img src="streetlight-detail.jpg">
-<h3>Smart Street Lighting</h3>
-<h4>Working:</h4><p>Brightness automatically adjusts using LDR and motion sensors.</p>
-<h4>Key Components:</h4><p>LDR Sensor, PIR Sensor, Microcontroller.</p>
-<h4>Output:</h4><p>Energy-efficient intelligent lighting system.</p>`;
+content=`<img src="streetlight-detail.jpg"><h3>Smart Street Lighting</h3>`;
 }
 if(type==="robot"){
-content=`<img src="robot-detail.jpg">
-<h3>Cable Inspection Robot</h3>
-<h4>Working:</h4><p>Robot navigates underground cables and detects faults.</p>
-<h4>Key Components:</h4><p>Motor Driver, Sensors, Microcontroller.</p>
-<h4>Output:</h4><p>Real-time cable monitoring and fault detection.</p>`;
+content=`<img src="robot-detail.jpg"><h3>Cable Inspection Robot</h3>`;
 }
 document.getElementById("modalBody").innerHTML=content;
 document.getElementById("modal").classList.add("active");
@@ -297,11 +369,6 @@ document.getElementById("modal").classList.add("active");
 function closeModal(){
 document.getElementById("modal").classList.remove("active");
 }
-
-window.onclick=function(e){
-if(e.target==document.getElementById("modal")){
-closeModal();
-}};
 </script>
 
 </body>
