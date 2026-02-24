@@ -9,7 +9,6 @@
 
 <style>
 html { scroll-behavior: smooth; }
-
 body{
 margin:0;
 font-family:'Poppins',sans-serif;
@@ -18,7 +17,40 @@ color:#fff;
 overflow-x:hidden;
 }
 
-/* Floating Particles */
+/* Loader */
+#loader{
+position:fixed;
+inset:0;
+background:#0f2027;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:5000;
+}
+.loader-circle{
+width:60px;
+height:60px;
+border:5px solid rgba(255,255,255,0.2);
+border-top:5px solid #00d9ff;
+border-radius:50%;
+animation:spin 1s linear infinite;
+}
+@keyframes spin{
+100%{transform:rotate(360deg);}
+}
+
+/* Scroll Progress */
+#progress{
+position:fixed;
+top:0;
+left:0;
+height:4px;
+background:#00d9ff;
+width:0%;
+z-index:4000;
+}
+
+/* Particles */
 canvas{
 position:fixed;
 top:0;
@@ -32,23 +64,19 @@ position:fixed;
 top:0;
 width:100%;
 background:rgba(0,0,0,0.85);
-backdrop-filter:blur(10px);
 padding:18px 0;
 display:flex;
 justify-content:center;
 gap:40px;
 z-index:1000;
 }
-
 nav a{
 color:#aaa;
 text-decoration:none;
 font-weight:500;
 transition:0.3s;
 }
-
-nav a.active,
-nav a:hover{
+nav a.active, nav a:hover{
 color:#00d9ff;
 }
 
@@ -64,34 +92,29 @@ opacity:0;
 transform:translateY(40px);
 transition:opacity 0.8s ease, transform 0.8s ease;
 }
-
 section.show{
 opacity:1;
 transform:translateY(0);
 }
-
 .container{
 max-width:1100px;
 width:100%;
 }
 
-/* Skills 50/50 */
+/* Skills */
 .skills-wrapper{
 display:flex;
 gap:40px;
 margin-top:40px;
 }
-
 .skill-column{
 width:50%;
 text-align:left;
 }
-
 .skill-column ul{
 list-style:none;
 padding:0;
 }
-
 .skill-column li{
 margin:12px 0;
 }
@@ -104,41 +127,35 @@ justify-content:center;
 gap:40px;
 margin-top:40px;
 }
-
 .card{
 background:rgba(255,255,255,0.05);
-backdrop-filter:blur(15px);
 border:1px solid rgba(255,255,255,0.1);
 border-radius:20px;
 width:320px;
 overflow:hidden;
 transition:0.4s;
 }
-
 .card img{
 width:100%;
 height:200px;
 object-fit:cover;
 }
-
 .card h3{
 padding:15px;
 }
-
 .card button{
 margin-bottom:20px;
 padding:10px 18px;
 border:none;
 border-radius:25px;
-background:linear-gradient(90deg,#00d9ff,#00ffb3);
+background:#00d9ff;
 color:#000;
 font-weight:600;
 cursor:pointer;
 }
-
 .card:hover{
 transform:translateY(-10px);
-box-shadow:0 0 25px rgba(0,217,255,0.4);
+box-shadow:0 0 20px rgba(0,217,255,0.5);
 }
 
 /* Modal */
@@ -152,14 +169,12 @@ align-items:center;
 opacity:0;
 visibility:hidden;
 transition:0.4s;
-z-index:2000;
+z-index:3000;
 }
-
 .modal.active{
 opacity:1;
 visibility:visible;
 }
-
 .modal-content{
 background:#111;
 padding:30px;
@@ -169,13 +184,10 @@ border-radius:15px;
 max-height:85vh;
 overflow-y:auto;
 }
-
 .modal-content img{
 width:100%;
-border-radius:10px;
 margin-bottom:20px;
 }
-
 .close{
 float:right;
 font-size:25px;
@@ -183,27 +195,32 @@ cursor:pointer;
 }
 
 /* Social */
-.social-icons{
-margin-top:20px;
-}
-
 .social-icons a{
 color:#aaa;
 font-size:28px;
 margin:0 15px;
 transition:0.3s;
 }
-
 .social-icons a:hover{
-color:#00ffb3;
-transform:scale(1.2);
+color:#00d9ff;
+}
+
+.cursor{
+display:inline-block;
+width:2px;
+background:#00d9ff;
+animation:blink 0.7s infinite;
+}
+@keyframes blink{
+50%{opacity:0;}
 }
 
 </style>
 </head>
-
 <body>
 
+<div id="loader"><div class="loader-circle"></div></div>
+<div id="progress"></div>
 <canvas id="particles"></canvas>
 
 <nav>
@@ -217,46 +234,30 @@ transform:scale(1.2);
 
 <section id="home">
 <div class="container">
-<h1>Nandam Satya Bhaskar</h1>
+<h1><span id="typing"></span><span class="cursor"></span></h1>
 <p>Electrical & Electronics Engineering Student</p>
 </div>
 </section>
 
-<section id="about">
-<div class="container">
-<h2>About Me</h2>
-<p>Focused on Power Systems, Embedded Systems & Intelligent Automation.</p>
-</div>
-</section>
+<section id="about"><div class="container"><h2>About</h2><p>Focused on Power Systems & Embedded Technologies.</p></div></section>
 
 <section id="skills">
 <div class="container">
 <h2>Skills</h2>
-
 <div class="skills-wrapper">
 <div class="skill-column">
 <h3>Technical Skills</h3>
 <ul>
-<li>C</li>
-<li>C++</li>
-<li>MATLAB</li>
-<li>Embedded Systems</li>
-<li>Power Systems</li>
+<li>C</li><li>C++</li><li>MATLAB</li><li>Embedded Systems</li><li>Power Systems</li>
 </ul>
 </div>
-
 <div class="skill-column">
 <h3>Soft Skills</h3>
 <ul>
-<li>Communication Skills</li>
-<li>Teamwork</li>
-<li>Adaptability</li>
-<li>Critical Thinking</li>
-<li>Leadership</li>
+<li>Communication Skills</li><li>Teamwork</li><li>Adaptability</li><li>Critical Thinking</li><li>Leadership</li>
 </ul>
 </div>
 </div>
-
 </div>
 </section>
 
@@ -264,23 +265,9 @@ transform:scale(1.2);
 <div class="container">
 <h2>Certifications</h2>
 <div class="grid">
-<div class="card">
-<img src="solar.jpg">
-<h3>Digital Electronics</h3>
-<button onclick="openCertificate('solar.jpg')">View Certificate</button>
-</div>
-
-<div class="card">
-<img src="streetlight.jpg">
-<h3>Introduction to IoT</h3>
-<button onclick="openCertificate('streetlight.jpg')">View Certificate</button>
-</div>
-
-<div class="card">
-<img src="robot.jpg">
-<h3>MATLAB Onramp</h3>
-<button onclick="openCertificate('robot.jpg')">View Certificate</button>
-</div>
+<div class="card"><img src="solar.jpg"><h3>Digital Electronics</h3><button onclick="openCert('solar.jpg')">View Certificate</button></div>
+<div class="card"><img src="streetlight.jpg"><h3>Introduction to IoT</h3><button onclick="openCert('streetlight.jpg')">View Certificate</button></div>
+<div class="card"><img src="robot.jpg"><h3>MATLAB Onramp</h3><button onclick="openCert('robot.jpg')">View Certificate</button></div>
 </div>
 </div>
 </section>
@@ -289,25 +276,9 @@ transform:scale(1.2);
 <div class="container">
 <h2>Projects</h2>
 <div class="grid">
-
-<div class="card">
-<img src="solar.jpg">
-<h3>Solar PV Modeling with MPPT</h3>
-<button onclick="openProject('solar')">View Details</button>
-</div>
-
-<div class="card">
-<img src="streetlight.jpg">
-<h3>Smart Street Lighting</h3>
-<button onclick="openProject('street')">View Details</button>
-</div>
-
-<div class="card">
-<img src="robot.jpg">
-<h3>Cable Inspection Robot</h3>
-<button onclick="openProject('robot')">View Details</button>
-</div>
-
+<div class="card"><img src="solar.jpg"><h3>Solar PV Modeling</h3><button onclick="openProject('solar')">View Details</button></div>
+<div class="card"><img src="streetlight.jpg"><h3>Smart Street Lighting</h3><button onclick="openProject('street')">View Details</button></div>
+<div class="card"><img src="robot.jpg"><h3>Cable Inspection Robot</h3><button onclick="openProject('robot')">View Details</button></div>
 </div>
 </div>
 </section>
@@ -324,81 +295,61 @@ transform:scale(1.2);
 </div>
 </section>
 
-<div id="mainModal" class="modal">
+<div id="modal" class="modal">
 <div class="modal-content">
 <span class="close" onclick="closeModal()">&times;</span>
-<div id="modalContent"></div>
+<div id="modalBody"></div>
 </div>
 </div>
 
 <script>
 
-/* Floating Dots */
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
+/* Loader */
+window.onload=()=>{setTimeout(()=>{document.getElementById("loader").style.display="none";},800);};
 
-let particles=[];
-for(let i=0;i<120;i++){
-particles.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-r:Math.random()*2,
-speed:Math.random()*0.7+0.2
-});
-}
+/* Typing */
+const text="Nandam Satya Bhaskar";
+let i=0;
+function type(){
+if(i<text.length){
+document.getElementById("typing").innerHTML+=text.charAt(i);
+i++; setTimeout(type,70);
+}}
+type();
 
-function draw(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-ctx.fillStyle="rgba(255,255,255,0.4)";
-particles.forEach(p=>{
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-ctx.fill();
-p.y+=p.speed;
-if(p.y>canvas.height){
-p.y=0;
-p.x=Math.random()*canvas.width;
-}
-});
-requestAnimationFrame(draw);
-}
-draw();
-
-/* Smooth Fade Animation */
+/* Scroll Progress + Active Nav + Fade */
 const sections=document.querySelectorAll("section");
 const navLinks=document.querySelectorAll("nav a");
 
-function activateSection(){
-let current="";
-sections.forEach(section=>{
-const sectionTop=section.offsetTop;
-if(pageYOffset >= sectionTop - 150){
-current=section.getAttribute("id");
-}
-});
+window.addEventListener("scroll",()=>{
+let scrollTop=document.documentElement.scrollTop;
+let height=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+document.getElementById("progress").style.width=(scrollTop/height)*100+"%";
 
 sections.forEach(sec=>{
-if(sec.getBoundingClientRect().top < window.innerHeight - 100){
+if(sec.getBoundingClientRect().top < window.innerHeight-100){
 sec.classList.add("show");
 }
 });
 
+let current="";
+sections.forEach(sec=>{
+if(pageYOffset >= sec.offsetTop-150){
+current=sec.id;
+}
+});
 navLinks.forEach(link=>{
 link.classList.remove("active");
 if(link.getAttribute("href")==="#"+current){
 link.classList.add("active");
 }
 });
-}
+});
 
-window.addEventListener("scroll",activateSection);
-
-/* Arrow Navigation Auto Detect */
-document.addEventListener("keydown",function(e){
-let index=[...sections].findIndex(sec=>sec.classList.contains("show"));
-if(e.key==="ArrowRight" && index < sections.length-1){
+/* Arrow Navigation */
+document.addEventListener("keydown",(e)=>{
+let index=[...sections].findIndex(sec=>sec.id===document.querySelector("nav a.active")?.getAttribute("href")?.substring(1));
+if(e.key==="ArrowRight" && index<sections.length-1){
 sections[index+1].scrollIntoView({behavior:"smooth"});
 }
 if(e.key==="ArrowLeft" && index>0){
@@ -406,50 +357,43 @@ sections[index-1].scrollIntoView({behavior:"smooth"});
 }
 });
 
-/* Modal */
-function openCertificate(img){
-document.getElementById("modalContent").innerHTML=`<img src="${img}">`;
-document.getElementById("mainModal").classList.add("active");
+/* Particles */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth; canvas.height=innerHeight;
+let particles=[];
+for(let i=0;i<120;i++){
+particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2,s:Math.random()*0.7+0.2});
 }
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="rgba(255,255,255,0.4)";
+particles.forEach(p=>{
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+p.y+=p.s; if(p.y>canvas.height){p.y=0;p.x=Math.random()*canvas.width;}
+});
+requestAnimationFrame(animate);
+}
+animate();
 
+/* Modal */
+function openCert(img){
+document.getElementById("modalBody").innerHTML=`<img src="${img}">`;
+document.getElementById("modal").classList.add("active");
+}
 function openProject(type){
 let content="";
-if(type==="solar"){
-content=`<img src="solar.jpg">
-<h2>Solar PV Modeling</h2>
-<p>Designed and simulated PV system with MPPT using MATLAB Simulink for maximum efficiency under varying irradiation.</p>`;
+if(type==="solar"){content=`<img src="solar.jpg"><h2>Solar PV Modeling</h2><p>Detailed MPPT based solar simulation project.</p>`;}
+if(type==="street"){content=`<img src="streetlight.jpg"><h2>Smart Street Lighting</h2><p>Energy efficient IoT lighting automation.</p>`;}
+if(type==="robot"){content=`<img src="robot.jpg"><h2>Cable Inspection Robot</h2><p>Autonomous underground cable fault detection robot.</p>`;}
+document.getElementById("modalBody").innerHTML=content;
+document.getElementById("modal").classList.add("active");
 }
-if(type==="street"){
-content=`<img src="streetlight.jpg">
-<h2>Smart Street Lighting</h2>
-<p>Automated lighting using LDR and PIR sensors for energy-efficient urban infrastructure.</p>`;
-}
-if(type==="robot"){
-content=`<img src="robot.jpg">
-<h2>Cable Inspection Robot</h2>
-<p>Autonomous robot developed for underground cable fault detection and real-time monitoring.</p>`;
-}
-document.getElementById("modalContent").innerHTML=content;
-document.getElementById("mainModal").classList.add("active");
-}
-
-function closeModal(){
-document.getElementById("mainModal").classList.remove("active");
-}
-
-window.onclick=function(e){
-if(e.target==document.getElementById("mainModal")){
-closeModal();
-}
-};
-
-document.addEventListener("keydown",function(e){
-if(e.key==="Escape"){
-closeModal();
-}
-});
+function closeModal(){document.getElementById("modal").classList.remove("active");}
+window.onclick=e=>{if(e.target==document.getElementById("modal")) closeModal();};
+document.addEventListener("keydown",e=>{if(e.key==="Escape") closeModal();});
 
 </script>
-
 </body>
 </html>
