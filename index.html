@@ -8,11 +8,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
+
+/* ================= GLOBAL ================= */
 html{
 scroll-behavior:smooth;
 scroll-snap-type:y mandatory;
 }
-
 body{
 margin:0;
 font-family:'Poppins',sans-serif;
@@ -21,7 +22,7 @@ color:#fff;
 overflow-x:hidden;
 }
 
-/* LOADER */
+/* ================= LOADER ================= */
 #loader{
 position:fixed;
 inset:0;
@@ -41,7 +42,7 @@ animation:spin 1s linear infinite;
 }
 @keyframes spin{100%{transform:rotate(360deg);}}
 
-/* PARTICLES */
+/* ================= PARTICLES ================= */
 canvas{
 position:fixed;
 top:0;
@@ -49,7 +50,7 @@ left:0;
 z-index:-1;
 }
 
-/* NAVBAR */
+/* ================= NAVBAR ================= */
 nav{
 position:fixed;
 top:0;
@@ -71,9 +72,11 @@ font-size:18px;
 transition:.3s;
 }
 nav a.active,
-nav a:hover{color:#00d9ff;}
+nav a:hover{
+color:#00d9ff;
+}
 
-/* SECTIONS */
+/* ================= SECTIONS ================= */
 section{
 min-height:100vh;
 display:flex;
@@ -101,7 +104,7 @@ max-width:1200px;
 margin:auto;
 }
 
-/* HOME */
+/* ================= HOME ================= */
 .home-wrapper{
 display:flex;
 align-items:center;
@@ -133,7 +136,7 @@ to{box-shadow:0 0 25px rgba(0,217,255,.8);}
 .home-text{text-align:center;}
 }
 
-/* SKILLS */
+/* ================= SKILLS ================= */
 .skills-wrapper{
 display:flex;
 width:100%;
@@ -149,7 +152,7 @@ margin-top:40px;
 .skill-column{width:100%;text-align:left!important;padding:0;margin-bottom:30px;}
 }
 
-/* GRID */
+/* ================= GRID ================= */
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
@@ -158,7 +161,7 @@ margin-top:50px;
 padding:0 40px;
 }
 
-/* CARDS */
+/* ================= CARDS ================= */
 .card{
 background:rgba(255,255,255,.05);
 border:1px solid rgba(255,255,255,.1);
@@ -205,7 +208,7 @@ font-weight:600;
 cursor:pointer;
 }
 
-/* MODAL */
+/* ================= MODAL ================= */
 .modal{
 position:fixed;
 inset:0;
@@ -245,7 +248,7 @@ font-size:25px;
 cursor:pointer;
 }
 
-/* SOCIAL */
+/* ================= SOCIAL ================= */
 .social-icons{margin-top:20px;}
 .social-icons a{
 color:rgba(255,255,255,.6);
@@ -266,6 +269,7 @@ background:#00d9ff;
 animation:blink .7s infinite;
 }
 @keyframes blink{50%{opacity:0;}}
+
 </style>
 </head>
 
@@ -363,6 +367,8 @@ animation:blink .7s infinite;
 </div>
 
 <script>
+
+/* Scroll to Home */
 window.scrollTo(0,0);
 
 /* Loader */
@@ -385,7 +391,7 @@ setTimeout(type,70);
 type();
 }
 
-/* Reveal Sections */
+/* Section Reveal */
 const sections=document.querySelectorAll("section");
 const sectionObserver=new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
@@ -483,6 +489,7 @@ p.x=Math.random()*canvas.width;
 requestAnimationFrame(animate);
 }
 animate();
+
 </script>
 
 </body>
