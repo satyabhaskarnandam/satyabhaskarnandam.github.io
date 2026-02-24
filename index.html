@@ -26,7 +26,7 @@ display:flex;
 justify-content:center;
 align-items:center;
 z-index:5000;
-transition:opacity .5s ease;
+transition:opacity .6s ease;
 }
 .loader-circle{
 width:60px;height:60px;
@@ -84,25 +84,52 @@ transform:translateY(0);
 }
 #home{opacity:1;transform:none;}
 
-.container{width:100%;max-width:1100px;margin:auto;}
+.container{
+width:100%;
+max-width:1200px;
+margin:auto;
+}
 
-/* Skills */
-#skills .container{padding:0 10%;}
+/* ===== PERFECT 50/50 SKILLS ===== */
 .skills-wrapper{
 display:flex;
-justify-content:space-between;
+width:100%;
 margin-top:40px;
 }
+
 .skill-column{
-width:45%;
-text-align:left;
+width:50%;
 }
-.skill-column ul{list-style:none;padding:0;}
-.skill-column li{margin:12px 0;}
+
+.skill-column:first-child{
+text-align:left;
+padding-right:80px;
+}
+
+.skill-column:last-child{
+text-align:right;
+padding-left:80px;
+}
+
+.skill-column ul{
+list-style:none;
+padding:0;
+}
+
+.skill-column li{
+margin:12px 0;
+}
 
 @media(max-width:768px){
-.skills-wrapper{flex-direction:column;}
-.skill-column{width:100%;margin-bottom:30px;}
+.skills-wrapper{
+flex-direction:column;
+}
+.skill-column{
+width:100%;
+text-align:left!important;
+padding:0;
+margin-bottom:30px;
+}
 }
 
 /* Cards */
@@ -119,11 +146,11 @@ border:1px solid rgba(255,255,255,.1);
 border-radius:20px;
 width:320px;
 overflow:hidden;
-transition:transform .5s cubic-bezier(.22,1,.36,1), box-shadow .5s;
+transition:transform .6s cubic-bezier(.22,1,.36,1), box-shadow .6s;
 opacity:0;
 transform:translateY(60px);
 }
-.card.reveal{
+.card.animate{
 opacity:1;
 transform:translateY(0);
 }
@@ -134,9 +161,7 @@ object-fit:cover;
 transition:transform .6s ease;
 }
 .card:hover img{transform:scale(1.08);}
-.card:hover{
-box-shadow:0 0 30px rgba(0,217,255,.5);
-}
+.card:hover{box-shadow:0 0 30px rgba(0,217,255,.5);}
 .card h3{padding:15px;}
 .card button{
 margin-bottom:20px;
@@ -177,12 +202,9 @@ overflow-y:auto;
 transform:scale(.9);
 transition:.4s;
 }
-.modal.active .modal-content{
-transform:scale(1);
-}
+.modal.active .modal-content{transform:scale(1);}
 .close{float:right;font-size:25px;cursor:pointer;}
 
-/* Social */
 .social-icons{margin-top:20px;}
 .social-icons a{
 color:rgba(255,255,255,.6);
@@ -191,10 +213,7 @@ margin:0 15px;
 transition:.3s;
 text-decoration:none;
 }
-.social-icons a:hover{
-color:#00d9ff;
-transform:scale(1.2);
-}
+.social-icons a:hover{color:#00d9ff;transform:scale(1.2);}
 
 .cursor{
 display:inline-block;
@@ -235,11 +254,15 @@ animation:blink .7s infinite;
 <div class="skills-wrapper">
 <div class="skill-column">
 <h3>Technical Skills</h3>
-<ul><li>C</li><li>C++</li><li>MATLAB</li><li>Embedded Systems</li><li>Power Systems</li></ul>
+<ul>
+<li>C</li><li>C++</li><li>MATLAB</li><li>Embedded Systems</li><li>Power Systems</li>
+</ul>
 </div>
 <div class="skill-column">
 <h3>Soft Skills</h3>
-<ul><li>Communication Skills</li><li>Teamwork</li><li>Adaptability</li><li>Critical Thinking</li><li>Leadership</li></ul>
+<ul>
+<li>Communication Skills</li><li>Teamwork</li><li>Adaptability</li><li>Critical Thinking</li><li>Leadership</li>
+</ul>
 </div>
 </div>
 </div>
@@ -249,9 +272,9 @@ animation:blink .7s infinite;
 <div class="container">
 <h2>Certifications</h2>
 <div class="grid">
-<div class="card"><img src="nptel.jpg"><h3>Digital Electronics</h3><button onclick="openCert('nptel.jpg')">View Certificate</button></div>
-<div class="card"><img src="iot.jpg"><h3>Introduction to IoT</h3><button onclick="openCert('iot.jpg')">View Certificate</button></div>
-<div class="card"><img src="matlab.jpg"><h3>MATLAB Onramp</h3><button onclick="openCert('matlab.jpg')">View Certificate</button></div>
+<div class="card cert-card"><img src="nptel.jpg"><h3>Digital Electronics</h3><button onclick="openCert('nptel.jpg')">View Certificate</button></div>
+<div class="card cert-card"><img src="iot.jpg"><h3>Introduction to IoT</h3><button onclick="openCert('iot.jpg')">View Certificate</button></div>
+<div class="card cert-card"><img src="matlab.jpg"><h3>MATLAB Onramp</h3><button onclick="openCert('matlab.jpg')">View Certificate</button></div>
 </div>
 </div>
 </section>
@@ -260,9 +283,9 @@ animation:blink .7s infinite;
 <div class="container">
 <h2>Projects</h2>
 <div class="grid">
-<div class="card"><img src="solar.jpg"><h3>Solar PV Modeling</h3><button onclick="openProject('solar')">View Details</button></div>
-<div class="card"><img src="streetlight.jpg"><h3>Smart Street Lighting</h3><button onclick="openProject('street')">View Details</button></div>
-<div class="card"><img src="robot.jpg"><h3>Cable Inspection Robot</h3><button onclick="openProject('robot')">View Details</button></div>
+<div class="card project-card"><img src="solar.jpg"><h3>Solar PV Modeling</h3><button onclick="openProject('solar')">View Details</button></div>
+<div class="card project-card"><img src="streetlight.jpg"><h3>Smart Street Lighting</h3><button onclick="openProject('street')">View Details</button></div>
+<div class="card project-card"><img src="robot.jpg"><h3>Cable Inspection Robot</h3><button onclick="openProject('robot')">View Details</button></div>
 </div>
 </div>
 </section>
@@ -289,11 +312,10 @@ animation:blink .7s infinite;
 
 <script>
 window.scrollTo(0,0);
+
 window.addEventListener("load",()=>{
-setTimeout(()=>loader.style.opacity=0,500);
-setTimeout(()=>loader.style.display="none",900);
+setTimeout(()=>loader.style.display="none",800);
 type();
-observe();
 });
 
 /* Typing */
@@ -306,17 +328,7 @@ i++;setTimeout(type,70);
 }
 }
 
-/* Scroll Reveal */
-function observe(){
-const observer=new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting) entry.target.classList.add("show");
-});
-},{threshold:.2});
-document.querySelectorAll("section, .card").forEach(el=>observer.observe(el));
-}
-
-/* Navbar Active */
+/* Active Navbar */
 const sections=document.querySelectorAll("section");
 const navLinks=document.querySelectorAll("nav a");
 window.addEventListener("scroll",()=>{
@@ -340,30 +352,26 @@ if(e.key==="ArrowLeft"&&index>0)
 sections[index-1].scrollIntoView({behavior:"smooth"});
 });
 
-/* Particles */
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-function resize(){
-canvas.width=innerWidth;
-canvas.height=innerHeight;
-}
-resize();
-window.addEventListener("resize",resize);
-let particles=[];
-for(let i=0;i<120;i++){
-particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2,s:Math.random()*0.7+0.2});
-}
-function animate(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-ctx.fillStyle="rgba(255,255,255,.4)";
-particles.forEach(p=>{
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
-p.y+=p.s;if(p.y>canvas.height){p.y=0;p.x=Math.random()*canvas.width;}
+/* Repeatable Animations */
+function animateSection(section,cards){
+const rect=section.getBoundingClientRect();
+if(rect.top<window.innerHeight*0.7 && rect.bottom>100){
+cards.forEach((card,index)=>{
+setTimeout(()=>card.classList.add("animate"),index*150);
 });
-requestAnimationFrame(animate);
+}else{
+cards.forEach(card=>card.classList.remove("animate"));
 }
-animate();
+}
+const projectSection=document.getElementById("projects");
+const certSection=document.getElementById("certifications");
+const projectCards=document.querySelectorAll(".project-card");
+const certCards=document.querySelectorAll(".cert-card");
+
+window.addEventListener("scroll",()=>{
+animateSection(projectSection,projectCards);
+animateSection(certSection,certCards);
+});
 
 /* Modal */
 function openCert(img){
@@ -381,6 +389,28 @@ modal.classList.add("active");
 function closeModal(){modal.classList.remove("active");}
 window.onclick=e=>{if(e.target==modal)closeModal();}
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
+
+/* Particles */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}
+resize();
+window.addEventListener("resize",resize);
+let particles=[];
+for(let i=0;i<120;i++){
+particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2,s:Math.random()*0.7+0.2});
+}
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="rgba(255,255,255,.4)";
+particles.forEach(p=>{
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+p.y+=p.s;if(p.y>canvas.height){p.y=0;p.x=Math.random()*canvas.width;}
+});
+requestAnimationFrame(animate);
+}
+animate();
 </script>
 
 </body>
