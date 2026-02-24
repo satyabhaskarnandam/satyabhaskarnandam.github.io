@@ -100,11 +100,11 @@ margin-top:40px;
 .skill-column{width:50%;}
 .skill-column:first-child{
 text-align:left;
-padding-right:80px;
+padding-right:60px;
 }
 .skill-column:last-child{
 text-align:right;
-padding-left:80px;
+padding-left:60px;
 }
 .skill-column ul{list-style:none;padding:0;}
 .skill-column li{margin:12px 0;}
@@ -304,6 +304,8 @@ animation:blink .7s infinite;
 </div>
 
 <script>
+
+/* Scroll to top */
 window.scrollTo(0,0);
 
 /* Loader */
@@ -326,18 +328,39 @@ setTimeout(type,70);
 type();
 }
 
-/* Reveal Sections */
+/* Section Reveal */
 const sections=document.querySelectorAll("section");
-window.addEventListener("scroll",()=>{
+function reveal(){
 sections.forEach(sec=>{
 if(sec.getBoundingClientRect().top<window.innerHeight-100){
 sec.classList.add("visible");
 }
 });
-});
-sections.forEach(sec=>sec.classList.add("visible"));
+}
+window.addEventListener("scroll",reveal);
+reveal();
 
-/* FIXED Arrow Navigation */
+/* Card Animation */
+function animateCards(sectionId,cardClass){
+const section=document.getElementById(sectionId);
+const rect=section.getBoundingClientRect();
+const cards=document.querySelectorAll(cardClass);
+if(rect.top < window.innerHeight*0.85 && rect.bottom > 100){
+cards.forEach((card,i)=>{
+setTimeout(()=>card.classList.add("show"),i*150);
+});
+}else{
+cards.forEach(card=>card.classList.remove("show"));
+}
+}
+window.addEventListener("scroll",()=>{
+animateCards("certifications",".cert-card");
+animateCards("projects",".project-card");
+});
+animateCards("certifications",".cert-card");
+animateCards("projects",".project-card");
+
+/* Arrow Navigation */
 document.addEventListener("keydown",function(e){
 let currentIndex=0;
 sections.forEach((sec,index)=>{
@@ -346,7 +369,6 @@ if(rect.top<=150 && rect.bottom>=150){
 currentIndex=index;
 }
 });
-
 if(e.key==="ArrowRight" && currentIndex<sections.length-1){
 sections[currentIndex+1].scrollIntoView({behavior:"smooth"});
 }
@@ -412,6 +434,7 @@ p.x=Math.random()*canvas.width;
 requestAnimationFrame(animate);
 }
 animate();
+
 </script>
 
 </body>
