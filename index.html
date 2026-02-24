@@ -1,161 +1,139 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>SB Portfolio</title>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SB Portfolio</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-
-html { scroll-behavior: smooth; }
-
-body {
-    margin: 0;
-    padding-top: 70px;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#1e3c72);
-    background-size: 400% 400%;
-    animation: gradientBG 12s ease infinite;
-    color: white;
-    overflow-x: hidden;
+html{scroll-behavior:smooth;}
+body{
+margin:0;
+padding-top:70px;
+font-family:'Poppins',sans-serif;
+color:white;
+overflow-x:hidden;
+background:linear-gradient(-45deg,#0f2027,#203a43,#2c5364,#1e3c72);
+background-size:400% 400%;
+animation:gradientBG 12s ease infinite;
 }
 
-@keyframes gradientBG {
+@keyframes gradientBG{
 0%{background-position:0% 50%;}
 50%{background-position:100% 50%;}
 100%{background-position:0% 50%;}
 }
 
+/* NAV */
 nav{
 position:fixed;
 top:0;
 width:100%;
 height:70px;
 background:rgba(0,0,0,0.85);
-backdrop-filter:blur(10px);
 display:flex;
 justify-content:center;
 align-items:center;
 gap:40px;
 z-index:1000;
 }
-
 nav a{
 color:white;
 text-decoration:none;
 font-weight:500;
 transition:0.3s;
 }
+nav a:hover{color:#00d9ff;}
 
-nav a:hover{ color:#00d9ff; }
-
-header, section{
-height:calc(100vh - 70px);
+/* Sections */
+section,header{
+min-height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
 text-align:center;
+padding:40px 20px;
+}
+.container{max-width:1100px;width:100%;}
+
+/* Typing Cursor */
+.cursor{
+display:inline-block;
+width:3px;
+background:#00d9ff;
+margin-left:5px;
+animation:blink 1s infinite;
+}
+@keyframes blink{
+0%,100%{opacity:1;}
+50%{opacity:0;}
 }
 
-.container{ width:100%; max-width:1100px; }
-
-/* ===== Skills Layout ===== */
+/* Skills */
 .skills-wrapper{
 display:flex;
 justify-content:space-between;
-align-items:flex-start;
-gap:60px;
+gap:50px;
 margin-top:40px;
-text-align:left;
 }
-
 .skills-column{
 flex:1;
+text-align:left;
 }
+.skills-column h3{color:#00d9ff;}
+.skills-column ul{list-style:none;padding:0;}
+.skills-column li{margin-bottom:8px;}
 
-.skills-column h3{
-color:#00d9ff;
-margin-bottom:20px;
-}
-
-.skills-column h4{
-margin-top:20px;
-margin-bottom:10px;
-color:#00d9ff;
-}
-
-.skills-column ul{
-list-style:none;
-padding:0;
-margin:0;
-}
-
-.skills-column ul li{
-margin-bottom:10px;
+@media(max-width:900px){
+.skills-wrapper{flex-direction:column;}
+.skills-column{text-align:center;}
 }
 
 /* Cards */
 .cards{
 display:flex;
-flex-wrap:wrap;
 justify-content:center;
 gap:30px;
+flex-wrap:wrap;
 }
-
 .card{
 background:rgba(0,0,0,0.6);
 width:300px;
-border-radius:15px;
+border-radius:10px;
 overflow:hidden;
 transition:0.3s;
 }
-
-.card:hover{ transform:translateY(-8px); }
-
+.card:hover{transform:translateY(-5px);}
 .card img{
 width:100%;
 height:180px;
 object-fit:cover;
 }
-
-.card-content{ padding:20px; }
-
+.card-content{padding:20px;}
 button{
-margin-top:10px;
 padding:8px 15px;
 border:none;
-border-radius:6px;
 background:#00d9ff;
-font-weight:600;
+border-radius:5px;
 cursor:pointer;
+font-weight:600;
 }
+button:hover{opacity:0.8;}
 
-button:hover{ transform:scale(1.05); }
-
-.social-icons{ margin-top:20px; }
-
-.social-icons a{
-color:rgba(255,255,255,0.6);
-font-size:28px;
-margin:0 15px;
-transition:0.3s;
+/* Slider */
+.slider{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:20px;
 }
-
-.social-icons a:hover{
-color:white;
-transform:scale(1.2);
-text-shadow:0 0 10px #00d9ff;
-}
-
-canvas{
-position:fixed;
-top:0;
-left:0;
-width:100vw;
-height:100vh;
-z-index:-1;
+.arrow{
+font-size:30px;
+cursor:pointer;
+color:#00d9ff;
 }
 
 /* Modal */
@@ -168,52 +146,49 @@ justify-content:center;
 align-items:center;
 opacity:0;
 visibility:hidden;
-transition:0.4s;
+transition:0.3s;
 z-index:2000;
 }
-
 .modal.active{
 opacity:1;
 visibility:visible;
 }
-
 .modal-content{
 background:#111;
 padding:30px;
+border-radius:10px;
+max-width:700px;
 width:90%;
-max-width:800px;
-border-radius:15px;
-max-height:80vh;
-overflow-y:auto;
 text-align:left;
 }
-
-.modal-content img{
-width:100%;
-border-radius:10px;
-margin-bottom:20px;
-}
-
 .close{
 float:right;
-font-size:25px;
+font-size:22px;
 cursor:pointer;
 }
 
-h4{ color:#00d9ff; margin-top:20px; }
-
-.cursor{
-display:inline-block;
-width:3px;
-background:#00d9ff;
-margin-left:5px;
-animation:blink 1s infinite;
+/* Contact */
+.contact-box{
+background:rgba(0,0,0,0.6);
+padding:30px;
+border-radius:10px;
 }
+.social-icons a{
+color:white;
+font-size:25px;
+margin:0 10px;
+transition:0.3s;
+}
+.social-icons a:hover{color:#00d9ff;}
 
-@keyframes blink{
-0%{opacity:1;}
-50%{opacity:0;}
-100%{opacity:1;}
+/* Particles Canvas */
+canvas{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-1;
 }
 
 footer{
@@ -221,17 +196,6 @@ text-align:center;
 padding:20px;
 background:rgba(0,0,0,0.8);
 }
-
-@media(max-width:900px){
-.skills-wrapper{
-flex-direction:column;
-text-align:center;
-}
-.skills-column{
-text-align:center;
-}
-}
-
 </style>
 </head>
 
@@ -240,7 +204,7 @@ text-align:center;
 <canvas id="particles"></canvas>
 
 <nav>
-<a href="#home"><i class="fa-solid fa-house"></i></a>
+<a href="#home">Home</a>
 <a href="#about">About</a>
 <a href="#skills">Skills</a>
 <a href="#certifications">Certifications</a>
@@ -258,7 +222,7 @@ text-align:center;
 <section id="about">
 <div class="container">
 <h2>About Me</h2>
-<p>Motivated Electrical and Electronics Engineering student with strong interest in power systems and embedded technologies.</p>
+<p>Motivated Electrical and Electronics Engineering student passionate about Power Systems and Embedded Technologies.</p>
 </div>
 </section>
 
@@ -266,62 +230,136 @@ text-align:center;
 <div class="container">
 <h2>Skills</h2>
 <div class="skills-wrapper">
-
 <div class="skills-column">
 <h3>Technical Skills</h3>
-<h4>Programming</h4>
 <ul>
 <li>C</li>
 <li>C++</li>
-</ul>
-<h4>Simulation & Tools</h4>
-<ul>
 <li>MATLAB</li>
 <li>Simulink</li>
-</ul>
-<h4>Core Knowledge</h4>
-<ul>
 <li>Power Systems</li>
-<li>Digital Electronics</li>
 <li>Embedded Systems</li>
-<li>Renewable Energy Systems</li>
 </ul>
 </div>
 
 <div class="skills-column">
 <h3>Soft Skills</h3>
 <ul>
-<li>Communication Skills</li>
+<li>Communication</li>
 <li>Teamwork</li>
-<li>Adaptability</li>
-<li>Critical Thinking</li>
 <li>Leadership</li>
+<li>Critical Thinking</li>
+<li>Adaptability</li>
 </ul>
 </div>
-
 </div>
 </div>
 </section>
 
-<!-- Certifications, Projects, Contact remain SAME as your original working version -->
+<section id="certifications">
+<div class="container">
+<h2>Certifications</h2>
+<div class="cards">
+<div class="card">
+<img src="https://via.placeholder.com/300x180">
+<div class="card-content">
+<h3>C++ Bootcamp</h3>
+<p>3-Day intensive certification program.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="projects">
+<div class="container">
+<h2>Projects</h2>
+<div class="slider">
+<i class="fa-solid fa-arrow-left arrow" onclick="prevProject()"></i>
+
+<div class="card">
+<img src="https://via.placeholder.com/300x180">
+<div class="card-content">
+<h3 id="projectTitle"></h3>
+<p id="projectDesc"></p>
+<button onclick="openModal()">View Details</button>
+</div>
+</div>
+
+<i class="fa-solid fa-arrow-right arrow" onclick="nextProject()"></i>
+</div>
+</div>
+</section>
+
+<section id="contact">
+<div class="container">
+<h2>Contact</h2>
+<div class="contact-box">
+<p>Email: yourmail@email.com</p>
+<p>Phone: +91 XXXXX XXXXX</p>
+<div class="social-icons">
+<a href="#"><i class="fab fa-linkedin"></i></a>
+<a href="#"><i class="fab fa-github"></i></a>
+</div>
+</div>
+</div>
+</section>
+
+<footer>© 2026 SB Portfolio</footer>
+
+<div class="modal" id="modal">
+<div class="modal-content">
+<span class="close" onclick="closeModal()">&times;</span>
+<h3 id="modalTitle"></h3>
+<p id="modalContent"></p>
+</div>
+</div>
 
 <script>
-
-/* Scroll to top */
-window.onload = () => window.scrollTo(0,0);
-
 /* Typing */
-const text = "Nandam Satya Bhaskar";
-let i = 0;
-function typeEffect(){
-if(i < text.length){
-document.getElementById("typing").innerHTML += text.charAt(i);
+const nameText="Nandam Satya Bhaskar";
+let i=0;
+function typing(){
+if(i<nameText.length){
+document.getElementById("typing").innerHTML+=nameText.charAt(i);
 i++;
-setTimeout(typeEffect,100);
+setTimeout(typing,100);
 }}
-typeEffect();
+typing();
 
-/* White Dots */
+/* Projects */
+const projects=[
+{title:"Smart Energy Meter",desc:"IoT based monitoring system.",details:"Monitors electricity usage in real time using sensors."},
+{title:"Solar Power System",desc:"Renewable implementation.",details:"Designed a small scale solar system."}
+];
+
+let index=0;
+function loadProject(){
+document.getElementById("projectTitle").innerText=projects[index].title;
+document.getElementById("projectDesc").innerText=projects[index].desc;
+}
+loadProject();
+
+function nextProject(){index=(index+1)%projects.length;loadProject();}
+function prevProject(){index=(index-1+projects.length)%projects.length;loadProject();}
+
+/* Keyboard Arrow Support */
+document.addEventListener("keydown",function(e){
+if(e.key==="ArrowRight") nextProject();
+if(e.key==="ArrowLeft") prevProject();
+});
+
+/* Modal */
+function openModal(){
+document.getElementById("modal").classList.add("active");
+document.getElementById("modalTitle").innerText=projects[index].title;
+document.getElementById("modalContent").innerText=projects[index].details;
+}
+function closeModal(){
+document.getElementById("modal").classList.remove("active");
+}
+
+/* Particles */
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;
@@ -353,7 +391,6 @@ p.x=Math.random()*canvas.width;
 requestAnimationFrame(draw);
 }
 draw();
-
 </script>
 
 </body>
