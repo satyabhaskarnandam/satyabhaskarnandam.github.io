@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>SB | Electrical Engineer Portfolio</title>
+<title>SB | Premium Portfolio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -13,20 +13,9 @@ html { scroll-behavior: smooth; }
 body{
 margin:0;
 font-family:'Poppins',sans-serif;
-background:#0f2027;
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
 color:#fff;
 overflow-x:hidden;
-}
-
-/* Scroll Progress Bar */
-#progressBar{
-position:fixed;
-top:0;
-left:0;
-height:4px;
-background:linear-gradient(90deg,#00d9ff,#00ffb3);
-width:0%;
-z-index:3000;
 }
 
 /* Navbar */
@@ -50,8 +39,8 @@ font-weight:500;
 transition:0.3s;
 }
 
-nav a.active,
-nav a:hover{
+nav a:hover,
+nav a.active{
 color:#00d9ff;
 }
 
@@ -61,7 +50,7 @@ min-height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
-padding:100px 20px;
+padding:120px 20px;
 opacity:0;
 transform:translateY(40px);
 transition:1s ease;
@@ -78,73 +67,7 @@ width:100%;
 text-align:center;
 }
 
-/* Premium Glass Card */
-.card{
-background:rgba(255,255,255,0.05);
-backdrop-filter:blur(15px);
-border:1px solid rgba(255,255,255,0.1);
-border-radius:20px;
-padding:25px;
-width:300px;
-transition:0.4s ease;
-}
-
-.card:hover{
-transform:translateY(-10px);
-box-shadow:0 0 25px rgba(0,217,255,0.4);
-}
-
-/* Skills Bars */
-.skill{
-margin:20px 0;
-text-align:left;
-}
-
-.bar{
-height:8px;
-background:rgba(255,255,255,0.1);
-border-radius:20px;
-overflow:hidden;
-}
-
-.fill{
-height:100%;
-background:linear-gradient(90deg,#00d9ff,#00ffb3);
-width:0;
-transition:1.5s ease;
-}
-
-/* Buttons */
-button{
-padding:10px 18px;
-border:none;
-border-radius:25px;
-background:linear-gradient(90deg,#00d9ff,#00ffb3);
-color:#000;
-font-weight:600;
-cursor:pointer;
-transition:0.3s;
-}
-
-button:hover{
-transform:scale(1.08);
-box-shadow:0 0 20px rgba(0,255,179,0.6);
-}
-
-/* Social */
-.social-icons a{
-color:#aaa;
-font-size:26px;
-margin:0 12px;
-transition:0.3s;
-}
-
-.social-icons a:hover{
-color:#00ffb3;
-transform:scale(1.2);
-}
-
-/* Typing Cursor */
+/* Typing */
 .cursor{
 display:inline-block;
 width:2px;
@@ -156,17 +79,107 @@ animation:blink 0.7s infinite;
 50%{opacity:0;}
 }
 
+/* Projects */
+.project-grid{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:40px;
+margin-top:50px;
+}
+
+.project-card{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(15px);
+border:1px solid rgba(255,255,255,0.1);
+border-radius:20px;
+width:320px;
+overflow:hidden;
+transition:0.4s ease;
+}
+
+.project-card img{
+width:100%;
+height:200px;
+object-fit:cover;
+}
+
+.project-card h3{
+padding:15px;
+}
+
+.project-card button{
+margin-bottom:20px;
+padding:10px 18px;
+border:none;
+border-radius:25px;
+background:linear-gradient(90deg,#00d9ff,#00ffb3);
+color:#000;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+}
+
+.project-card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 25px rgba(0,217,255,0.4);
+}
+
+/* Modal */
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.85);
+display:flex;
+justify-content:center;
+align-items:center;
+opacity:0;
+visibility:hidden;
+transition:0.4s;
+z-index:2000;
+}
+
+.modal.active{
+opacity:1;
+visibility:visible;
+}
+
+.modal-content{
+background:#111;
+padding:30px;
+width:90%;
+max-width:800px;
+border-radius:15px;
+max-height:80vh;
+overflow-y:auto;
+transform:scale(0.8);
+transition:0.4s;
+}
+
+.modal.active .modal-content{
+transform:scale(1);
+}
+
+.modal-content img{
+width:100%;
+border-radius:10px;
+margin-bottom:20px;
+}
+
+.close{
+float:right;
+font-size:25px;
+cursor:pointer;
+}
+
 </style>
 </head>
 
 <body>
 
-<div id="progressBar"></div>
-
 <nav>
 <a href="#home">Home</a>
 <a href="#about">About</a>
-<a href="#skills">Skills</a>
 <a href="#projects">Projects</a>
 <a href="#contact">Contact</a>
 </nav>
@@ -174,7 +187,7 @@ animation:blink 0.7s infinite;
 <section id="home" class="show">
 <div class="container">
 <h1><span id="typing"></span><span class="cursor"></span></h1>
-<p>Electrical & Electronics Engineer</p>
+<p>Electrical & Electronics Engineering Student</p>
 </div>
 </section>
 
@@ -185,55 +198,28 @@ animation:blink 0.7s infinite;
 </div>
 </section>
 
-<section id="skills">
-<div class="container">
-<h2>Technical Skills</h2>
-
-<div class="skill">
-C / C++
-<div class="bar"><div class="fill" style="width:85%"></div></div>
-</div>
-
-<div class="skill">
-MATLAB / Simulink
-<div class="bar"><div class="fill" style="width:80%"></div></div>
-</div>
-
-<div class="skill">
-Embedded Systems
-<div class="bar"><div class="fill" style="width:75%"></div></div>
-</div>
-
-<div class="skill">
-Power Systems
-<div class="bar"><div class="fill" style="width:88%"></div></div>
-</div>
-
-</div>
-</section>
-
 <section id="projects">
 <div class="container">
 <h2>Projects</h2>
 
-<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:30px;margin-top:40px;">
+<div class="project-grid">
 
-<div class="card">
-<h3>Solar PV with MPPT</h3>
-<p>Simulated dynamic PV model with adaptive MPPT for optimal power extraction.</p>
-<button>View Details</button>
+<div class="project-card">
+<img src="solar.jpg" alt="Solar PV">
+<h3>Solar PV Modeling with MPPT</h3>
+<button onclick="openProject('solar')">View Details</button>
 </div>
 
-<div class="card">
-<h3>Smart Street Lighting</h3>
-<p>IoT-enabled energy saving system with motion sensing and auto brightness.</p>
-<button>View Details</button>
+<div class="project-card">
+<img src="streetlight.jpg" alt="Street Lighting">
+<h3>Smart Street Lighting System</h3>
+<button onclick="openProject('street')">View Details</button>
 </div>
 
-<div class="card">
-<h3>Cable Inspection Robot</h3>
-<p>Autonomous underground robot for real-time cable fault detection.</p>
-<button>View Details</button>
+<div class="project-card">
+<img src="robot.jpg" alt="Cable Robot">
+<h3>Autonomous Cable Inspection Robot</h3>
+<button onclick="openProject('robot')">View Details</button>
 </div>
 
 </div>
@@ -244,15 +230,16 @@ Power Systems
 <div class="container">
 <h2>Contact</h2>
 <p>Email: satyabhaskarnandam@gmail.com</p>
-
-<div class="social-icons">
-<a href="#"><i class="fab fa-github"></i></a>
-<a href="#"><i class="fab fa-linkedin"></i></a>
-<a href="#"><i class="fab fa-whatsapp"></i></a>
-</div>
-
 </div>
 </section>
+
+<!-- Modal -->
+<div id="projectModal" class="modal">
+<div class="modal-content">
+<span class="close" onclick="closeModal()">&times;</span>
+<div id="modalContent"></div>
+</div>
+</div>
 
 <script>
 
@@ -276,24 +263,63 @@ if(rect.top<window.innerHeight-100){
 sec.classList.add("show");
 }
 });
-
-/* Navbar Active */
-document.querySelectorAll("nav a").forEach(link=>{
-const section=document.querySelector(link.getAttribute("href"));
-if(section.getBoundingClientRect().top<=100 &&
-section.getBoundingClientRect().bottom>=100){
-link.classList.add("active");
-}else{
-link.classList.remove("active");
-}
 });
 
-/* Progress Bar */
-let winScroll=document.body.scrollTop || document.documentElement.scrollTop;
-let height=document.documentElement.scrollHeight-document.documentElement.clientHeight;
-let scrolled=(winScroll/height)*100;
-document.getElementById("progressBar").style.width=scrolled+"%";
+/* Project Modal */
+function openProject(type){
+let content="";
 
+if(type==="solar"){
+content=`
+<img src="solar.jpg">
+<h2>Solar PV Modeling with MPPT</h2>
+<p><strong>Objective:</strong> To design a photovoltaic system capable of extracting maximum power under varying environmental conditions.</p>
+<p><strong>Working:</strong> A PV array feeds a DC-DC boost converter controlled by a Perturb & Observe MPPT algorithm to maintain maximum power point.</p>
+<p><strong>Tools Used:</strong> MATLAB Simulink, PV Module Modeling.</p>
+<p><strong>Outcome:</strong> Increased efficiency and stable output under changing irradiation.</p>
+`;
+}
+
+if(type==="street"){
+content=`
+<img src="streetlight.jpg">
+<h2>Smart Street Lighting System</h2>
+<p><strong>Objective:</strong> To reduce energy consumption through automation.</p>
+<p><strong>Working:</strong> LDR detects daylight while PIR sensor detects motion. Brightness increases when motion is detected and dims otherwise.</p>
+<p><strong>Components:</strong> LDR, PIR Sensor, Microcontroller.</p>
+<p><strong>Outcome:</strong> Energy-efficient and automated lighting system.</p>
+`;
+}
+
+if(type==="robot"){
+content=`
+<img src="robot.jpg">
+<h2>Autonomous Underground Cable Inspection Robot</h2>
+<p><strong>Objective:</strong> To detect underground cable faults in real-time without manual inspection.</p>
+<p><strong>Working:</strong> The robot navigates through cable ducts using motor drivers and sensors to detect temperature or insulation faults.</p>
+<p><strong>Components:</strong> Microcontroller, Motor Driver, Sensors, Wireless Module.</p>
+<p><strong>Outcome:</strong> Faster maintenance and improved reliability.</p>
+`;
+}
+
+document.getElementById("modalContent").innerHTML=content;
+document.getElementById("projectModal").classList.add("active");
+}
+
+function closeModal(){
+document.getElementById("projectModal").classList.remove("active");
+}
+
+window.onclick=function(e){
+if(e.target==document.getElementById("projectModal")){
+closeModal();
+}
+};
+
+document.addEventListener("keydown",function(e){
+if(e.key==="Escape"){
+closeModal();
+}
 });
 
 </script>
