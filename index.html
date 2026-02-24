@@ -71,17 +71,21 @@ nav a:hover{
 color:#00d9ff;
 }
 
-/* Perfectly Centered Sections */
+/* PERFECT SECTION FIX */
 section{
-height:100vh;
+height:calc(100vh - 70px);
+margin-top:70px;
 display:flex;
 align-items:center;
 justify-content:center;
-padding-top:70px; /* navbar space */
 text-align:center;
 opacity:0;
 transform:translateY(40px);
 transition:opacity 0.8s ease, transform 0.8s ease;
+}
+section:first-of-type{
+margin-top:0;
+height:100vh;
 }
 section.show{
 opacity:1;
@@ -309,8 +313,6 @@ animation:blink 0.7s infinite;
 </div>
 
 <script>
-
-/* Force Home */
 window.addEventListener("load", function() {
 if ('scrollRestoration' in history) history.scrollRestoration='manual';
 window.scrollTo(0,0);
@@ -319,7 +321,6 @@ document.getElementById("typing").innerHTML="";
 type();
 });
 
-/* Typing */
 const text="Nandam Satya Bhaskar";
 let i=0;
 function type(){
@@ -329,9 +330,9 @@ i++; setTimeout(type,70);
 }
 }
 
-/* Fade + Active Nav */
 const sections=document.querySelectorAll("section");
 const navLinks=document.querySelectorAll("nav a");
+
 window.addEventListener("scroll",()=>{
 sections.forEach(sec=>{
 if(sec.getBoundingClientRect().top < window.innerHeight-100){
@@ -352,7 +353,6 @@ link.classList.add("active");
 });
 });
 
-/* Arrow Navigation */
 document.addEventListener("keydown",(e)=>{
 let index=[...sections].findIndex(sec=>sec.id===document.querySelector("nav a.active")?.getAttribute("href")?.substring(1));
 if(e.key==="ArrowRight" && index<sections.length-1){
@@ -363,7 +363,6 @@ sections[index-1].scrollIntoView({behavior:"smooth"});
 }
 });
 
-/* Particles */
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
 canvas.width=innerWidth; canvas.height=innerHeight;
@@ -383,7 +382,6 @@ requestAnimationFrame(animate);
 }
 animate();
 
-/* Modal */
 function openCert(img){
 document.getElementById("modalBody").innerHTML=`<img src="${img}">`;
 document.getElementById("modal").classList.add("active");
@@ -399,7 +397,6 @@ document.getElementById("modal").classList.add("active");
 function closeModal(){document.getElementById("modal").classList.remove("active");}
 window.onclick=e=>{if(e.target==document.getElementById("modal")) closeModal();};
 document.addEventListener("keydown",e=>{if(e.key==="Escape") closeModal();});
-
 </script>
 </body>
 </html>
