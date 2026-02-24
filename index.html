@@ -109,6 +109,11 @@ text-align:left;
 .skill-column ul{list-style:none;padding:0;}
 .skill-column li{margin:12px 0;}
 
+@media(max-width:768px){
+.skills-wrapper{flex-direction:column;}
+.skill-column{width:100%;margin-bottom:30px;}
+}
+
 /* Cards */
 .grid{
 display:flex;
@@ -117,20 +122,39 @@ justify-content:center;
 gap:40px;
 margin-top:40px;
 }
+
+/* ===== Premium Project Animations ===== */
 .card{
 background:rgba(255,255,255,0.05);
 border:1px solid rgba(255,255,255,0.1);
 border-radius:20px;
 width:320px;
 overflow:hidden;
-transition:.4s;
+transition:transform .4s ease, box-shadow .4s ease;
+transform-style:preserve-3d;
+opacity:0;
+transform:translateY(50px);
 }
+
+.card.reveal{
+opacity:1;
+transform:translateY(0);
+transition:all .8s ease;
+}
+
 .card img{
 width:100%;
 height:200px;
 object-fit:cover;
+transition:transform .5s ease;
 }
+
+.card:hover img{
+transform:scale(1.08);
+}
+
 .card h3{padding:15px;}
+
 .card button{
 margin-bottom:20px;
 padding:10px 18px;
@@ -141,9 +165,9 @@ color:#000;
 font-weight:600;
 cursor:pointer;
 }
+
 .card:hover{
-transform:translateY(-10px);
-box-shadow:0 0 20px rgba(0,217,255,.5);
+box-shadow:0 0 25px rgba(0,217,255,.6);
 }
 
 /* Modal */
@@ -228,12 +252,7 @@ animation:blink .7s infinite;
 </div>
 </section>
 
-<section id="about">
-<div class="container">
-<h2>About</h2>
-<p>Focused on Power Systems & Embedded Technologies.</p>
-</div>
-</section>
+<section id="about"><div class="container"><h2>About</h2><p>Focused on Power Systems & Embedded Technologies.</p></div></section>
 
 <section id="skills">
 <div class="container">
@@ -241,15 +260,11 @@ animation:blink .7s infinite;
 <div class="skills-wrapper">
 <div class="skill-column">
 <h3>Technical Skills</h3>
-<ul>
-<li>C</li><li>C++</li><li>MATLAB</li><li>Embedded Systems</li><li>Power Systems</li>
-</ul>
+<ul><li>C</li><li>C++</li><li>MATLAB</li><li>Embedded Systems</li><li>Power Systems</li></ul>
 </div>
 <div class="skill-column">
 <h3>Soft Skills</h3>
-<ul>
-<li>Communication Skills</li><li>Teamwork</li><li>Adaptability</li><li>Critical Thinking</li><li>Leadership</li>
-</ul>
+<ul><li>Communication Skills</li><li>Teamwork</li><li>Adaptability</li><li>Critical Thinking</li><li>Leadership</li></ul>
 </div>
 </div>
 </div>
@@ -270,9 +285,9 @@ animation:blink .7s infinite;
 <div class="container">
 <h2>Projects</h2>
 <div class="grid">
-<div class="card"><img src="solar.jpg"><h3>Solar PV Modeling</h3><button onclick="openProject('solar')">View Details</button></div>
-<div class="card"><img src="streetlight.jpg"><h3>Smart Street Lighting</h3><button onclick="openProject('street')">View Details</button></div>
-<div class="card"><img src="robot.jpg"><h3>Cable Inspection Robot</h3><button onclick="openProject('robot')">View Details</button></div>
+<div class="card project-card"><img src="solar.jpg"><h3>Solar PV Modeling</h3><button onclick="openProject('solar')">View Details</button></div>
+<div class="card project-card"><img src="streetlight.jpg"><h3>Smart Street Lighting</h3><button onclick="openProject('street')">View Details</button></div>
+<div class="card project-card"><img src="robot.jpg"><h3>Cable Inspection Robot</h3><button onclick="openProject('robot')">View Details</button></div>
 </div>
 </div>
 </section>
@@ -300,7 +315,7 @@ animation:blink .7s infinite;
 <script>
 window.addEventListener("load",()=>{
 window.scrollTo(0,0);
-setTimeout(()=>{loader.style.display="none";},700);
+setTimeout(()=>loader.style.display="none",700);
 type();
 });
 
@@ -317,29 +332,37 @@ i++;setTimeout(type,70);
 /* Fade + Active Nav */
 const sections=document.querySelectorAll("section");
 const navLinks=document.querySelectorAll("nav a");
-window.addEventListener("scroll",()=>{
-sections.forEach(sec=>{
-if(sec.getBoundingClientRect().top<window.innerHeight-100){
-sec.classList.add("show");
-}
-});
+
+function updateOnScroll(){
 let current="";
 sections.forEach(sec=>{
-if(pageYOffset>=sec.offsetTop-150){
-current=sec.id;
-}
+const rect=sec.getBoundingClientRect();
+if(rect.top<window.innerHeight-100) sec.classList.add("show");
+if(window.pageYOffset>=sec.offsetTop-150) current=sec.id;
 });
 navLinks.forEach(link=>{
-link.classList.remove("active");
-if(link.getAttribute("href")==="#"+current){
-link.classList.add("active");
+link.classList.toggle("active",link.getAttribute("href")==="#"+current);
+});
+}
+window.addEventListener("scroll",updateOnScroll);
+
+/* Project Stagger Reveal */
+const projectCards=document.querySelectorAll(".project-card");
+function revealProjects(){
+projectCards.forEach((card,index)=>{
+const rect=card.getBoundingClientRect();
+if(rect.top<window.innerHeight-100){
+setTimeout(()=>card.classList.add("reveal"),index*150);
 }
 });
-});
+}
+window.addEventListener("scroll",revealProjects);
 
 /* Arrow Navigation */
 document.addEventListener("keydown",e=>{
-let index=[...sections].findIndex(sec=>sec.id===document.querySelector("nav a.active").getAttribute("href").substring(1));
+const active=document.querySelector("nav a.active");
+if(!active) return;
+let index=[...sections].findIndex(sec=>sec.id===active.getAttribute("href").substring(1));
 if(e.key==="ArrowRight"&&index<sections.length-1)
 sections[index+1].scrollIntoView({behavior:"smooth"});
 if(e.key==="ArrowLeft"&&index>0)
@@ -349,7 +372,13 @@ sections[index-1].scrollIntoView({behavior:"smooth"});
 /* Particles */
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
-canvas.width=innerWidth;canvas.height=innerHeight;
+function resizeCanvas(){
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize",resizeCanvas);
+
 let particles=[];
 for(let i=0;i<120;i++){
 particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2,s:Math.random()*0.7+0.2});
@@ -373,15 +402,9 @@ modal.classList.add("active");
 }
 function openProject(type){
 let content="";
-if(type==="solar"){
-content=`<img src="solar.jpg"><h2>Solar PV Modeling</h2><p>Simulated PV array with MPPT under varying conditions.</p>`;
-}
-if(type==="street"){
-content=`<img src="streetlight.jpg"><h2>Smart Street Lighting</h2><p>Automated lighting using LDR and motion detection.</p>`;
-}
-if(type==="robot"){
-content=`<img src="robot.jpg"><h2>Cable Inspection Robot</h2><p>Autonomous underground fault detection robot.</p>`;
-}
+if(type==="solar") content=`<img src="solar.jpg"><h2>Solar PV Modeling</h2><p>Simulated PV array with MPPT under varying conditions.</p>`;
+if(type==="street") content=`<img src="streetlight.jpg"><h2>Smart Street Lighting</h2><p>Automated lighting using LDR and motion detection.</p>`;
+if(type==="robot") content=`<img src="robot.jpg"><h2>Cable Inspection Robot</h2><p>Autonomous underground fault detection robot.</p>`;
 modalBody.innerHTML=content;
 modal.classList.add("active");
 }
