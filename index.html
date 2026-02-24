@@ -167,7 +167,7 @@ background:rgba(255,255,255,.05);
 border:1px solid rgba(255,255,255,.1);
 border-radius:20px;
 overflow:hidden;
-transition:transform .5s ease;
+transition:transform .5s ease, opacity .5s ease;
 opacity:0;
 transform:translateY(40px);
 }
@@ -368,7 +368,7 @@ animation:blink .7s infinite;
 
 <script>
 
-/* Scroll to Home */
+/* Scroll to top */
 window.scrollTo(0,0);
 
 /* Loader */
@@ -402,18 +402,23 @@ entry.target.classList.add("visible");
 },{threshold:0.4});
 sections.forEach(sec=>sectionObserver.observe(sec));
 
-/* Card Animation */
-const cards=document.querySelectorAll(".card");
-const cardObserver=new IntersectionObserver(entries=>{
+/* STAGGERED CARD ANIMATION */
+const grids=document.querySelectorAll(".grid");
+const gridObserver=new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
+const cards=entry.target.querySelectorAll(".card");
 if(entry.isIntersecting){
-entry.target.classList.add("animate");
+cards.forEach((card,index)=>{
+setTimeout(()=>{
+card.classList.add("animate");
+}, index * 120);
+});
 }else{
-entry.target.classList.remove("animate");
+cards.forEach(card=>card.classList.remove("animate"));
 }
 });
 },{threshold:0.4});
-cards.forEach(card=>cardObserver.observe(card));
+grids.forEach(grid=>gridObserver.observe(grid));
 
 /* Arrow Navigation */
 document.addEventListener("keydown",function(e){
