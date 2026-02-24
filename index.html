@@ -60,6 +60,34 @@
 
         .container { max-width: 1100px; width: 100%; }
 
+        /* ---------- Skills Styling ---------- */
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .skill {
+            padding: 14px 30px;
+            border-radius: 40px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #00d9ff, #0099ff);
+            color: #000;
+            transition: all 0.4s ease;
+            box-shadow: 0 0 10px rgba(0,217,255,0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill:hover {
+            transform: scale(1.15);
+            box-shadow: 0 0 25px #00d9ff;
+        }
+
+        /* ---------- Cards ---------- */
         .cards {
             display: flex;
             flex-wrap: wrap;
@@ -169,6 +197,20 @@
         }
 
         h4 { color: #00d9ff; margin-top: 20px; }
+
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            background: #00d9ff;
+            margin-left: 5px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0% {opacity:1;}
+            50% {opacity:0;}
+            100% {opacity:1;}
+        }
     </style>
 </head>
 
@@ -187,7 +229,7 @@
 
 <header id="home">
     <div>
-        <h1>Nandam Satya Bhaskar</h1>
+        <h1><span id="typing"></span><span class="cursor"></span></h1>
         <p>Electrical & Electronics Engineering Student</p>
     </div>
 </header>
@@ -199,7 +241,6 @@
 <section id="skills">
 <div class="container">
 <h2>Skills</h2>
-
 <div class="skills-list">
 <span class="skill">C</span>
 <span class="skill">C++</span>
@@ -207,13 +248,10 @@
 <span class="skill">Embedded Systems</span>
 <span class="skill">Power Systems</span>
 </div>
-
 </div>
 </section>
 
-<section id="certifications">
-<div class="container">
-<h2>Certifications</h2>
+<section id="certifications"><div class="container"><h2>Certifications</h2>
 <div class="cards">
 <div class="card"><img src="nptel.jpg"><div class="card-content">
 <h3>Digital Electronics – NPTEL</h3>
@@ -226,9 +264,7 @@
 <button onclick="openCert('matlab.jpg')">View Certificate</button></div></div>
 </div></div></section>
 
-<section id="projects">
-<div class="container">
-<h2>Projects</h2>
+<section id="projects"><div class="container"><h2>Projects</h2>
 <div class="cards">
 <div class="card"><img src="solar.jpg"><div class="card-content">
 <h3>Solar PV Modeling</h3>
@@ -241,16 +277,16 @@
 <button onclick="openProject('robot')">View Details</button></div></div>
 </div></div></section>
 
-<section id="contact">
-<div class="container">
+<section id="contact"><div class="container">
 <h2>Contact Me</h2>
 <p>Email: satyabhaskarnandam@gmail.com</p>
 <p>Mobile: +91 7780603821</p>
 <div class="social-icons">
-<a href="https://github.com/satyabhaskarnandam" target="_blank"><i class="fab fa-github"></i></a>
-<a href="https://linkedin.com/in/nandam-satya-bhaskar" target="_blank"><i class="fab fa-linkedin"></i></a>
-<a href="https://wa.me/917780603821" target="_blank"><i class="fab fa-whatsapp"></i></a>
-</div></div></section>
+<a href="https://github.com/satyabhaskarnandam"><i class="fab fa-github"></i></a>
+<a href="https://linkedin.com/in/nandam-satya-bhaskar"><i class="fab fa-linkedin"></i></a>
+<a href="https://wa.me/917780603821"><i class="fab fa-whatsapp"></i></a>
+</div>
+</div></section>
 
 <footer>© 2026 SB Portfolio</footer>
 
@@ -262,25 +298,17 @@
 
 <script>
 
-/* Arrow Navigation */
-const sections = ["home","about","skills","certifications","projects","contact"];
-let currentIndex = 0;
-
-function goToSection(index){
-    if(index >= 0 && index < sections.length){
-        currentIndex = index;
-        document.getElementById(sections[index]).scrollIntoView({behavior:"smooth"});
+/* Typing Effect */
+const text = "Nandam Satya Bhaskar";
+let index = 0;
+function typeEffect() {
+    if (index < text.length) {
+        document.getElementById("typing").innerHTML += text.charAt(index);
+        index++;
+        setTimeout(typeEffect, 100);
     }
 }
-
-document.addEventListener("keydown", function(e){
-    if(e.key === "ArrowRight"){
-        goToSection(currentIndex + 1);
-    }
-    if(e.key === "ArrowLeft"){
-        goToSection(currentIndex - 1);
-    }
-});
+typeEffect();
 
 /* White Dots */
 const canvas = document.getElementById("particles");
@@ -314,6 +342,11 @@ p.x=Math.random()*canvas.width;
 requestAnimationFrame(drawParticles);
 }
 drawParticles();
+
+window.addEventListener("resize",()=>{
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+});
 
 /* Modal */
 const modal=document.getElementById("modal");
