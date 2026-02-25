@@ -87,15 +87,18 @@ display:flex;
 justify-content:center;
 align-items:center;
 gap:40px;
-background:transparent;     /* fully transparent */
-backdrop-filter:none;       /* remove blur */
+background:rgba(255,255,255,0.08);   /* very light transparent */
+backdrop-filter:blur(12px);          /* blur effect */
+-webkit-backdrop-filter:blur(12px);  /* safari support */
 transition:.4s;
 z-index:1000;
 }
 
 nav.scrolled{
-background:transparent;     /* stays transparent even on scroll */
-box-shadow:none;            /* remove shadow */
+background:rgba(255,255,255,0.12);
+backdrop-filter:blur(18px);
+-webkit-backdrop-filter:blur(18px);
+box-shadow:0 8px 25px rgba(0,0,0,0.25);
 }
 
 nav a{
