@@ -14,6 +14,7 @@
 --accent:#00d9ff;
 --glass:rgba(255,255,255,.06);
 --glass-border:rgba(255,255,255,.15);
+--profile-size:220px;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -129,24 +130,25 @@ justify-content:center;
 text-align:center;
 }
 
-/* PROFILE SYSTEM */
+/* PROFILE WRAPPER (HOME + ABOUT ONLY) */
 
 .profile-wrapper{
 position:relative;
+height:200vh;
 }
 
 .profile-sticky{
 position:sticky;
-top:50vh;
-transform:translateY(-50%);
+top:calc(50vh - (var(--profile-size)/2));
 left:25%;
-width:220px;
+width:var(--profile-size);
+height:var(--profile-size);
 z-index:900;
 }
 
 .profile-pic{
-width:220px;
-height:220px;
+width:100%;
+height:100%;
 border-radius:50%;
 object-fit:cover;
 border:4px solid var(--accent);
@@ -183,7 +185,7 @@ width:100%;
 .skills-flex ul{list-style:none;margin-top:15px;}
 .skills-flex li{margin:8px 0;}
 
-/* CARDS */
+/* GRID CARDS */
 
 .grid{
 display:grid;
@@ -337,7 +339,7 @@ animation:blink .7s infinite;
 @media(max-width:768px){
 .skills-flex{flex-direction:column;}
 .skills-flex>div{width:100%;text-align:left!important;padding:0;margin-bottom:20px;}
-.profile-sticky{left:50%;transform:translate(-50%,-50%);}
+.profile-sticky{left:50%;}
 .home-text{margin-left:0;}
 }
 
@@ -358,6 +360,7 @@ animation:blink .7s infinite;
 </nav>
 
 <div class="profile-wrapper">
+
 <div class="profile-sticky">
 <img src="profile.jpg" class="profile-pic">
 </div>
@@ -467,13 +470,6 @@ animation:blink .7s infinite;
 </div>
 </section>
 
-<div id="modal" class="modal">
-<div class="modal-box">
-<span class="close" onclick="closeModal()">&times;</span>
-<div id="modalBody"></div>
-</div>
-</div>
-
 <script>
 
 /* Start at top */
@@ -499,138 +495,6 @@ setTimeout(type,70);
 }
 })();
 }
-
-/* Navbar fade */
-const navbar=document.getElementById("navbar");
-window.addEventListener("scroll",()=>{
-navbar.classList.toggle("scrolled",window.scrollY>10);
-});
-
-/* Section fade */
-const sections=document.querySelectorAll("section");
-const observer=new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting) entry.target.classList.add("visible");
-});
-},{threshold:0.6});
-sections.forEach(sec=>observer.observe(sec));
-
-/* Active nav */
-const navLinks=document.querySelectorAll("nav a");
-window.addEventListener("scroll",()=>{
-let current="";
-sections.forEach(sec=>{
-if(pageYOffset>=sec.offsetTop-200) current=sec.id;
-});
-navLinks.forEach(link=>{
-link.classList.toggle("active",link.getAttribute("href")==="#"+current);
-});
-});
-
-/* Arrow navigation */
-let currentIndex=0;
-const sectionList=[...sections];
-
-window.addEventListener("scroll",()=>{
-const pos=window.scrollY+window.innerHeight/2;
-sectionList.forEach((sec,i)=>{
-if(pos>=sec.offsetTop && pos<sec.offsetTop+sec.offsetHeight) currentIndex=i;
-});
-});
-
-document.addEventListener("keydown",e=>{
-if(e.key==="ArrowDown"||e.key==="ArrowRight"){
-if(currentIndex<sectionList.length-1)
-sectionList[++currentIndex].scrollIntoView({behavior:"smooth"});
-}
-if(e.key==="ArrowUp"||e.key==="ArrowLeft"){
-if(currentIndex>0)
-sectionList[--currentIndex].scrollIntoView({behavior:"smooth"});
-}
-});
-
-/* Stagger cards */
-const grids=document.querySelectorAll(".grid");
-const gridObserver=new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-const cards=entry.target.querySelectorAll(".card");
-if(entry.isIntersecting){
-cards.forEach((card,i)=>setTimeout(()=>card.classList.add("show"),i*120));
-}else{
-cards.forEach(card=>card.classList.remove("show"));
-}
-});
-},{threshold:0.4});
-grids.forEach(grid=>gridObserver.observe(grid));
-
-/* Modal */
-const modal=document.getElementById("modal");
-const modalBody=document.getElementById("modalBody");
-
-function openCert(img){
-modalBody.innerHTML='<img src="'+img+'">';
-modal.classList.add("active");
-}
-
-function openProject(type){
-let content="";
-if(type==="solar"){
-content='<img src="solar.jpg"><h2>Solar PV Modeling</h2><p>Simulated PV array with MPPT under varying irradiation and temperature conditions.</p>';
-}
-if(type==="street"){
-content='<img src="streetlight.jpg"><h2>Smart Street Lighting</h2><p>Automatic brightness adjustment using LDR and motion sensors for energy efficiency.</p>';
-}
-if(type==="robot"){
-content='<img src="robot.jpg"><h2>Underground Cable Inspection Robot</h2><p>Autonomous robotic system for underground cable fault detection and monitoring.</p>';
-}
-modalBody.innerHTML=content;
-modal.classList.add("active");
-}
-
-function closeModal(){
-modal.classList.remove("active");
-}
-
-window.onclick=e=>{if(e.target==modal) closeModal();};
-document.addEventListener("keydown",e=>{if(e.key==="Escape") closeModal();});
-
-/* Particles */
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-
-function resize(){
-canvas.width=innerWidth;
-canvas.height=innerHeight;
-}
-resize();
-window.addEventListener("resize",resize);
-
-let particles=[];
-for(let i=0;i<120;i++){
-particles.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-r:Math.random()*2,
-s:Math.random()*0.7+0.2
-});
-}
-
-function animate(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-ctx.fillStyle="rgba(255,255,255,.4)";
-particles.forEach(p=>{
-ctx.beginPath();
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-ctx.fill();
-p.y+=p.s;
-if(p.y>canvas.height){
-p.y=0;
-p.x=Math.random()*canvas.width;
-}
-});
-requestAnimationFrame(animate);
-}
-animate();
 
 </script>
 
