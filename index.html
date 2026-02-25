@@ -9,11 +9,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
+
 :root{
 --accent:#00d9ff;
 --glass:rgba(255,255,255,.06);
 --glass-border:rgba(255,255,255,.15);
---profile-size:220px;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -31,6 +31,7 @@ background:#0a2731;
 }
 
 /* LOADER */
+
 #loader{
 position:fixed;
 inset:0;
@@ -51,9 +52,12 @@ border-radius:50%;
 animation:spin 1s linear infinite;
 }
 
-@keyframes spin{100%{transform:rotate(360deg);}}
+@keyframes spin{
+100%{transform:rotate(360deg);}
+}
 
 /* PARTICLES */
+
 canvas{
 position:fixed;
 top:0;
@@ -62,6 +66,7 @@ z-index:-1;
 }
 
 /* NAVBAR */
+
 nav{
 position:fixed;
 top:0;
@@ -92,35 +97,12 @@ transition:.3s;
 }
 
 nav a.active,
-nav a:hover{color:var(--accent);}
-
-/* PROFILE */
-#profileWrapper{
-position:fixed;
-left:25%;
-top:50%;
-width:var(--profile-size);
-height:var(--profile-size);
-margin-top:-110px;
-z-index:900;
-}
-
-.profile-pic{
-width:100%;
-height:100%;
-border-radius:50%;
-object-fit:cover;
-border:4px solid var(--accent);
-box-shadow:0 0 15px rgba(0,217,255,.5);
-transition:.4s ease;
-}
-
-.profile-pic:hover{
-transform:scale(1.08);
-box-shadow:0 0 40px rgba(0,217,255,.9);
+nav a:hover{
+color:var(--accent);
 }
 
 /* SECTIONS */
+
 section{
 height:100vh;
 scroll-snap-align:start;
@@ -129,10 +111,11 @@ align-items:center;
 justify-content:center;
 opacity:0;
 transition:opacity .8s ease;
-position:relative;
 }
 
-section.visible{opacity:1;}
+section.visible{
+opacity:1;
+}
 
 .container{
 width:100%;
@@ -146,12 +129,47 @@ justify-content:center;
 text-align:center;
 }
 
+/* PROFILE SYSTEM */
+
+.profile-wrapper{
+position:relative;
+}
+
+.profile-sticky{
+position:sticky;
+top:50vh;
+transform:translateY(-50%);
+left:25%;
+width:220px;
+z-index:900;
+}
+
+.profile-pic{
+width:220px;
+height:220px;
+border-radius:50%;
+object-fit:cover;
+border:4px solid var(--accent);
+box-shadow:0 0 15px rgba(0,217,255,.5);
+transition:.4s ease;
+}
+
+.profile-pic:hover{
+transform:scale(1.08);
+box-shadow:0 0 40px rgba(0,217,255,.9);
+}
+
 .home-text{
 max-width:800px;
 margin-left:500px;
+display:flex;
+flex-direction:column;
+align-items:center;
+text-align:center;
 }
 
 /* SKILLS */
+
 .skills-flex{
 display:flex;
 margin-top:40px;
@@ -165,7 +183,8 @@ width:100%;
 .skills-flex ul{list-style:none;margin-top:15px;}
 .skills-flex li{margin:8px 0;}
 
-/* GRID */
+/* CARDS */
+
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
@@ -227,6 +246,7 @@ transform:scale(1.05);
 }
 
 /* MODAL */
+
 .modal{
 position:fixed;
 inset:0;
@@ -266,6 +286,43 @@ cursor:pointer;
 font-size:24px;
 }
 
+/* CONTACT */
+
+.contact-wrapper{
+display:flex;
+flex-direction:column;
+height:100%;
+width:100%;
+}
+
+.contact-center{
+flex:1;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+.social-icons a{
+color:rgba(255,255,255,.6);
+font-size:28px;
+margin:0 15px;
+transition:.3s;
+text-decoration:none;
+}
+
+.social-icons a:hover{
+color:var(--accent);
+transform:scale(1.2);
+}
+
+.contact-footer{
+text-align:center;
+padding:15px 0;
+opacity:.9;
+font-size:14px;
+}
+
 .cursor{
 display:inline-block;
 width:2px;
@@ -273,24 +330,23 @@ background:var(--accent);
 animation:blink .7s infinite;
 }
 
-@keyframes blink{50%{opacity:0;}}
+@keyframes blink{
+50%{opacity:0;}
+}
 
 @media(max-width:768px){
 .skills-flex{flex-direction:column;}
 .skills-flex>div{width:100%;text-align:left!important;padding:0;margin-bottom:20px;}
-#profileWrapper{left:50%;}
+.profile-sticky{left:50%;transform:translate(-50%,-50%);}
 .home-text{margin-left:0;}
 }
+
 </style>
 </head>
 <body>
 
 <div id="loader"><div class="loader-ring"></div></div>
 <canvas id="particles"></canvas>
-
-<div id="profileWrapper">
-<img src="profile.jpg" class="profile-pic">
-</div>
 
 <nav id="navbar">
 <a href="#home" class="active"><i class="fa-solid fa-house"></i></a>
@@ -300,6 +356,11 @@ animation:blink .7s infinite;
 <a href="#projects">Projects</a>
 <a href="#contact">Contact</a>
 </nav>
+
+<div class="profile-wrapper">
+<div class="profile-sticky">
+<img src="profile.jpg" class="profile-pic">
+</div>
 
 <section id="home" class="visible">
 <div class="container">
@@ -318,6 +379,8 @@ animation:blink .7s infinite;
 </div>
 </div>
 </section>
+
+</div>
 
 <section id="skills">
 <div class="container">
@@ -389,53 +452,45 @@ animation:blink .7s infinite;
 </section>
 
 <section id="contact">
-<div class="container">
+<div class="container contact-wrapper">
+<div class="contact-center">
 <h2>Contact</h2>
 <p>Email: satyabhaskarnandam@gmail.com</p>
 <p>Mobile: +91 7780603821</p>
+<div class="social-icons">
+<a href="https://github.com/satyabhaskarnandam" target="_blank"><i class="fab fa-github"></i></a>
+<a href="https://linkedin.com/in/nandam-satya-bhaskar" target="_blank"><i class="fab fa-linkedin"></i></a>
+<a href="https://wa.me/917780603821" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</div>
+</div>
+<div class="contact-footer">© SB | PORTFOLIO</div>
 </div>
 </section>
 
+<div id="modal" class="modal">
+<div class="modal-box">
+<span class="close" onclick="closeModal()">&times;</span>
+<div id="modalBody"></div>
+</div>
+</div>
+
 <script>
 
-/* LOADER + START */
+/* Start at top */
+window.onload=function(){window.scrollTo(0,0);};
+
+/* Loader */
 window.addEventListener("load",function(){
-window.scrollTo(0,0);
-setTimeout(()=>loader.style.opacity=0,500);
-setTimeout(()=>loader.style.display="none",1000);
+setTimeout(()=>document.getElementById("loader").style.opacity=0,500);
+setTimeout(()=>document.getElementById("loader").style.display="none",1000);
 startTyping();
 });
 
-/* PROFILE RELEASE (True 1:1) */
-const profile=document.getElementById("profileWrapper");
-const about=document.getElementById("about");
-let released=false;
-
-function updateProfile(){
-const aboutBottom=about.offsetTop+about.offsetHeight;
-const releasePoint=aboutBottom-(window.innerHeight/2);
-
-if(window.scrollY>=releasePoint && !released){
-profile.style.position="absolute";
-profile.style.top=aboutBottom-110+"px";
-profile.style.marginTop="0";
-released=true;
-}
-if(window.scrollY<releasePoint && released){
-profile.style.position="fixed";
-profile.style.top="50%";
-profile.style.marginTop="-110px";
-released=false;
-}
-}
-
-window.addEventListener("scroll",()=>requestAnimationFrame(updateProfile));
-updateProfile();
-
-/* TYPING */
+/* Typing */
 function startTyping(){
 const text="Nandam Satya Bhaskar";
 let i=0;
+const typing=document.getElementById("typing");
 typing.innerHTML="";
 (function type(){
 if(i<text.length){
@@ -444,6 +499,138 @@ setTimeout(type,70);
 }
 })();
 }
+
+/* Navbar fade */
+const navbar=document.getElementById("navbar");
+window.addEventListener("scroll",()=>{
+navbar.classList.toggle("scrolled",window.scrollY>10);
+});
+
+/* Section fade */
+const sections=document.querySelectorAll("section");
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting) entry.target.classList.add("visible");
+});
+},{threshold:0.6});
+sections.forEach(sec=>observer.observe(sec));
+
+/* Active nav */
+const navLinks=document.querySelectorAll("nav a");
+window.addEventListener("scroll",()=>{
+let current="";
+sections.forEach(sec=>{
+if(pageYOffset>=sec.offsetTop-200) current=sec.id;
+});
+navLinks.forEach(link=>{
+link.classList.toggle("active",link.getAttribute("href")==="#"+current);
+});
+});
+
+/* Arrow navigation */
+let currentIndex=0;
+const sectionList=[...sections];
+
+window.addEventListener("scroll",()=>{
+const pos=window.scrollY+window.innerHeight/2;
+sectionList.forEach((sec,i)=>{
+if(pos>=sec.offsetTop && pos<sec.offsetTop+sec.offsetHeight) currentIndex=i;
+});
+});
+
+document.addEventListener("keydown",e=>{
+if(e.key==="ArrowDown"||e.key==="ArrowRight"){
+if(currentIndex<sectionList.length-1)
+sectionList[++currentIndex].scrollIntoView({behavior:"smooth"});
+}
+if(e.key==="ArrowUp"||e.key==="ArrowLeft"){
+if(currentIndex>0)
+sectionList[--currentIndex].scrollIntoView({behavior:"smooth"});
+}
+});
+
+/* Stagger cards */
+const grids=document.querySelectorAll(".grid");
+const gridObserver=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+const cards=entry.target.querySelectorAll(".card");
+if(entry.isIntersecting){
+cards.forEach((card,i)=>setTimeout(()=>card.classList.add("show"),i*120));
+}else{
+cards.forEach(card=>card.classList.remove("show"));
+}
+});
+},{threshold:0.4});
+grids.forEach(grid=>gridObserver.observe(grid));
+
+/* Modal */
+const modal=document.getElementById("modal");
+const modalBody=document.getElementById("modalBody");
+
+function openCert(img){
+modalBody.innerHTML='<img src="'+img+'">';
+modal.classList.add("active");
+}
+
+function openProject(type){
+let content="";
+if(type==="solar"){
+content='<img src="solar.jpg"><h2>Solar PV Modeling</h2><p>Simulated PV array with MPPT under varying irradiation and temperature conditions.</p>';
+}
+if(type==="street"){
+content='<img src="streetlight.jpg"><h2>Smart Street Lighting</h2><p>Automatic brightness adjustment using LDR and motion sensors for energy efficiency.</p>';
+}
+if(type==="robot"){
+content='<img src="robot.jpg"><h2>Underground Cable Inspection Robot</h2><p>Autonomous robotic system for underground cable fault detection and monitoring.</p>';
+}
+modalBody.innerHTML=content;
+modal.classList.add("active");
+}
+
+function closeModal(){
+modal.classList.remove("active");
+}
+
+window.onclick=e=>{if(e.target==modal) closeModal();};
+document.addEventListener("keydown",e=>{if(e.key==="Escape") closeModal();});
+
+/* Particles */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+
+function resize(){
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+}
+resize();
+window.addEventListener("resize",resize);
+
+let particles=[];
+for(let i=0;i<120;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2,
+s:Math.random()*0.7+0.2
+});
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="rgba(255,255,255,.4)";
+particles.forEach(p=>{
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fill();
+p.y+=p.s;
+if(p.y>canvas.height){
+p.y=0;
+p.x=Math.random()*canvas.width;
+}
+});
+requestAnimationFrame(animate);
+}
+animate();
 
 </script>
 
