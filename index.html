@@ -28,6 +28,7 @@ font-family:'Poppins',sans-serif;
 color:#fff;
 overflow-x:hidden;
 background:#0a2731;
+position:relative;
 }
 
 /* LOADER */
@@ -129,25 +130,33 @@ justify-content:center;
 text-align:center;
 }
 
-/* FIXED PROFILE */
+/* PROFILE WRAPPER */
 
-#fixedProfile{
+#profileWrapper{
 position:fixed;
 top:50%;
 left:25%;
 transform:translate(-50%,-50%);
+z-index:900;
+}
+
+#profileWrapper.absolute{
+position:absolute;
+transform:translate(-50%,0);
+}
+
+.profile-pic{
 width:220px;
 height:220px;
 border-radius:50%;
 object-fit:cover;
 border:4px solid var(--accent);
 box-shadow:0 0 15px rgba(0,217,255,.5);
-transition:.5s;
-z-index:900;
+transition:.4s ease;
 }
 
-#fixedProfile:hover{
-transform:translate(-50%,-50%) scale(1.08);
+.profile-pic:hover{
+transform:scale(1.08);
 box-shadow:0 0 40px rgba(0,217,255,.9);
 }
 
@@ -161,8 +170,6 @@ flex-direction:column;
 align-items:center;
 text-align:center;
 }
-
-/* CENTER HEADINGS */
 
 section h2{
 width:100%;
@@ -188,7 +195,7 @@ width:100%;
 @media(max-width:768px){
 .skills-flex{flex-direction:column;}
 .skills-flex>div{width:100%;text-align:left!important;padding:0;margin-bottom:20px;}
-#fixedProfile{left:50%;}
+#profileWrapper{left:50%;}
 .home-text{margin-left:0;}
 }
 
@@ -328,7 +335,6 @@ transform:scale(1.2);
 .contact-footer{
 text-align:center;
 padding:15px 0;
-background:transparent;
 opacity:.9;
 font-size:14px;
 }
@@ -353,7 +359,9 @@ animation:blink .7s infinite;
 <div id="loader"><div class="loader-ring"></div></div>
 <canvas id="particles"></canvas>
 
-<img src="profile.jpg" id="fixedProfile">
+<div id="profileWrapper">
+<img src="profile.jpg" class="profile-pic">
+</div>
 
 <nav id="navbar">
 <a href="#home" class="active"><i class="fa-solid fa-house"></i></a>
@@ -476,20 +484,45 @@ animation:blink .7s infinite;
 
 <script>
 
-/* START AT TOP */
-window.onload=function(){window.scrollTo(0,0);};
+/* PROFILE CONTROL (TRUE 1:1 TRANSITION) */
+
+const profileWrapper=document.getElementById("profileWrapper");
+const aboutSection=document.getElementById("about");
+
+function controlProfile(){
+const aboutBottom=aboutSection.offsetTop + aboutSection.offsetHeight;
+const scrollPosition=window.scrollY;
+
+if(scrollPosition < aboutBottom - window.innerHeight/2){
+profileWrapper.classList.remove("absolute");
+profileWrapper.style.top="50%";
+}else{
+profileWrapper.classList.add("absolute");
+profileWrapper.style.top=aboutBottom - profileWrapper.offsetHeight/2 + "px";
+}
+}
+
+window.addEventListener("scroll",controlProfile);
+window.addEventListener("resize",controlProfile);
 
 /* LOADER */
+
 window.addEventListener("load",function(){
-setTimeout(function(){loader.style.opacity=0;},500);
-setTimeout(function(){loader.style.display="none";},1000);
+setTimeout(function(){
+document.getElementById("loader").style.opacity=0;
+},500);
+setTimeout(function(){
+document.getElementById("loader").style.display="none";
+},1000);
 startTyping();
 });
 
 /* TYPING */
+
 function startTyping(){
 const text="Nandam Satya Bhaskar";
 let i=0;
+const typing=document.getElementById("typing");
 typing.innerHTML="";
 function type(){
 if(i<text.length){
@@ -500,25 +533,15 @@ setTimeout(type,70);
 type();
 }
 
-/* PROFILE VISIBILITY AFTER ABOUT */
-const profile=document.getElementById("fixedProfile");
-const about=document.getElementById("about");
+/* NAVBAR SCROLL */
 
-window.addEventListener("scroll",function(){
-if(window.scrollY > about.offsetTop + about.offsetHeight){
-profile.style.display="none";
-}else{
-profile.style.display="block";
-}
-});
-
-/* NAVBAR FADE */
 const navbar=document.getElementById("navbar");
 window.addEventListener("scroll",function(){
 navbar.classList.toggle("scrolled",window.scrollY>10);
 });
 
 /* SECTION FADE */
+
 const sections=document.querySelectorAll("section");
 const observer=new IntersectionObserver(function(entries){
 entries.forEach(function(entry){
@@ -530,6 +553,7 @@ entry.target.classList.add("visible");
 sections.forEach(function(sec){observer.observe(sec);});
 
 /* ACTIVE NAV */
+
 const navLinks=document.querySelectorAll("nav a");
 window.addEventListener("scroll",function(){
 let current="";
@@ -544,6 +568,7 @@ link.classList.toggle("active",link.getAttribute("href")==="#"+current);
 });
 
 /* ARROW NAVIGATION */
+
 let currentIndex=0;
 const sectionList=[...sections];
 
@@ -570,6 +595,7 @@ sectionList[--currentIndex].scrollIntoView({behavior:"smooth"});
 });
 
 /* STAGGER CARDS */
+
 const grids=document.querySelectorAll(".grid");
 const gridObserver=new IntersectionObserver(function(entries){
 entries.forEach(function(entry){
@@ -592,6 +618,7 @@ gridObserver.observe(grid);
 });
 
 /* MODAL */
+
 const modal=document.getElementById("modal");
 const modalBody=document.getElementById("modalBody");
 
@@ -632,6 +659,7 @@ closeModal();
 });
 
 /* PARTICLES */
+
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
 
