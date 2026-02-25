@@ -101,6 +101,31 @@ nav a:hover{
 color:var(--accent);
 }
 
+/* ================= PROFILE CONTAINER ================= */
+
+#profileContainer{
+position:relative;
+}
+
+/* Sticky profile */
+#profileWrapper{
+position:sticky;
+top:50vh;
+left:25%;
+transform:translateX(-50%) translateY(-50%);
+z-index:900;
+pointer-events:none;
+}
+
+#fixedProfile{
+width:220px;
+height:220px;
+border-radius:50%;
+object-fit:cover;
+border:4px solid var(--accent);
+box-shadow:0 0 20px rgba(0,217,255,.6);
+}
+
 /* ================= SECTIONS ================= */
 
 section{
@@ -129,26 +154,6 @@ justify-content:center;
 text-align:center;
 }
 
-/* ================= PROFILE ================= */
-
-#profileWrapper{
-position:fixed;
-top:50%;
-left:25%;
-transform:translate(-50%,-50%);
-z-index:900;
-will-change:transform;
-}
-
-#fixedProfile{
-width:220px;
-height:220px;
-border-radius:50%;
-object-fit:cover;
-border:4px solid var(--accent);
-box-shadow:0 0 20px rgba(0,217,255,.6);
-}
-
 /* ================= TEXT ================= */
 
 .home-text{
@@ -162,6 +167,89 @@ text-align:center;
 
 section h2{
 margin-bottom:25px;
+}
+
+/* ================= GRID ================= */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:40px;
+margin-top:40px;
+width:100%;
+}
+
+.card{
+background:var(--glass);
+border:1px solid var(--glass-border);
+border-radius:20px;
+overflow:hidden;
+opacity:0;
+transform:translateY(40px);
+transition:.6s;
+}
+
+.card.show{
+opacity:1;
+transform:translateY(0);
+}
+
+.image-box{
+height:220px;
+overflow:hidden;
+}
+
+.image-box img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.card button{
+margin:15px 0 25px;
+padding:10px 20px;
+border:none;
+border-radius:25px;
+background:var(--accent);
+color:#000;
+font-weight:600;
+cursor:pointer;
+}
+
+/* ================= MODAL ================= */
+
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.85);
+display:flex;
+align-items:center;
+justify-content:center;
+opacity:0;
+visibility:hidden;
+transition:.4s;
+z-index:2000;
+}
+
+.modal.active{
+opacity:1;
+visibility:visible;
+}
+
+.modal-box{
+background:#111;
+padding:30px;
+width:90%;
+max-width:900px;
+border-radius:15px;
+max-height:85vh;
+overflow:auto;
+}
+
+.close{
+float:right;
+cursor:pointer;
+font-size:24px;
 }
 
 /* ================= CURSOR ================= */
@@ -184,10 +272,6 @@ animation:blink .7s infinite;
 <div id="loader"><div class="loader-ring"></div></div>
 <canvas id="particles"></canvas>
 
-<div id="profileWrapper">
-<img src="profile.jpg" id="fixedProfile">
-</div>
-
 <nav id="navbar">
 <a href="#home" class="active">Home</a>
 <a href="#about">About</a>
@@ -196,6 +280,12 @@ animation:blink .7s infinite;
 <a href="#projects">Projects</a>
 <a href="#contact">Contact</a>
 </nav>
+
+<div id="profileContainer">
+
+<div id="profileWrapper">
+<img src="profile.jpg" id="fixedProfile">
+</div>
 
 <section id="home" class="visible">
 <div class="container">
@@ -214,6 +304,8 @@ animation:blink .7s infinite;
 </div>
 </div>
 </section>
+
+</div> <!-- END profileContainer -->
 
 <section id="skills">
 <div class="container">
@@ -244,7 +336,6 @@ animation:blink .7s infinite;
 <script>
 
 /* LOADER */
-
 window.addEventListener("load",function(){
 const loader=document.getElementById("loader");
 setTimeout(()=>loader.style.opacity="0",500);
@@ -252,36 +343,7 @@ setTimeout(()=>loader.style.display="none",1100);
 startTyping();
 });
 
-/* PERFECT PROFILE SYNC (FINAL FIX) */
-
-const wrapper = document.getElementById("profileWrapper");
-const about = document.getElementById("about");
-
-function syncProfile(){
-
-    const scrollY = window.scrollY;
-    const aboutTop = about.offsetTop;
-
-    if(scrollY >= aboutTop){
-
-        const delta = scrollY - aboutTop;
-
-        /* move UP at exact same speed as page */
-        wrapper.style.transform = `translate(-50%, calc(-50% - ${delta}px))`;
-
-    } else {
-
-        wrapper.style.transform = "translate(-50%,-50%)";
-
-    }
-
-    requestAnimationFrame(syncProfile);
-}
-
-syncProfile();
-
 /* TYPING */
-
 function startTyping(){
 const text="Nandam Satya Bhaskar";
 let i=0;
@@ -297,14 +359,12 @@ type();
 }
 
 /* NAVBAR FADE */
-
 const navbar=document.getElementById("navbar");
 window.addEventListener("scroll",function(){
 navbar.classList.toggle("scrolled",window.scrollY>10);
 });
 
 /* SECTION FADE */
-
 const sections=document.querySelectorAll("section");
 const observer=new IntersectionObserver(function(entries){
 entries.forEach(function(entry){
@@ -316,7 +376,6 @@ entry.target.classList.add("visible");
 sections.forEach(sec=>observer.observe(sec));
 
 /* PARTICLES */
-
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
 
