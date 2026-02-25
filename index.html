@@ -125,6 +125,7 @@ max-width:1200px;
 padding:0 25px;
 margin:0 auto;
 text-align:center;
+position:relative;
 }
 
 /* ================= PROFILE ================= */
@@ -149,22 +150,20 @@ transform:translateY(-50%) scale(1.08);
 box-shadow:0 0 40px rgba(0,217,255,.9);
 }
 
-.profile-spacer{
-width:220px;
-height:220px;
-}
-
-/* ================= HOME & ABOUT ================= */
+/* ================= HOME & ABOUT CENTER FIX ================= */
 
 .home-flex{
+height:100%;
 display:flex;
 align-items:center;
 justify-content:center;
-gap:60px;
-flex-wrap:wrap;
 }
 
 .home-text{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
 text-align:center;
 display:flex;
 flex-direction:column;
@@ -179,39 +178,16 @@ display:flex;
 margin-top:40px;
 }
 
-.skills-flex>div{
-width:50%;
-}
+.skills-flex>div{width:50%;}
+.skills-flex>div:first-child{text-align:left;padding-right:35px;}
+.skills-flex>div:last-child{text-align:right;padding-left:35px;}
 
-.skills-flex>div:first-child{
-text-align:left;
-padding-right:35px;
-}
-
-.skills-flex>div:last-child{
-text-align:right;
-padding-left:35px;
-}
-
-.skills-flex ul{
-list-style:none;
-margin-top:15px;
-}
-
-.skills-flex li{
-margin:8px 0;
-}
+.skills-flex ul{list-style:none;margin-top:15px;}
+.skills-flex li{margin:8px 0;}
 
 @media(max-width:768px){
-.skills-flex{
-flex-direction:column;
-}
-.skills-flex>div{
-width:100%;
-text-align:left!important;
-padding:0;
-margin-bottom:20px;
-}
+.skills-flex{flex-direction:column;}
+.skills-flex>div{width:100%;text-align:left!important;padding:0;margin-bottom:20px;}
 }
 
 /* ================= CARDS ================= */
@@ -386,7 +362,6 @@ animation:blink .7s infinite;
 
 <section id="home" class="visible">
 <div class="container home-flex">
-<div class="profile-spacer"></div>
 <div class="home-text">
 <h1><span id="typing"></span><span class="cursor"></span></h1>
 <p>3rd Year Electrical & Electronics Engineering at Lovely Professional University</p>
@@ -396,7 +371,6 @@ animation:blink .7s infinite;
 
 <section id="about">
 <div class="container home-flex">
-<div class="profile-spacer"></div>
 <div class="home-text">
 <h2>About</h2>
 <p>Focused on Power Systems & Embedded Technologies.</p>
@@ -503,10 +477,8 @@ animation:blink .7s infinite;
 
 <script>
 
-/* START AT TOP */
-window.onload=function(){
-window.scrollTo(0,0);
-};
+/* FORCE START AT TOP */
+window.onload=function(){window.scrollTo(0,0);};
 
 /* LOADER */
 window.addEventListener("load",function(){
