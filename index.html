@@ -123,15 +123,16 @@ opacity:1;
 width:100%;
 max-width:1200px;
 padding:0 25px;
+margin:0 auto;
 text-align:center;
 }
 
-/* ================= GLOBAL PROFILE ================= */
+/* ================= PROFILE ================= */
 
 .profile-global{
 position:fixed;
 top:50%;
-left:calc(50% - 300px);
+left:calc((100vw - 1200px)/2 + 25px);
 transform:translateY(-50%);
 width:220px;
 height:220px;
@@ -148,7 +149,6 @@ transform:translateY(-50%) scale(1.08);
 box-shadow:0 0 40px rgba(0,217,255,.9);
 }
 
-/* spacer to preserve layout */
 .profile-spacer{
 width:220px;
 height:220px;
@@ -159,13 +159,19 @@ height:220px;
 .home-flex{
 display:flex;
 align-items:center;
-justify-content:center;
+justify-content:flex-start;
 gap:60px;
 flex-wrap:wrap;
 }
 
 .home-text{
 text-align:left;
+}
+
+@media(max-width:1200px){
+.profile-global{
+left:25px;
+}
 }
 
 @media(max-width:768px){
@@ -376,17 +382,14 @@ animation:blink .7s infinite;
 </head>
 <body>
 
-<div id="loader">
-<div class="loader-ring"></div>
-</div>
-
+<div id="loader"><div class="loader-ring"></div></div>
 <canvas id="particles"></canvas>
 
-<img src="profile.jpg" class="profile-global" id="profileImage">
+<img src="profile.jpg" class="profile-global">
 
 <nav id="navbar">
 <a href="#home" class="active"><i class="fa-solid fa-house"></i></a>
-<a href="#about">About me</a>
+<a href="#about">About</a>
 <a href="#skills">Skills</a>
 <a href="#certifications">Certifications</a>
 <a href="#projects">Projects</a>
@@ -403,7 +406,7 @@ animation:blink .7s infinite;
 </div>
 </section>
 
-<section id="about me">
+<section id="about">
 <div class="container home-flex">
 <div class="profile-spacer"></div>
 <div class="home-text">
@@ -445,25 +448,21 @@ animation:blink .7s infinite;
 <div class="container">
 <h2>Certifications</h2>
 <div class="grid">
-
 <div class="card">
 <div class="image-box"><img src="nptel.jpg"></div>
 <h3>Digital Electronics</h3>
 <button onclick="openCert('nptel.jpg')">View Certificate</button>
 </div>
-
 <div class="card">
 <div class="image-box"><img src="iot.jpg"></div>
 <h3>Introduction to IoT</h3>
 <button onclick="openCert('iot.jpg')">View Certificate</button>
 </div>
-
 <div class="card">
 <div class="image-box"><img src="matlab.jpg"></div>
 <h3>MATLAB Onramp</h3>
 <button onclick="openCert('matlab.jpg')">View Certificate</button>
 </div>
-
 </div>
 </div>
 </section>
@@ -472,25 +471,21 @@ animation:blink .7s infinite;
 <div class="container">
 <h2>Projects</h2>
 <div class="grid">
-
 <div class="card">
 <div class="image-box"><img src="solar.jpg"></div>
 <h3>Solar PV Modeling</h3>
 <button onclick="openProject('solar')">View Details</button>
 </div>
-
 <div class="card">
 <div class="image-box"><img src="streetlight.jpg"></div>
 <h3>Smart Street Lighting</h3>
 <button onclick="openProject('street')">View Details</button>
 </div>
-
 <div class="card contain">
 <div class="image-box"><img src="robot.jpg"></div>
 <h3>Underground Cable Inspection Robot</h3>
 <button onclick="openProject('robot')">View Details</button>
 </div>
-
 </div>
 </div>
 </section>
@@ -507,9 +502,7 @@ animation:blink .7s infinite;
 <a href="https://wa.me/917780603821" target="_blank"><i class="fab fa-whatsapp"></i></a>
 </div>
 </div>
-<div class="contact-footer">
-© SB | PORTFOLIO
-</div>
+<div class="contact-footer">© SB | PORTFOLIO</div>
 </div>
 </section>
 
@@ -522,7 +515,7 @@ animation:blink .7s infinite;
 
 <script>
 
-/* START AT TOP */
+/* FORCE START AT TOP */
 window.onload=function(){
 window.scrollTo(0,0);
 };
@@ -704,17 +697,6 @@ p.x=Math.random()*canvas.width;
 requestAnimationFrame(animate);
 }
 animate();
-
-/* Hide profile after About */
-const profileImage=document.getElementById("profileImage");
-const skillsSection=document.getElementById("skills");
-window.addEventListener("scroll",function(){
-if(window.scrollY>=skillsSection.offsetTop-200){
-profileImage.style.display="none";
-}else{
-profileImage.style.display="block";
-}
-});
 
 </script>
 
