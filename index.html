@@ -123,14 +123,17 @@ flex-wrap:wrap;
 }
 
 .profile{
-width:220px;height:220px;
+width:220px;
+height:220px;
 border-radius:50%;
 object-fit:cover;
 border:4px solid var(--accent);
 box-shadow:0 0 15px rgba(0,217,255,.5);
 transition:.5s;
 }
-.profile:hover{
+
+/* Hover + glow ONLY active in About section */
+.about-profile:hover{
 transform:scale(1.08);
 box-shadow:0 0 40px rgba(0,217,255,.9);
 }
@@ -315,7 +318,7 @@ animation:blink .7s infinite;
 <!-- ABOUT -->
 <section id="about">
 <div class="container home-flex">
-<img src="profile.jpg" class="profile">
+<img src="profile.jpg" class="profile about-profile">
 <div class="home-text">
 <h2>About</h2>
 <p>Focused on Power Systems & Embedded Technologies.</p>
