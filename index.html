@@ -152,18 +152,18 @@ transform:scale(1.08);
 box-shadow:0 0 40px rgba(0,217,255,.9);
 }
 
-/* Offset text ~5cm from profile */
+/* TEXT OFFSET FROM PROFILE (~5cm visual gap) */
 
 .home-text{
 max-width:800px;
-margin-left:500px;
+margin-left:480px;
 display:flex;
 flex-direction:column;
 align-items:center;
 text-align:center;
 }
 
-/* Headings centered permanently */
+/* HEADINGS CENTER FIX */
 
 section h2{
 width:100%;
@@ -296,36 +296,6 @@ cursor:pointer;
 font-size:24px;
 }
 
-/* ================= CONTACT ================= */
-
-.contact-wrapper{
-display:flex;
-flex-direction:column;
-height:100%;
-width:100%;
-}
-
-.contact-center{
-flex:1;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-}
-
-.social-icons a{
-color:rgba(255,255,255,.6);
-font-size:28px;
-margin:0 15px;
-transition:.3s;
-text-decoration:none;
-}
-
-.social-icons a:hover{
-color:var(--accent);
-transform:scale(1.2);
-}
-
 .contact-footer{
 text-align:center;
 padding:15px 0;
@@ -451,27 +421,28 @@ animation:blink .7s infinite;
 </section>
 
 <section id="contact">
-<div class="container contact-wrapper">
-<div class="contact-center">
+<div class="container">
 <h2>Contact</h2>
 <p>Email: satyabhaskarnandam@gmail.com</p>
 <p>Mobile: +91 7780603821</p>
-<div class="social-icons">
-<a href="https://github.com/satyabhaskarnandam" target="_blank"><i class="fab fa-github"></i></a>
-<a href="https://linkedin.com/in/nandam-satya-bhaskar" target="_blank"><i class="fab fa-linkedin"></i></a>
-<a href="https://wa.me/917780603821" target="_blank"><i class="fab fa-whatsapp"></i></a>
-</div>
-</div>
 <div class="contact-footer">© SB | PORTFOLIO</div>
 </div>
 </section>
 
 <script>
 
-/* START AT TOP */
-window.onload=function(){window.scrollTo(0,0);};
+/* ===== LOADER FIX ===== */
+window.addEventListener("load",function(){
+const loader=document.getElementById("loader");
+setTimeout(function(){
+loader.style.opacity="0";
+setTimeout(function(){
+loader.style.display="none";
+},600);
+},500);
+});
 
-/* PROFILE SCROLL LOGIC */
+/* ===== PROFILE POSITION SWITCH ===== */
 const profileWrapper=document.getElementById("profileWrapper");
 const about=document.getElementById("about");
 
@@ -483,63 +454,6 @@ profileWrapper.style.top=aboutBottom+"px";
 }else{
 profileWrapper.style.position="fixed";
 profileWrapper.style.top="50%";
-}
-});
-
-/* NAVBAR FADE */
-const navbar=document.getElementById("navbar");
-window.addEventListener("scroll",function(){
-navbar.classList.toggle("scrolled",window.scrollY>10);
-});
-
-/* SECTION FADE */
-const sections=document.querySelectorAll("section");
-const observer=new IntersectionObserver(function(entries){
-entries.forEach(function(entry){
-if(entry.isIntersecting){
-entry.target.classList.add("visible");
-}
-});
-},{threshold:0.6});
-sections.forEach(function(sec){observer.observe(sec);});
-
-/* ACTIVE NAV */
-const navLinks=document.querySelectorAll("nav a");
-window.addEventListener("scroll",function(){
-let current="";
-sections.forEach(function(sec){
-if(pageYOffset>=sec.offsetTop-200){
-current=sec.id;
-}
-});
-navLinks.forEach(function(link){
-link.classList.toggle("active",link.getAttribute("href")==="#"+current);
-});
-});
-
-/* ARROW NAVIGATION */
-let currentIndex=0;
-const sectionList=[...sections];
-
-window.addEventListener("scroll",function(){
-const pos=window.scrollY+window.innerHeight/2;
-sectionList.forEach(function(sec,i){
-if(pos>=sec.offsetTop && pos<sec.offsetTop+sec.offsetHeight){
-currentIndex=i;
-}
-});
-});
-
-document.addEventListener("keydown",function(e){
-if(e.key==="ArrowDown"||e.key==="ArrowRight"){
-if(currentIndex<sectionList.length-1){
-sectionList[++currentIndex].scrollIntoView({behavior:"smooth"});
-}
-}
-if(e.key==="ArrowUp"||e.key==="ArrowLeft"){
-if(currentIndex>0){
-sectionList[--currentIndex].scrollIntoView({behavior:"smooth"});
-}
 }
 });
 
