@@ -10,6 +10,8 @@
 
 <style>
 
+/* ================= GLOBAL ================= */
+
 :root{
 --accent:#00d9ff;
 --glass:rgba(255,255,255,.06);
@@ -30,7 +32,9 @@ overflow-x:hidden;
 background:#0a2731;
 }
 
-/* LOADER */
+
+/* ================= LOADER ================= */
+
 #loader{
 position:fixed;inset:0;
 background:#0f2027;
@@ -47,14 +51,16 @@ animation:spin 1s linear infinite;
 }
 @keyframes spin{100%{transform:rotate(360deg);}}
 
-/* PARTICLES */
+/* ================= PARTICLES ================= */
+
 canvas{
 position:fixed;
 top:0;left:0;
 z-index:-1;
 }
 
-/* NAVBAR */
+/* ================= NAVBAR ================= */
+
 nav{
 position:fixed;
 top:0;width:100%;height:70px;
@@ -65,11 +71,13 @@ backdrop-filter:blur(12px);
 transition:.4s;
 z-index:1000;
 }
+
 nav.scrolled{
 background:rgba(0,0,0,.65);
 backdrop-filter:blur(24px);
 box-shadow:0 8px 30px rgba(0,0,0,.4);
 }
+
 nav a{
 color:#ddd;
 text-decoration:none;
@@ -77,12 +85,14 @@ font-weight:500;
 font-size:17px;
 transition:.3s;
 }
+
 nav a.active,
 nav a:hover{
 color:var(--accent);
 }
 
-/* SECTIONS */
+/* ================= SECTIONS ================= */
+
 section{
 height:100vh;
 scroll-snap-align:start;
@@ -92,6 +102,7 @@ justify-content:center;
 opacity:0;
 transition:opacity .8s ease;
 }
+
 section.visible{opacity:1;}
 
 .container{
@@ -101,29 +112,7 @@ padding:0 25px;
 text-align:center;
 }
 
-/* GLOBAL PROFILE */
-.global-profile{
-position:fixed;
-top:50%;
-left:calc(50% - 300px);
-transform:translateY(-50%);
-width:220px;
-height:220px;
-border-radius:50%;
-object-fit:cover;
-border:4px solid var(--accent);
-box-shadow:0 0 15px rgba(0,217,255,.5);
-transition:.5s;
-z-index:500;
-}
-.global-profile:hover{
-transform:translateY(-50%) scale(1.08);
-box-shadow:0 0 40px rgba(0,217,255,.9);
-}
-
-.profile-spacer{
-width:220px;height:220px;
-}
+/* ================= HOME ================= */
 
 .home-flex{
 display:flex;
@@ -132,6 +121,20 @@ justify-content:center;
 gap:60px;
 flex-wrap:wrap;
 }
+
+.profile{
+width:220px;height:220px;
+border-radius:50%;
+object-fit:cover;
+border:4px solid var(--accent);
+box-shadow:0 0 15px rgba(0,217,255,.5);
+transition:.5s;
+}
+.profile:hover{
+transform:scale(1.08);
+box-shadow:0 0 40px rgba(0,217,255,.9);
+}
+
 .home-text{text-align:left;}
 
 @media(max-width:768px){
@@ -139,7 +142,8 @@ flex-wrap:wrap;
 .home-text{text-align:center;}
 }
 
-/* SKILLS */
+/* ================= SKILLS ================= */
+
 .skills-flex{
 display:flex;
 margin-top:40px;
@@ -155,13 +159,15 @@ margin-top:40px;
 .skills-flex>div{width:100%;text-align:left!important;padding:0;margin-bottom:20px;}
 }
 
-/* CARDS */
+/* ================= CARDS ================= */
+
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 gap:40px;
 margin-top:50px;
 }
+
 .card{
 background:var(--glass);
 border:1px solid var(--glass-border);
@@ -178,6 +184,7 @@ transform:translateY(0);
 .card:hover{
 transform:translateY(-6px) scale(1.02);
 }
+
 .image-box{
 height:220px;
 overflow:hidden;
@@ -190,6 +197,7 @@ object-fit:cover;
 object-fit:contain!important;
 background:#111;
 }
+
 .card button{
 margin:15px 0 25px;
 padding:10px 20px;
@@ -205,7 +213,8 @@ background:#00b8d4;
 transform:scale(1.05);
 }
 
-/* MODAL */
+/* ================= MODAL ================= */
+
 .modal{
 position:fixed;inset:0;
 background:rgba(0,0,0,.85);
@@ -214,7 +223,9 @@ opacity:0;visibility:hidden;
 transition:.4s;
 z-index:2000;
 }
-.modal.active{opacity:1;visibility:visible;}
+.modal.active{
+opacity:1;visibility:visible;
+}
 .modal-box{
 background:#111;
 padding:30px;
@@ -222,10 +233,17 @@ width:90%;max-width:900px;
 border-radius:15px;
 max-height:85vh;overflow:auto;
 }
-.modal-box img{width:100%;object-fit:contain;}
-.close{float:right;cursor:pointer;font-size:24px;}
+.modal-box img{
+width:100%;object-fit:contain;
+}
+.close{
+float:right;
+cursor:pointer;
+font-size:24px;
+}
 
-/* CONTACT */
+/* ================= CONTACT ================= */
+
 .contact-wrapper{
 display:flex;
 flex-direction:column;
@@ -257,7 +275,8 @@ opacity:.9;
 font-size:14px;
 }
 
-/* CURSOR */
+/* ================= CURSOR ================= */
+
 .cursor{
 display:inline-block;
 width:2px;
@@ -273,8 +292,6 @@ animation:blink .7s infinite;
 <div id="loader"><div class="loader-ring"></div></div>
 <canvas id="particles"></canvas>
 
-<img src="profile.jpg" class="global-profile">
-
 <nav id="navbar">
 <a href="#home" class="active"><i class="fa-solid fa-house"></i></a>
 <a href="#about">About</a>
@@ -284,9 +301,10 @@ animation:blink .7s infinite;
 <a href="#contact">Contact</a>
 </nav>
 
+<!-- HOME -->
 <section id="home" class="visible">
 <div class="container home-flex">
-<div class="profile-spacer"></div>
+<img src="profile.jpg" class="profile">
 <div class="home-text">
 <h1><span id="typing"></span><span class="cursor"></span></h1>
 <p>3rd Year Electrical & Electronics Engineering at Lovely Professional University</p>
@@ -294,16 +312,15 @@ animation:blink .7s infinite;
 </div>
 </section>
 
+<!-- ABOUT -->
 <section id="about">
-<div class="container home-flex">
-<div class="profile-spacer"></div>
-<div class="home-text">
+<div class="container">
 <h2>About</h2>
 <p>Focused on Power Systems & Embedded Technologies.</p>
 </div>
-</div>
 </section>
 
+<!-- SKILLS -->
 <section id="skills">
 <div class="container">
 <h2>Skills</h2>
@@ -327,6 +344,7 @@ animation:blink .7s infinite;
 </div>
 </section>
 
+<!-- CERTIFICATIONS -->
 <section id="certifications">
 <div class="container">
 <h2>Certifications</h2>
@@ -350,6 +368,7 @@ animation:blink .7s infinite;
 </div>
 </section>
 
+<!-- PROJECTS -->
 <section id="projects">
 <div class="container">
 <h2>Projects</h2>
@@ -373,6 +392,7 @@ animation:blink .7s infinite;
 </div>
 </section>
 
+<!-- CONTACT -->
 <section id="contact">
 <div class="container contact-wrapper">
 <div class="contact-center">
@@ -391,6 +411,7 @@ animation:blink .7s infinite;
 </div>
 </section>
 
+<!-- MODAL -->
 <div id="modal" class="modal">
 <div class="modal-box">
 <span class="close" onclick="closeModal()">&times;</span>
@@ -399,9 +420,6 @@ animation:blink .7s infinite;
 </div>
 
 <script>
-
-/* START TOP */
-window.onload=()=>window.scrollTo(0,0);
 
 /* LOADER */
 window.addEventListener("load",()=>{
@@ -414,7 +432,6 @@ startTyping();
 function startTyping(){
 const text="Nandam Satya Bhaskar";
 let i=0;
-typing.innerHTML="";
 function type(){
 if(i<text.length){
 typing.innerHTML+=text.charAt(i);
@@ -439,17 +456,21 @@ if(entry.isIntersecting)entry.target.classList.add("visible");
 },{threshold:0.6});
 sections.forEach(sec=>observer.observe(sec));
 
-/* ACTIVE NAV */
-const navLinks=document.querySelectorAll("nav a");
-window.addEventListener("scroll",()=>{
-let current="";
-sections.forEach(sec=>{
-if(pageYOffset>=sec.offsetTop-200)current=sec.id;
+/* STAGGER CARDS */
+const grids=document.querySelectorAll(".grid");
+const gridObserver=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+const cards=entry.target.querySelectorAll(".card");
+if(entry.isIntersecting){
+cards.forEach((card,index)=>{
+setTimeout(()=>card.classList.add("show"),index*120);
 });
-navLinks.forEach(link=>{
-link.classList.toggle("active",link.getAttribute("href")==="#"+current);
+}else{
+cards.forEach(card=>card.classList.remove("show"));
+}
 });
-});
+},{threshold:0.4});
+grids.forEach(grid=>gridObserver.observe(grid));
 
 /* ARROW NAVIGATION */
 let currentIndex=0;
@@ -471,21 +492,17 @@ sectionList[--currentIndex].scrollIntoView({behavior:"smooth"});
 }
 });
 
-/* STAGGER CARDS */
-const grids=document.querySelectorAll(".grid");
-const gridObserver=new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-const cards=entry.target.querySelectorAll(".card");
-if(entry.isIntersecting){
-cards.forEach((card,index)=>{
-setTimeout(()=>card.classList.add("show"),index*120);
+/* ACTIVE NAV */
+const navLinks=document.querySelectorAll("nav a");
+window.addEventListener("scroll",()=>{
+let current="";
+sections.forEach(sec=>{
+if(pageYOffset>=sec.offsetTop-200)current=sec.id;
 });
-}else{
-cards.forEach(card=>card.classList.remove("show"));
-}
+navLinks.forEach(link=>{
+link.classList.toggle("active",link.getAttribute("href")==="#"+current);
 });
-},{threshold:0.4});
-grids.forEach(grid=>gridObserver.observe(grid));
+});
 
 /* MODAL */
 const modal=document.getElementById("modal");
