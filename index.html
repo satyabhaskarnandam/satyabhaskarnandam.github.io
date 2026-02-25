@@ -29,7 +29,6 @@ font-family:'Poppins',sans-serif;
 color:#fff;
 overflow-x:hidden;
 background:#0a2731;
-position:relative;
 }
 
 /* LOADER */
@@ -467,17 +466,17 @@ animation:blink .7s infinite;
 </div>
 </section>
 
-<div id="modal" class="modal">
-<div class="modal-box">
-<span class="close" onclick="closeModal()">&times;</span>
-<div id="modalBody"></div>
-</div>
-</div>
-
 <script>
 
-/* Profile 1:1 Sync */
+/* START AT TOP */
+window.addEventListener("load",function(){
+window.scrollTo(0,0);
+setTimeout(()=>document.getElementById("loader").style.opacity=0,500);
+setTimeout(()=>document.getElementById("loader").style.display="none",1000);
+startTyping();
+});
 
+/* PROFILE 1:1 SYNC */
 const profile=document.getElementById("profileWrapper");
 const about=document.getElementById("about");
 
@@ -506,10 +505,21 @@ ticking=true;
 }
 });
 
-window.onload=function(){
-window.scrollTo(0,0);
 updateProfile();
-};
+
+/* TYPING */
+function startTyping(){
+const text="Nandam Satya Bhaskar";
+let i=0;
+const typing=document.getElementById("typing");
+typing.innerHTML="";
+(function type(){
+if(i<text.length){
+typing.innerHTML+=text.charAt(i++);
+setTimeout(type,70);
+}
+})();
+}
 
 </script>
 
