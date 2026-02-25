@@ -10,8 +10,6 @@
 
 <style>
 
-/* ================= GLOBAL ================= */
-
 :root{
 --accent:#00d9ff;
 --glass:rgba(255,255,255,.06);
@@ -32,7 +30,7 @@ overflow-x:hidden;
 background:#0a2731;
 }
 
-/* ================= LOADER ================= */
+/* LOADER */
 
 #loader{
 position:fixed;
@@ -58,7 +56,7 @@ animation:spin 1s linear infinite;
 100%{transform:rotate(360deg);}
 }
 
-/* ================= PARTICLES ================= */
+/* PARTICLES */
 
 canvas{
 position:fixed;
@@ -67,7 +65,7 @@ left:0;
 z-index:-1;
 }
 
-/* ================= NAVBAR ================= */
+/* NAVBAR */
 
 nav{
 position:fixed;
@@ -103,7 +101,7 @@ nav a:hover{
 color:var(--accent);
 }
 
-/* ================= SECTIONS ================= */
+/* SECTIONS */
 
 section{
 height:100vh;
@@ -125,12 +123,13 @@ max-width:1200px;
 padding:0 25px;
 margin:0 auto;
 display:flex;
+flex-direction:column;
 align-items:center;
 justify-content:center;
 text-align:center;
 }
 
-/* ================= FIXED PROFILE ================= */
+/* FIXED PROFILE */
 
 #fixedProfile{
 position:fixed;
@@ -152,18 +151,26 @@ transform:translate(-50%,-50%) scale(1.08);
 box-shadow:0 0 40px rgba(0,217,255,.9);
 }
 
-/* ================= HOME & ABOUT TEXT ================= */
+/* HOME & ABOUT TEXT */
 
 .home-text{
 max-width:800px;
+margin-left:500px;
 display:flex;
 flex-direction:column;
-justify-content:center;
 align-items:center;
 text-align:center;
 }
 
-/* ================= SKILLS ================= */
+/* CENTER HEADINGS */
+
+section h2{
+width:100%;
+text-align:center;
+margin-bottom:30px;
+}
+
+/* SKILLS */
 
 .skills-flex{
 display:flex;
@@ -182,9 +189,10 @@ width:100%;
 .skills-flex{flex-direction:column;}
 .skills-flex>div{width:100%;text-align:left!important;padding:0;margin-bottom:20px;}
 #fixedProfile{left:50%;}
+.home-text{margin-left:0;}
 }
 
-/* ================= CARDS ================= */
+/* CARDS */
 
 .grid{
 display:grid;
@@ -232,7 +240,8 @@ background:#111;
 .card button{
 margin:15px 0 25px;
 padding:10px 20px;
-border:none;border-radius:25px;
+border:none;
+border-radius:25px;
 background:var(--accent);
 color:#000;
 font-weight:600;
@@ -245,31 +254,39 @@ background:#00b8d4;
 transform:scale(1.05);
 }
 
-/* ================= MODAL ================= */
+/* MODAL */
 
 .modal{
-position:fixed;inset:0;
+position:fixed;
+inset:0;
 background:rgba(0,0,0,.85);
-display:flex;align-items:center;justify-content:center;
-opacity:0;visibility:hidden;
+display:flex;
+align-items:center;
+justify-content:center;
+opacity:0;
+visibility:hidden;
 transition:.4s;
 z-index:2000;
 }
 
 .modal.active{
-opacity:1;visibility:visible;
+opacity:1;
+visibility:visible;
 }
 
 .modal-box{
 background:#111;
 padding:30px;
-width:90%;max-width:900px;
+width:90%;
+max-width:900px;
 border-radius:15px;
-max-height:85vh;overflow:auto;
+max-height:85vh;
+overflow:auto;
 }
 
 .modal-box img{
-width:100%;object-fit:contain;
+width:100%;
+object-fit:contain;
 }
 
 .close{
@@ -278,7 +295,7 @@ cursor:pointer;
 font-size:24px;
 }
 
-/* ================= CONTACT ================= */
+/* CONTACT */
 
 .contact-wrapper{
 display:flex;
@@ -316,7 +333,7 @@ opacity:.9;
 font-size:14px;
 }
 
-/* ================= CURSOR ================= */
+/* CURSOR */
 
 .cursor{
 display:inline-block;
