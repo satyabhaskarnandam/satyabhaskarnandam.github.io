@@ -181,23 +181,24 @@ text-align:center;
 /* SKILLS */
 
 .skills-flex{
-display:flex;
-justify-content:center;   /* center both blocks */
-gap:150px;                /* space between them */
-margin-top:40px;
+display:grid;
+grid-template-columns: 1fr 1fr;   /* two equal columns */
+max-width:800px;                  /* control total width */
+margin:40px auto 0 auto;          /* center whole block */
+}
+
+.skills-flex > div{
 width:100%;
 }
 
-.skills-flex>div{
-width:300px;              /* fixed width for clean alignment */
-}
-
-.skills-flex>div:first-child{
+.skills-flex > div:first-child{
 text-align:left;
+padding-right:60px;               /* equal spacing from center */
 }
 
-.skills-flex>div:last-child{
-text-align:left;       /* make list start from left */
+.skills-flex > div:last-child{
+text-align:left;
+padding-left:60px;                /* equal spacing from center */
 }
 .skills-flex ul{list-style:none;margin-top:15px;}
 .skills-flex li{margin:8px 0;}
