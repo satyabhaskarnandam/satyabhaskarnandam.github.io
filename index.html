@@ -130,7 +130,7 @@ justify-content:center;
 text-align:center;
 }
 
-/* PROFILE WRAPPER */
+/* PROFILE */
 
 #profileWrapper{
 position:fixed;
@@ -159,8 +159,6 @@ transition:.4s ease;
 transform:scale(1.08);
 box-shadow:0 0 40px rgba(0,217,255,.9);
 }
-
-/* HOME & ABOUT TEXT */
 
 .home-text{
 max-width:800px;
@@ -339,8 +337,6 @@ opacity:.9;
 font-size:14px;
 }
 
-/* CURSOR */
-
 .cursor{
 display:inline-block;
 width:2px;
@@ -484,36 +480,34 @@ animation:blink .7s infinite;
 
 <script>
 
-/* PROFILE CONTROL (TRUE 1:1 TRANSITION) */
+/* PIXEL PERFECT RELEASE */
 
-const profileWrapper=document.getElementById("profileWrapper");
-const aboutSection=document.getElementById("about");
+const profile = document.getElementById("profileWrapper");
+const about = document.getElementById("about");
 
-function controlProfile(){
-const aboutBottom=aboutSection.offsetTop + aboutSection.offsetHeight;
-const scrollPosition=window.scrollY;
+function updateProfilePosition(){
+const aboutRect = about.getBoundingClientRect();
+const viewportCenter = window.innerHeight / 2;
 
-if(scrollPosition < aboutBottom - window.innerHeight/2){
-profileWrapper.classList.remove("absolute");
-profileWrapper.style.top="50%";
+if(aboutRect.bottom > viewportCenter){
+profile.classList.remove("absolute");
+profile.style.top = "50%";
 }else{
-profileWrapper.classList.add("absolute");
-profileWrapper.style.top=aboutBottom - profileWrapper.offsetHeight/2 + "px";
+profile.classList.add("absolute");
+const absoluteTop = window.scrollY + viewportCenter - (profile.offsetHeight / 2);
+profile.style.top = absoluteTop + "px";
 }
 }
 
-window.addEventListener("scroll",controlProfile);
-window.addEventListener("resize",controlProfile);
+window.addEventListener("scroll", updateProfilePosition);
+window.addEventListener("resize", updateProfilePosition);
+updateProfilePosition();
 
 /* LOADER */
 
 window.addEventListener("load",function(){
-setTimeout(function(){
-document.getElementById("loader").style.opacity=0;
-},500);
-setTimeout(function(){
-document.getElementById("loader").style.display="none";
-},1000);
+setTimeout(()=>document.getElementById("loader").style.opacity=0,500);
+setTimeout(()=>document.getElementById("loader").style.display="none",1000);
 startTyping();
 });
 
@@ -524,98 +518,81 @@ const text="Nandam Satya Bhaskar";
 let i=0;
 const typing=document.getElementById("typing");
 typing.innerHTML="";
-function type(){
+(function type(){
 if(i<text.length){
-typing.innerHTML+=text.charAt(i);
-i++;
+typing.innerHTML+=text.charAt(i++);
 setTimeout(type,70);
-}}
-type();
+}
+})();
 }
 
-/* NAVBAR SCROLL */
+/* NAVBAR */
 
 const navbar=document.getElementById("navbar");
-window.addEventListener("scroll",function(){
+window.addEventListener("scroll",()=>{
 navbar.classList.toggle("scrolled",window.scrollY>10);
 });
 
 /* SECTION FADE */
 
 const sections=document.querySelectorAll("section");
-const observer=new IntersectionObserver(function(entries){
-entries.forEach(function(entry){
-if(entry.isIntersecting){
-entry.target.classList.add("visible");
-}
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting) entry.target.classList.add("visible");
 });
 },{threshold:0.6});
-sections.forEach(function(sec){observer.observe(sec);});
+sections.forEach(sec=>observer.observe(sec));
 
 /* ACTIVE NAV */
 
 const navLinks=document.querySelectorAll("nav a");
-window.addEventListener("scroll",function(){
+window.addEventListener("scroll",()=>{
 let current="";
-sections.forEach(function(sec){
-if(pageYOffset>=sec.offsetTop-200){
-current=sec.id;
-}
+sections.forEach(sec=>{
+if(pageYOffset>=sec.offsetTop-200) current=sec.id;
 });
-navLinks.forEach(function(link){
+navLinks.forEach(link=>{
 link.classList.toggle("active",link.getAttribute("href")==="#"+current);
 });
 });
 
-/* ARROW NAVIGATION */
+/* ARROW NAV */
 
 let currentIndex=0;
 const sectionList=[...sections];
 
-window.addEventListener("scroll",function(){
+window.addEventListener("scroll",()=>{
 const pos=window.scrollY+window.innerHeight/2;
-sectionList.forEach(function(sec,i){
-if(pos>=sec.offsetTop && pos<sec.offsetTop+sec.offsetHeight){
-currentIndex=i;
-}
+sectionList.forEach((sec,i)=>{
+if(pos>=sec.offsetTop && pos<sec.offsetTop+sec.offsetHeight) currentIndex=i;
 });
 });
 
-document.addEventListener("keydown",function(e){
+document.addEventListener("keydown",e=>{
 if(e.key==="ArrowDown"||e.key==="ArrowRight"){
-if(currentIndex<sectionList.length-1){
+if(currentIndex<sectionList.length-1)
 sectionList[++currentIndex].scrollIntoView({behavior:"smooth"});
 }
-}
 if(e.key==="ArrowUp"||e.key==="ArrowLeft"){
-if(currentIndex>0){
+if(currentIndex>0)
 sectionList[--currentIndex].scrollIntoView({behavior:"smooth"});
-}
 }
 });
 
 /* STAGGER CARDS */
 
 const grids=document.querySelectorAll(".grid");
-const gridObserver=new IntersectionObserver(function(entries){
-entries.forEach(function(entry){
+const gridObserver=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
 const cards=entry.target.querySelectorAll(".card");
 if(entry.isIntersecting){
-cards.forEach(function(card,index){
-setTimeout(function(){
-card.classList.add("show");
-},index*120);
-});
+cards.forEach((card,i)=>setTimeout(()=>card.classList.add("show"),i*120));
 }else{
-cards.forEach(function(card){
-card.classList.remove("show");
-});
+cards.forEach(card=>card.classList.remove("show"));
 }
 });
 },{threshold:0.4});
-grids.forEach(function(grid){
-gridObserver.observe(grid);
-});
+grids.forEach(grid=>gridObserver.observe(grid));
 
 /* MODAL */
 
@@ -646,17 +623,8 @@ function closeModal(){
 modal.classList.remove("active");
 }
 
-window.onclick=function(e){
-if(e.target==modal){
-closeModal();
-}
-};
-
-document.addEventListener("keydown",function(e){
-if(e.key==="Escape"){
-closeModal();
-}
-});
+window.onclick=e=>{if(e.target==modal) closeModal();};
+document.addEventListener("keydown",e=>{if(e.key==="Escape") closeModal();});
 
 /* PARTICLES */
 
@@ -683,7 +651,7 @@ s:Math.random()*0.7+0.2
 function animate(){
 ctx.clearRect(0,0,canvas.width,canvas.height);
 ctx.fillStyle="rgba(255,255,255,.4)";
-particles.forEach(function(p){
+particles.forEach(p=>{
 ctx.beginPath();
 ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
 ctx.fill();
