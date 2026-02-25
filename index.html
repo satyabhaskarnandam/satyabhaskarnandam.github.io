@@ -30,7 +30,7 @@ overflow-x:hidden;
 background:#0a2731;
 }
 
-/* ================= LOADER ================= */
+/* LOADER */
 
 #loader{
 position:fixed;
@@ -56,7 +56,7 @@ animation:spin 1s linear infinite;
 100%{transform:rotate(360deg);}
 }
 
-/* ================= PARTICLES ================= */
+/* PARTICLES */
 
 canvas{
 position:fixed;
@@ -65,7 +65,7 @@ left:0;
 z-index:-1;
 }
 
-/* ================= NAVBAR ================= */
+/* NAVBAR */
 
 nav{
 position:fixed;
@@ -101,7 +101,7 @@ nav a:hover{
 color:var(--accent);
 }
 
-/* ================= SECTIONS ================= */
+/* SECTIONS */
 
 section{
 height:100vh;
@@ -129,7 +129,7 @@ justify-content:center;
 text-align:center;
 }
 
-/* ================= PROFILE ================= */
+/* PROFILE */
 
 #fixedProfile{
 position:fixed;
@@ -162,7 +162,7 @@ align-items:center;
 text-align:center;
 }
 
-/* CENTER HEADINGS */
+/* HEADINGS */
 
 section h2{
 width:100%;
@@ -170,7 +170,7 @@ text-align:center;
 margin-bottom:30px;
 }
 
-/* ================= SKILLS ================= */
+/* SKILLS */
 
 .skills-flex{
 display:flex;
@@ -192,7 +192,7 @@ width:100%;
 .home-text{margin-left:0;}
 }
 
-/* ================= CARDS ================= */
+/* CARDS */
 
 .grid{
 display:grid;
@@ -254,7 +254,7 @@ background:#00b8d4;
 transform:scale(1.05);
 }
 
-/* ================= MODAL ================= */
+/* MODAL */
 
 .modal{
 position:fixed;
@@ -295,7 +295,7 @@ cursor:pointer;
 font-size:24px;
 }
 
-/* ================= CONTACT ================= */
+/* CONTACT */
 
 .contact-wrapper{
 display:flex;
@@ -333,7 +333,7 @@ opacity:.9;
 font-size:14px;
 }
 
-/* ================= CURSOR ================= */
+/* CURSOR */
 
 .cursor{
 display:inline-block;
@@ -476,7 +476,7 @@ animation:blink .7s infinite;
 
 <script>
 
-/* ===== LOADER ===== */
+/* LOADER */
 window.addEventListener("load",function(){
 const loader=document.getElementById("loader");
 setTimeout(function(){
@@ -488,7 +488,7 @@ loader.style.display="none";
 startTyping();
 });
 
-/* ===== PROFILE POSITION SWITCH ===== */
+/* PROFILE SCROLL SWITCH */
 const profile=document.getElementById("fixedProfile");
 const about=document.getElementById("about");
 
@@ -505,9 +505,177 @@ profile.style.transform="translate(-50%, -50%)";
 }
 });
 
-/* ===== REMAINING JS (UNCHANGED FUNCTIONALITY) ===== */
-/* (Typing, Navbar fade, Section fade, Active nav, Arrow nav, Stagger cards, Modal, Particles) */
-/* All logic preserved exactly from your working version */
+/* TYPING */
+function startTyping(){
+const text="Nandam Satya Bhaskar";
+let i=0;
+const typing=document.getElementById("typing");
+typing.innerHTML="";
+function type(){
+if(i<text.length){
+typing.innerHTML+=text.charAt(i);
+i++;
+setTimeout(type,70);
+}}
+type();
+}
+
+/* NAVBAR FADE */
+const navbar=document.getElementById("navbar");
+window.addEventListener("scroll",function(){
+navbar.classList.toggle("scrolled",window.scrollY>10);
+});
+
+/* SECTION FADE */
+const sections=document.querySelectorAll("section");
+const observer=new IntersectionObserver(function(entries){
+entries.forEach(function(entry){
+if(entry.isIntersecting){
+entry.target.classList.add("visible");
+}
+});
+},{threshold:0.6});
+sections.forEach(function(sec){observer.observe(sec);});
+
+/* ACTIVE NAV */
+const navLinks=document.querySelectorAll("nav a");
+window.addEventListener("scroll",function(){
+let current="";
+sections.forEach(function(sec){
+if(pageYOffset>=sec.offsetTop-200){
+current=sec.id;
+}
+});
+navLinks.forEach(function(link){
+link.classList.toggle("active",link.getAttribute("href")==="#"+current);
+});
+});
+
+/* ARROW NAVIGATION */
+let currentIndex=0;
+const sectionList=[...sections];
+
+window.addEventListener("scroll",function(){
+const pos=window.scrollY+window.innerHeight/2;
+sectionList.forEach(function(sec,i){
+if(pos>=sec.offsetTop && pos<sec.offsetTop+sec.offsetHeight){
+currentIndex=i;
+}
+});
+});
+
+document.addEventListener("keydown",function(e){
+if(e.key==="ArrowDown"||e.key==="ArrowRight"){
+if(currentIndex<sectionList.length-1){
+sectionList[++currentIndex].scrollIntoView({behavior:"smooth"});
+}
+}
+if(e.key==="ArrowUp"||e.key==="ArrowLeft"){
+if(currentIndex>0){
+sectionList[--currentIndex].scrollIntoView({behavior:"smooth"});
+}
+}
+});
+
+/* STAGGER CARDS */
+const grids=document.querySelectorAll(".grid");
+const gridObserver=new IntersectionObserver(function(entries){
+entries.forEach(function(entry){
+const cards=entry.target.querySelectorAll(".card");
+if(entry.isIntersecting){
+cards.forEach(function(card,index){
+setTimeout(function(){
+card.classList.add("show");
+},index*120);
+});
+}else{
+cards.forEach(function(card){
+card.classList.remove("show");
+});
+}
+});
+},{threshold:0.4});
+grids.forEach(function(grid){
+gridObserver.observe(grid);
+});
+
+/* MODAL */
+const modal=document.getElementById("modal");
+const modalBody=document.getElementById("modalBody");
+
+function openCert(img){
+modalBody.innerHTML='<img src="'+img+'">';
+modal.classList.add("active");
+}
+
+function openProject(type){
+let content="";
+if(type==="solar"){
+content='<img src="solar.jpg"><h2>Solar PV Modeling</h2><p>Simulated PV array with MPPT under varying irradiation and temperature conditions.</p>';
+}
+if(type==="street"){
+content='<img src="streetlight.jpg"><h2>Smart Street Lighting</h2><p>Automatic brightness adjustment using LDR and motion sensors for energy efficiency.</p>';
+}
+if(type==="robot"){
+content='<img src="robot.jpg"><h2>Underground Cable Inspection Robot</h2><p>Autonomous robotic system for underground cable fault detection and monitoring.</p>';
+}
+modalBody.innerHTML=content;
+modal.classList.add("active");
+}
+
+function closeModal(){
+modal.classList.remove("active");
+}
+
+window.onclick=function(e){
+if(e.target==modal){
+closeModal();
+}
+};
+
+document.addEventListener("keydown",function(e){
+if(e.key==="Escape"){
+closeModal();
+}
+});
+
+/* PARTICLES */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+
+function resize(){
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+}
+resize();
+window.addEventListener("resize",resize);
+
+let particles=[];
+for(let i=0;i<120;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2,
+s:Math.random()*0.7+0.2
+});
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="rgba(255,255,255,.4)";
+particles.forEach(function(p){
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fill();
+p.y+=p.s;
+if(p.y>canvas.height){
+p.y=0;
+p.x=Math.random()*canvas.width;
+}
+});
+requestAnimationFrame(animate);
+}
+animate();
 
 </script>
 
