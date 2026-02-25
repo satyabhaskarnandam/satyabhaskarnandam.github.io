@@ -142,13 +142,8 @@ border-radius:50%;
 object-fit:cover;
 border:4px solid var(--accent);
 box-shadow:0 0 15px rgba(0,217,255,.5);
-transition:opacity .6s ease, transform .5s ease;
+transition:transform .5s ease;
 z-index:900;
-opacity:1;
-}
-
-#fixedProfile.fade-out{
-opacity:0;
 }
 
 #fixedProfile:hover{
@@ -491,31 +486,22 @@ loader.style.display="none";
 startTyping();
 });
 
-/* PROFILE SCROLL FIX */
+/* PROFILE SCROLL SIMULTANEOUS WITH ABOUT */
 const profile=document.getElementById("fixedProfile");
-const about=document.getElementById("about");
+const home=document.getElementById("home");
 
 window.addEventListener("scroll",function(){
 
-const aboutBottom=about.offsetTop + about.offsetHeight;
+if(window.scrollY >= home.offsetHeight){
 
-if(window.scrollY >= aboutBottom){
-
-profile.classList.add("fade-out");
-
-setTimeout(function(){
 profile.style.position="absolute";
-profile.style.top=aboutBottom+"px";
-profile.style.transform="translate(-50%, -50%)";
-profile.classList.remove("fade-out");
-},300);
+profile.style.top=home.offsetHeight + "px";
 
 }else{
 
 profile.style.position="fixed";
 profile.style.top="50%";
 profile.style.transform="translate(-50%, -50%)";
-profile.classList.remove("fade-out");
 
 }
 
