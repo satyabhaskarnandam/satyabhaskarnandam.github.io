@@ -137,7 +137,6 @@ top:50%;
 left:25%;
 transform:translate(-50%,-50%);
 z-index:900;
-transition:transform 0.15s linear;
 }
 
 #fixedProfile{
@@ -485,23 +484,25 @@ loader.style.display="none";
 startTyping();
 });
 
-/* PERFECT SMOOTH PROFILE SCROLL */
+/* SMOOTH PROFILE RELEASE AFTER ABOUT */
 
-const wrapper=document.getElementById("profileWrapper");
-const about=document.getElementById("about");
+const wrapper = document.getElementById("profileWrapper");
+const about = document.getElementById("about");
 
 window.addEventListener("scroll",function(){
 
-const aboutBottom=about.offsetTop + about.offsetHeight;
+const aboutBottom = about.offsetTop + about.offsetHeight;
 
-if(window.scrollY>aboutBottom){
+if(window.scrollY >= aboutBottom){
 
-const moveDistance=window.scrollY - aboutBottom;
-wrapper.style.transform="translate(-50%, calc(-50% + "+moveDistance+"px))";
+wrapper.style.position = "absolute";
+wrapper.style.top = aboutBottom + "px";
 
 }else{
 
-wrapper.style.transform="translate(-50%, -50%)";
+wrapper.style.position = "fixed";
+wrapper.style.top = "50%";
+wrapper.style.transform = "translate(-50%, -50%)";
 
 }
 
@@ -602,7 +603,8 @@ gridObserver.observe(grid);
 });
 
 /* MODAL */
-const modal=document.createElement("div");
+function openCert(img){}
+function openProject(type){}
 
 /* PARTICLES */
 const canvas=document.getElementById("particles");
