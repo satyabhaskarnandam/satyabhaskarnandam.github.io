@@ -14,7 +14,6 @@
 --accent:#00d9ff;
 --glass:rgba(255,255,255,.06);
 --glass-border:rgba(255,255,255,.15);
---profile-size:220px;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -102,46 +101,17 @@ nav a:hover{
 color:var(--accent);
 }
 
-/* SECTIONS */
-
-section{
-height:100vh;
-scroll-snap-align:start;
-display:flex;
-align-items:center;
-justify-content:center;
-opacity:0;
-transition:opacity .8s ease;
-position:relative;
-z-index:1;
-}
-
-section.visible{
-opacity:1;
-}
-
-.container{
-width:100%;
-max-width:1200px;
-padding:0 25px;
-margin:0 auto;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-text-align:center;
-}
-
 /* PROFILE */
 
 #profileWrapper{
 position:fixed;
 top:50%;
 left:25%;
-width:var(--profile-size);
-height:var(--profile-size);
-margin-top:-110px;
+transform:translateY(-50%);
+width:220px;
+height:220px;
 z-index:900;
+transition:opacity .3s ease;
 }
 
 .profile-pic{
@@ -159,7 +129,33 @@ transform:scale(1.08);
 box-shadow:0 0 40px rgba(0,217,255,.9);
 }
 
-/* HOME TEXT */
+/* SECTIONS */
+
+section{
+height:100vh;
+scroll-snap-align:start;
+display:flex;
+align-items:center;
+justify-content:center;
+opacity:0;
+transition:opacity .8s ease;
+}
+
+section.visible{
+opacity:1;
+}
+
+.container{
+width:100%;
+max-width:1200px;
+padding:0 25px;
+margin:0 auto;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+}
 
 .home-text{
 max-width:800px;
@@ -468,7 +464,7 @@ animation:blink .7s infinite;
 
 <script>
 
-/* START AT TOP */
+/* LOADER + START */
 window.addEventListener("load",function(){
 window.scrollTo(0,0);
 setTimeout(()=>document.getElementById("loader").style.opacity=0,500);
@@ -476,36 +472,17 @@ setTimeout(()=>document.getElementById("loader").style.display="none",1000);
 startTyping();
 });
 
-/* PROFILE 1:1 SYNC */
+/* FADE PROFILE AFTER ABOUT */
 const profile=document.getElementById("profileWrapper");
 const about=document.getElementById("about");
 
-let ticking=false;
-
-function updateProfile(){
-const aboutBottom=about.offsetTop+about.offsetHeight;
-const releasePoint=aboutBottom-window.innerHeight/2;
-
-if(window.scrollY<releasePoint){
-profile.style.position="fixed";
-profile.style.top="50%";
-profile.style.marginTop="-110px";
-}else{
-profile.style.position="absolute";
-profile.style.top=aboutBottom-110+"px";
-profile.style.marginTop="0px";
-}
-ticking=false;
-}
-
 window.addEventListener("scroll",function(){
-if(!ticking){
-requestAnimationFrame(updateProfile);
-ticking=true;
+if(window.scrollY > about.offsetTop + about.offsetHeight - 200){
+profile.style.opacity="0";
+}else{
+profile.style.opacity="1";
 }
 });
-
-updateProfile();
 
 /* TYPING */
 function startTyping(){
