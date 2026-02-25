@@ -30,7 +30,7 @@ overflow-x:hidden;
 background:#0a2731;
 }
 
-/* LOADER */
+/* ================= LOADER ================= */
 
 #loader{
 position:fixed;
@@ -56,7 +56,7 @@ animation:spin 1s linear infinite;
 100%{transform:rotate(360deg);}
 }
 
-/* PARTICLES */
+/* ================= PARTICLES ================= */
 
 canvas{
 position:fixed;
@@ -65,7 +65,7 @@ left:0;
 z-index:-1;
 }
 
-/* NAVBAR */
+/* ================= NAVBAR ================= */
 
 nav{
 position:fixed;
@@ -101,7 +101,7 @@ nav a:hover{
 color:var(--accent);
 }
 
-/* SECTIONS */
+/* ================= SECTIONS ================= */
 
 section{
 height:100vh;
@@ -129,7 +129,7 @@ justify-content:center;
 text-align:center;
 }
 
-/* PROFILE */
+/* ================= PROFILE ================= */
 
 #fixedProfile{
 position:fixed;
@@ -151,7 +151,7 @@ transform:translate(-50%,-50%) scale(1.08);
 box-shadow:0 0 40px rgba(0,217,255,.9);
 }
 
-/* TEXT */
+/* ================= TEXT ================= */
 
 .home-text{
 max-width:800px;
@@ -168,7 +168,7 @@ text-align:center;
 margin-bottom:30px;
 }
 
-/* SKILLS */
+/* ================= SKILLS ================= */
 
 .skills-flex{
 display:flex;
@@ -190,7 +190,7 @@ width:100%;
 .home-text{margin-left:0;}
 }
 
-/* CARDS */
+/* ================= CARDS ================= */
 
 .grid{
 display:grid;
@@ -252,7 +252,7 @@ background:#00b8d4;
 transform:scale(1.05);
 }
 
-/* MODAL */
+/* ================= MODAL ================= */
 
 .modal{
 position:fixed;
@@ -293,7 +293,7 @@ cursor:pointer;
 font-size:24px;
 }
 
-/* CONTACT */
+/* ================= CONTACT ================= */
 
 .contact-wrapper{
 display:flex;
@@ -331,7 +331,7 @@ opacity:.9;
 font-size:14px;
 }
 
-/* CURSOR */
+/* ================= CURSOR ================= */
 
 .cursor{
 display:inline-block;
@@ -465,13 +465,6 @@ animation:blink .7s infinite;
 </div>
 </section>
 
-<div id="modal" class="modal">
-<div class="modal-box">
-<span class="close" onclick="closeModal()">&times;</span>
-<div id="modalBody"></div>
-</div>
-</div>
-
 <script>
 
 /* LOADER */
@@ -486,25 +479,20 @@ loader.style.display="none";
 startTyping();
 });
 
-/* PROFILE SCROLL SIMULTANEOUS WITH ABOUT */
+/* PROFILE SCROLL AFTER ABOUT */
 const profile=document.getElementById("fixedProfile");
-const home=document.getElementById("home");
+const about=document.getElementById("about");
 
 window.addEventListener("scroll",function(){
-
-if(window.scrollY >= home.offsetHeight){
-
+const aboutBottom = about.offsetTop + about.offsetHeight;
+if(window.scrollY >= aboutBottom){
 profile.style.position="absolute";
-profile.style.top=home.offsetHeight + "px";
-
+profile.style.top = aboutBottom + "px";
 }else{
-
 profile.style.position="fixed";
 profile.style.top="50%";
-profile.style.transform="translate(-50%, -50%)";
-
+profile.style.transform="translate(-50%,-50%)";
 }
-
 });
 
 /* TYPING */
