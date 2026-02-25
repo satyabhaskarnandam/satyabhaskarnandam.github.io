@@ -101,31 +101,6 @@ nav a:hover{
 color:var(--accent);
 }
 
-/* ================= PROFILE CONTAINER ================= */
-
-#profileContainer{
-position:relative;
-}
-
-/* Sticky profile */
-#profileWrapper{
-position:sticky;
-top:50vh;
-left:25%;
-transform:translateX(-50%) translateY(-50%);
-z-index:900;
-pointer-events:none;
-}
-
-#fixedProfile{
-width:220px;
-height:220px;
-border-radius:50%;
-object-fit:cover;
-border:4px solid var(--accent);
-box-shadow:0 0 20px rgba(0,217,255,.6);
-}
-
 /* ================= SECTIONS ================= */
 
 section{
@@ -152,6 +127,26 @@ flex-direction:column;
 align-items:center;
 justify-content:center;
 text-align:center;
+}
+
+/* ================= PROFILE ================= */
+
+#profileWrapper{
+position:fixed;
+top:50%;
+left:25%;
+transform:translate(-50%,-50%);
+z-index:900;
+will-change:transform;
+}
+
+#fixedProfile{
+width:220px;
+height:220px;
+border-radius:50%;
+object-fit:cover;
+border:4px solid var(--accent);
+box-shadow:0 0 20px rgba(0,217,255,.6);
 }
 
 /* ================= TEXT ================= */
@@ -272,6 +267,10 @@ animation:blink .7s infinite;
 <div id="loader"><div class="loader-ring"></div></div>
 <canvas id="particles"></canvas>
 
+<div id="profileWrapper">
+<img src="profile.jpg" id="fixedProfile">
+</div>
+
 <nav id="navbar">
 <a href="#home" class="active">Home</a>
 <a href="#about">About</a>
@@ -280,12 +279,6 @@ animation:blink .7s infinite;
 <a href="#projects">Projects</a>
 <a href="#contact">Contact</a>
 </nav>
-
-<div id="profileContainer">
-
-<div id="profileWrapper">
-<img src="profile.jpg" id="fixedProfile">
-</div>
 
 <section id="home" class="visible">
 <div class="container">
@@ -304,8 +297,6 @@ animation:blink .7s infinite;
 </div>
 </div>
 </section>
-
-</div> <!-- END profileContainer -->
 
 <section id="skills">
 <div class="container">
@@ -342,6 +333,34 @@ setTimeout(()=>loader.style.opacity="0",500);
 setTimeout(()=>loader.style.display="none",1100);
 startTyping();
 });
+
+/* PERFECT PROFILE SYNC (CENTER ANCHORED) */
+
+const wrapper=document.getElementById("profileWrapper");
+const about=document.getElementById("about");
+
+function syncProfile(){
+
+const scrollY=window.scrollY;
+
+/* release when ABOUT center aligns with viewport center */
+const releasePoint = about.offsetTop - (window.innerHeight/2);
+
+if(scrollY >= releasePoint){
+
+const delta = scrollY - releasePoint;
+wrapper.style.transform=`translate(-50%, calc(-50% - ${delta}px))`;
+
+}else{
+
+wrapper.style.transform="translate(-50%,-50%)";
+
+}
+
+requestAnimationFrame(syncProfile);
+}
+
+syncProfile();
 
 /* TYPING */
 function startTyping(){
