@@ -101,6 +101,7 @@ align-items:center;
 justify-content:center;
 opacity:0;
 transition:opacity .8s ease;
+will-change: opacity;
 }
 
 section.visible{opacity:1;}
@@ -305,7 +306,7 @@ animation:blink .7s infinite;
 </nav>
 
 <!-- HOME -->
-<section id="home" class="visible">
+<section id="home">
 <div class="container home-flex">
 <img src="profile.jpg" class="profile">
 <div class="home-text">
@@ -318,7 +319,7 @@ animation:blink .7s infinite;
 <!-- ABOUT -->
 <section id="about">
 <div class="container home-flex">
-<img src="profile.jpg" class="profile about-profile">
+<img src="profile.jpg" class="profile">
 <div class="home-text">
 <h2>About</h2>
 <p>Focused on Power Systems & Embedded Technologies.</p>
