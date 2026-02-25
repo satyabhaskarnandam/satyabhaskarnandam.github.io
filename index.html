@@ -14,6 +14,7 @@
 --accent:#00d9ff;
 --glass:rgba(255,255,255,.06);
 --glass-border:rgba(255,255,255,.15);
+--profile-size:220px;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -31,7 +32,6 @@ background:#0a2731;
 }
 
 /* LOADER */
-
 #loader{
 position:fixed;
 inset:0;
@@ -57,7 +57,6 @@ animation:spin 1s linear infinite;
 }
 
 /* PARTICLES */
-
 canvas{
 position:fixed;
 top:0;
@@ -66,7 +65,6 @@ z-index:-1;
 }
 
 /* NAVBAR */
-
 nav{
 position:fixed;
 top:0;
@@ -101,8 +99,33 @@ nav a:hover{
 color:var(--accent);
 }
 
-/* SECTIONS */
+/* PROFILE */
+#profileWrapper{
+position:fixed;
+left:25%;
+top:50%;
+width:var(--profile-size);
+height:var(--profile-size);
+margin-top:-110px;
+z-index:900;
+}
 
+.profile-pic{
+width:100%;
+height:100%;
+border-radius:50%;
+object-fit:cover;
+border:4px solid var(--accent);
+box-shadow:0 0 15px rgba(0,217,255,.5);
+transition:.4s ease;
+}
+
+.profile-pic:hover{
+transform:scale(1.08);
+box-shadow:0 0 40px rgba(0,217,255,.9);
+}
+
+/* SECTIONS */
 section{
 height:100vh;
 scroll-snap-align:start;
@@ -111,6 +134,7 @@ align-items:center;
 justify-content:center;
 opacity:0;
 transition:opacity .8s ease;
+position:relative;
 }
 
 section.visible{
@@ -129,42 +153,12 @@ justify-content:center;
 text-align:center;
 }
 
-/* HOME & ABOUT SPLIT */
-
-.split{
-display:flex;
-align-items:center;
-justify-content:center;
-width:100%;
-}
-
-.profile-box{
-width:220px;
-height:220px;
-margin-right:120px;
-}
-
-.profile-box img{
-width:100%;
-height:100%;
-border-radius:50%;
-object-fit:cover;
-border:4px solid var(--accent);
-box-shadow:0 0 15px rgba(0,217,255,.5);
-transition:.4s ease;
-}
-
-.profile-box img:hover{
-transform:scale(1.08);
-box-shadow:0 0 40px rgba(0,217,255,.9);
-}
-
-.text-box{
-max-width:600px;
+.home-text{
+max-width:800px;
+margin-left:500px;
 }
 
 /* SKILLS */
-
 .skills-flex{
 display:flex;
 margin-top:40px;
@@ -179,7 +173,6 @@ width:100%;
 .skills-flex li{margin:8px 0;}
 
 /* GRID */
-
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
@@ -241,7 +234,6 @@ transform:scale(1.05);
 }
 
 /* MODAL */
-
 .modal{
 position:fixed;
 inset:0;
@@ -292,19 +284,16 @@ animation:blink .7s infinite;
 50%{opacity:0;}
 }
 
-@media(max-width:768px){
-.split{flex-direction:column;}
-.profile-box{margin-right:0;margin-bottom:30px;}
-.skills-flex{flex-direction:column;}
-.skills-flex>div{width:100%;text-align:left!important;padding:0;margin-bottom:20px;}
-}
-
 </style>
 </head>
 <body>
 
 <div id="loader"><div class="loader-ring"></div></div>
 <canvas id="particles"></canvas>
+
+<div id="profileWrapper">
+<img src="profile.jpg" class="profile-pic">
+</div>
 
 <nav id="navbar">
 <a href="#home" class="active"><i class="fa-solid fa-house"></i></a>
@@ -317,28 +306,18 @@ animation:blink .7s infinite;
 
 <section id="home" class="visible">
 <div class="container">
-<div class="split">
-<div class="profile-box">
-<img src="profile.jpg">
-</div>
-<div class="text-box">
+<div class="home-text">
 <h1><span id="typing"></span><span class="cursor"></span></h1>
 <p>3rd Year Electrical & Electronics Engineering at Lovely Professional University</p>
-</div>
 </div>
 </div>
 </section>
 
 <section id="about">
 <div class="container">
-<div class="split">
-<div class="profile-box">
-<img src="profile.jpg">
-</div>
-<div class="text-box">
+<div class="home-text">
 <h2>About</h2>
 <p>Focused on Power Systems & Embedded Technologies.</p>
-</div>
 </div>
 </div>
 </section>
@@ -429,7 +408,29 @@ setTimeout(()=>document.getElementById("loader").style.display="none",1000);
 startTyping();
 });
 
-/* Typing */
+/* PROFILE RELEASE */
+const profile=document.getElementById("profileWrapper");
+const about=document.getElementById("about");
+
+function updateProfile(){
+const aboutBottom=about.offsetTop+about.offsetHeight;
+const releasePoint=aboutBottom-(window.innerHeight/2);
+
+if(window.scrollY<releasePoint){
+profile.style.position="fixed";
+profile.style.top="50%";
+profile.style.marginTop="-110px";
+}else{
+profile.style.position="absolute";
+profile.style.top=aboutBottom-110+"px";
+profile.style.marginTop="0px";
+}
+}
+
+window.addEventListener("scroll",()=>requestAnimationFrame(updateProfile));
+updateProfile();
+
+/* TYPING */
 function startTyping(){
 const text="Nandam Satya Bhaskar";
 let i=0;
@@ -442,57 +443,6 @@ setTimeout(type,70);
 }
 })();
 }
-
-/* Section fade */
-const sections=document.querySelectorAll("section");
-const observer=new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.classList.add("visible");
-}
-});
-},{threshold:0.6});
-sections.forEach(sec=>observer.observe(sec));
-
-/* Active nav */
-const navLinks=document.querySelectorAll("nav a");
-window.addEventListener("scroll",()=>{
-let current="";
-sections.forEach(sec=>{
-if(pageYOffset>=sec.offsetTop-200){
-current=sec.id;
-}
-});
-navLinks.forEach(link=>{
-link.classList.toggle("active",link.getAttribute("href")==="#"+current);
-});
-});
-
-/* Arrow navigation */
-let currentIndex=0;
-const sectionList=[...sections];
-
-window.addEventListener("scroll",()=>{
-const pos=window.scrollY+window.innerHeight/2;
-sectionList.forEach((sec,i)=>{
-if(pos>=sec.offsetTop && pos<sec.offsetTop+sec.offsetHeight){
-currentIndex=i;
-}
-});
-});
-
-document.addEventListener("keydown",e=>{
-if(e.key==="ArrowDown"||e.key==="ArrowRight"){
-if(currentIndex<sectionList.length-1){
-sectionList[++currentIndex].scrollIntoView({behavior:"smooth"});
-}
-}
-if(e.key==="ArrowUp"||e.key==="ArrowLeft"){
-if(currentIndex>0){
-sectionList[--currentIndex].scrollIntoView({behavior:"smooth"});
-}
-}
-});
 
 </script>
 
