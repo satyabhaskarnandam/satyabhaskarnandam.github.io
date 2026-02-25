@@ -29,6 +29,7 @@ font-family:'Poppins',sans-serif;
 color:#fff;
 overflow-x:hidden;
 background:#0a2731;
+position:relative;
 }
 
 /* LOADER */
@@ -112,6 +113,8 @@ align-items:center;
 justify-content:center;
 opacity:0;
 transition:opacity .8s ease;
+position:relative;
+z-index:1;
 }
 
 section.visible{
@@ -130,19 +133,15 @@ justify-content:center;
 text-align:center;
 }
 
-/* PROFILE WRAPPER (HOME + ABOUT ONLY) */
+/* PROFILE */
 
-.profile-wrapper{
-position:relative;
-height:200vh;
-}
-
-.profile-sticky{
-position:sticky;
-top:calc(50vh - (var(--profile-size)/2));
+#profileWrapper{
+position:fixed;
+top:50%;
 left:25%;
 width:var(--profile-size);
 height:var(--profile-size);
+margin-top:-110px;
 z-index:900;
 }
 
@@ -160,6 +159,8 @@ transition:.4s ease;
 transform:scale(1.08);
 box-shadow:0 0 40px rgba(0,217,255,.9);
 }
+
+/* HOME TEXT */
 
 .home-text{
 max-width:800px;
@@ -185,7 +186,7 @@ width:100%;
 .skills-flex ul{list-style:none;margin-top:15px;}
 .skills-flex li{margin:8px 0;}
 
-/* GRID CARDS */
+/* GRID */
 
 .grid{
 display:grid;
@@ -339,7 +340,7 @@ animation:blink .7s infinite;
 @media(max-width:768px){
 .skills-flex{flex-direction:column;}
 .skills-flex>div{width:100%;text-align:left!important;padding:0;margin-bottom:20px;}
-.profile-sticky{left:50%;}
+#profileWrapper{left:50%;}
 .home-text{margin-left:0;}
 }
 
@@ -350,6 +351,10 @@ animation:blink .7s infinite;
 <div id="loader"><div class="loader-ring"></div></div>
 <canvas id="particles"></canvas>
 
+<div id="profileWrapper">
+<img src="profile.jpg" class="profile-pic">
+</div>
+
 <nav id="navbar">
 <a href="#home" class="active"><i class="fa-solid fa-house"></i></a>
 <a href="#about">About</a>
@@ -358,12 +363,6 @@ animation:blink .7s infinite;
 <a href="#projects">Projects</a>
 <a href="#contact">Contact</a>
 </nav>
-
-<div class="profile-wrapper">
-
-<div class="profile-sticky">
-<img src="profile.jpg" class="profile-pic">
-</div>
 
 <section id="home" class="visible">
 <div class="container">
@@ -382,8 +381,6 @@ animation:blink .7s infinite;
 </div>
 </div>
 </section>
-
-</div>
 
 <section id="skills">
 <div class="container">
@@ -470,31 +467,49 @@ animation:blink .7s infinite;
 </div>
 </section>
 
+<div id="modal" class="modal">
+<div class="modal-box">
+<span class="close" onclick="closeModal()">&times;</span>
+<div id="modalBody"></div>
+</div>
+</div>
+
 <script>
 
-/* Start at top */
-window.onload=function(){window.scrollTo(0,0);};
+/* Profile 1:1 Sync */
 
-/* Loader */
-window.addEventListener("load",function(){
-setTimeout(()=>document.getElementById("loader").style.opacity=0,500);
-setTimeout(()=>document.getElementById("loader").style.display="none",1000);
-startTyping();
+const profile=document.getElementById("profileWrapper");
+const about=document.getElementById("about");
+
+let ticking=false;
+
+function updateProfile(){
+const aboutBottom=about.offsetTop+about.offsetHeight;
+const releasePoint=aboutBottom-window.innerHeight/2;
+
+if(window.scrollY<releasePoint){
+profile.style.position="fixed";
+profile.style.top="50%";
+profile.style.marginTop="-110px";
+}else{
+profile.style.position="absolute";
+profile.style.top=aboutBottom-110+"px";
+profile.style.marginTop="0px";
+}
+ticking=false;
+}
+
+window.addEventListener("scroll",function(){
+if(!ticking){
+requestAnimationFrame(updateProfile);
+ticking=true;
+}
 });
 
-/* Typing */
-function startTyping(){
-const text="Nandam Satya Bhaskar";
-let i=0;
-const typing=document.getElementById("typing");
-typing.innerHTML="";
-(function type(){
-if(i<text.length){
-typing.innerHTML+=text.charAt(i++);
-setTimeout(type,70);
-}
-})();
-}
+window.onload=function(){
+window.scrollTo(0,0);
+updateProfile();
+};
 
 </script>
 
