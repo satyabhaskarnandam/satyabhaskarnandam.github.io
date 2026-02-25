@@ -30,7 +30,18 @@ overflow-x:hidden;
 background:#0a2731;
 }
 
-/* LOADER */
+/* Intro Animation */
+body.intro .profile-sticky,
+body.intro .home-text {
+opacity:0;
+transform:translateY(40px);
+}
+
+.profile-sticky,
+.home-text {
+transition:opacity 1s ease, transform 1s ease;
+}
+  /* LOADER */
 
 #loader{
 position:fixed;
@@ -518,11 +529,33 @@ window.addEventListener("load", () => {
   }, 0);
 });
 
-/* Loader */
+// Disable browser scroll restore
+if ('scrollRestoration' in history) {
+history.scrollRestoration = 'manual';
+}
+
+// Add intro class before page renders
+document.body.classList.add("intro");
+  
+  /* Loader */
 window.addEventListener("load",function(){
-setTimeout(()=>document.getElementById("loader").style.opacity=0,500);
-setTimeout(()=>document.getElementById("loader").style.display="none",1000);
+
+window.scrollTo(0,0);
+
+setTimeout(()=>{
+document.getElementById("loader").style.opacity=0;
+},500);
+
+setTimeout(()=>{
+document.getElementById("loader").style.display="none";
+
+/* Trigger intro animation */
+document.body.classList.remove("intro");
+
+},1000);
+
 startTyping();
+
 });
 
 /* Typing */
