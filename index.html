@@ -19,7 +19,7 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 
 html{
-scroll-behavior:smooth
+scroll-behavior:smooth;
 scroll-snap-type:y mandatory;
 }
 
@@ -508,7 +508,15 @@ font-size:18px;
 <script>
 
 /* Start at top */
-window.onload=function(){window.scrollTo(0,0);};
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto"
+    });
+  }, 0);
+});
 
 /* Loader */
 window.addEventListener("load",function(){
