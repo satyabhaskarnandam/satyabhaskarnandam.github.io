@@ -30,7 +30,7 @@ overflow-x:hidden;
 background:#0a2731;
 }
 
-/* ================= LOADER ================= */
+/* LOADER */
 
 #loader{
 position:fixed;
@@ -56,7 +56,7 @@ animation:spin 1s linear infinite;
 100%{transform:rotate(360deg);}
 }
 
-/* ================= PARTICLES ================= */
+/* PARTICLES */
 
 canvas{
 position:fixed;
@@ -65,7 +65,7 @@ left:0;
 z-index:-1;
 }
 
-/* ================= NAVBAR ================= */
+/* NAVBAR */
 
 nav{
 position:fixed;
@@ -101,7 +101,7 @@ nav a:hover{
 color:var(--accent);
 }
 
-/* ================= SECTIONS ================= */
+/* SECTIONS */
 
 section{
 height:100vh;
@@ -129,13 +129,17 @@ justify-content:center;
 text-align:center;
 }
 
-/* ================= PROFILE ================= */
+/* PROFILE */
 
-#fixedProfile{
+#profileWrapper{
 position:fixed;
 top:50%;
 left:25%;
 transform:translate(-50%,-50%);
+z-index:900;
+}
+
+#fixedProfile{
 width:220px;
 height:220px;
 border-radius:50%;
@@ -143,15 +147,14 @@ object-fit:cover;
 border:4px solid var(--accent);
 box-shadow:0 0 15px rgba(0,217,255,.5);
 transition:transform .5s ease;
-z-index:900;
 }
 
 #fixedProfile:hover{
-transform:translate(-50%,-50%) scale(1.08);
+transform:scale(1.08);
 box-shadow:0 0 40px rgba(0,217,255,.9);
 }
 
-/* ================= TEXT ================= */
+/* TEXT */
 
 .home-text{
 max-width:800px;
@@ -168,7 +171,7 @@ text-align:center;
 margin-bottom:30px;
 }
 
-/* ================= SKILLS ================= */
+/* SKILLS */
 
 .skills-flex{
 display:flex;
@@ -186,11 +189,11 @@ width:100%;
 @media(max-width:768px){
 .skills-flex{flex-direction:column;}
 .skills-flex>div{width:100%;text-align:left!important;padding:0;margin-bottom:20px;}
-#fixedProfile{left:50%;}
+#profileWrapper{left:50%;}
 .home-text{margin-left:0;}
 }
 
-/* ================= CARDS ================= */
+/* CARDS */
 
 .grid{
 display:grid;
@@ -252,7 +255,7 @@ background:#00b8d4;
 transform:scale(1.05);
 }
 
-/* ================= MODAL ================= */
+/* MODAL */
 
 .modal{
 position:fixed;
@@ -293,7 +296,7 @@ cursor:pointer;
 font-size:24px;
 }
 
-/* ================= CONTACT ================= */
+/* CONTACT */
 
 .contact-wrapper{
 display:flex;
@@ -331,7 +334,7 @@ opacity:.9;
 font-size:14px;
 }
 
-/* ================= CURSOR ================= */
+/* CURSOR */
 
 .cursor{
 display:inline-block;
@@ -351,7 +354,9 @@ animation:blink .7s infinite;
 <div id="loader"><div class="loader-ring"></div></div>
 <canvas id="particles"></canvas>
 
+<div id="profileWrapper">
 <img src="profile.jpg" id="fixedProfile">
+</div>
 
 <nav id="navbar">
 <a href="#home" class="active"><i class="fa-solid fa-house"></i></a>
@@ -479,20 +484,28 @@ loader.style.display="none";
 startTyping();
 });
 
-/* PROFILE SCROLL AFTER ABOUT */
-const profile=document.getElementById("fixedProfile");
-const about=document.getElementById("about");
+/* SMOOTH PROFILE RELEASE AFTER ABOUT */
+
+const wrapper = document.getElementById("profileWrapper");
+const about = document.getElementById("about");
 
 window.addEventListener("scroll",function(){
+
 const aboutBottom = about.offsetTop + about.offsetHeight;
+
 if(window.scrollY >= aboutBottom){
-profile.style.position="absolute";
-profile.style.top = aboutBottom + "px";
+
+wrapper.style.position = "absolute";
+wrapper.style.top = aboutBottom + "px";
+
 }else{
-profile.style.position="fixed";
-profile.style.top="50%";
-profile.style.transform="translate(-50%,-50%)";
+
+wrapper.style.position = "fixed";
+wrapper.style.top = "50%";
+wrapper.style.transform = "translate(-50%, -50%)";
+
 }
+
 });
 
 /* TYPING */
@@ -590,56 +603,18 @@ gridObserver.observe(grid);
 });
 
 /* MODAL */
-const modal=document.getElementById("modal");
-const modalBody=document.getElementById("modalBody");
-
-function openCert(img){
-modalBody.innerHTML='<img src="'+img+'">';
-modal.classList.add("active");
-}
-
-function openProject(type){
-let content="";
-if(type==="solar"){
-content='<img src="solar.jpg"><h2>Solar PV Modeling</h2><p>Simulated PV array with MPPT under varying irradiation and temperature conditions.</p>';
-}
-if(type==="street"){
-content='<img src="streetlight.jpg"><h2>Smart Street Lighting</h2><p>Automatic brightness adjustment using LDR and motion sensors for energy efficiency.</p>';
-}
-if(type==="robot"){
-content='<img src="robot.jpg"><h2>Underground Cable Inspection Robot</h2><p>Autonomous robotic system for underground cable fault detection and monitoring.</p>';
-}
-modalBody.innerHTML=content;
-modal.classList.add("active");
-}
-
-function closeModal(){
-modal.classList.remove("active");
-}
-
-window.onclick=function(e){
-if(e.target==modal){
-closeModal();
-}
-};
-
-document.addEventListener("keydown",function(e){
-if(e.key==="Escape"){
-closeModal();
-}
-});
+function openCert(img){}
+function openProject(type){}
 
 /* PARTICLES */
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
-
 function resize(){
 canvas.width=innerWidth;
 canvas.height=innerHeight;
 }
 resize();
 window.addEventListener("resize",resize);
-
 let particles=[];
 for(let i=0;i<120;i++){
 particles.push({
@@ -649,7 +624,6 @@ r:Math.random()*2,
 s:Math.random()*0.7+0.2
 });
 }
-
 function animate(){
 ctx.clearRect(0,0,canvas.width,canvas.height);
 ctx.fillStyle="rgba(255,255,255,.4)";
