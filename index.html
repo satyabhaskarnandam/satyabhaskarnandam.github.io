@@ -152,7 +152,8 @@ border-radius:50%;
 object-fit:cover;
 border:4px solid var(--accent);
 box-shadow:0 0 15px rgba(0,217,255,.5);
-transition:.4s ease;
+transition:opacity .4s ease, transform .4s ease;
+opacity:1;
 }
 
 .profile-pic:hover{
@@ -595,15 +596,16 @@ modal.classList.remove("active");
 window.onclick=e=>{if(e.target==modal) closeModal();};
 document.addEventListener("keydown",e=>{if(e.key==="Escape") closeModal();});
 
-/* Smooth 1:1 Profile Scroll Control */
-
 const profile = document.querySelector(".profile-sticky");
+const profilePic = document.querySelector(".profile-pic");
 const aboutSection = document.getElementById("about");
 
 window.addEventListener("scroll", () => {
 
   const aboutBottom = aboutSection.offsetTop + aboutSection.offsetHeight;
   const scrollY = window.scrollY;
+  const fadeStart = aboutBottom - window.innerHeight * 0.6;
+  const fadeEnd = aboutBottom;
 
   if (scrollY < aboutBottom - window.innerHeight/2) {
     profile.style.position = "fixed";
@@ -613,6 +615,16 @@ window.addEventListener("scroll", () => {
     profile.style.position = "absolute";
     profile.style.top = aboutBottom + "px";
     profile.style.transform = "translateY(-50%)";
+  }
+
+  /* Smooth Fade Effect */
+  if (scrollY >= fadeStart && scrollY <= fadeEnd) {
+    let opacity = 1 - (scrollY - fadeStart) / (fadeEnd - fadeStart);
+    profilePic.style.opacity = opacity;
+  } else if (scrollY < fadeStart) {
+    profilePic.style.opacity = 1;
+  } else {
+    profilePic.style.opacity = 0;
   }
 
 });
