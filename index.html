@@ -152,7 +152,6 @@ align-items:center;
 justify-content:center;
 gap:60px;
 flex-wrap:wrap;
-height:100%;
 }
 
 .home-text{
@@ -352,7 +351,7 @@ animation:blink .7s infinite;
 
 <section id="home" class="visible">
 <div class="container home-flex">
-<img src="profile.jpg" class="profile">
+<img src="profile.jpg" class="profile" id="profileImage">
 <div class="home-text">
 <h1><span id="typing"></span><span class="cursor"></span></h1>
 <p>3rd Year Electrical & Electronics Engineering at Lovely Professional University</p>
@@ -377,20 +376,15 @@ animation:blink .7s infinite;
 <div>
 <h3>Technical Skills</h3>
 <ul>
-<li>C</li>
-<li>C++</li>
-<li>MATLAB</li>
-<li>Embedded Systems</li>
-<li>Power Systems</li>
+<li>C</li><li>C++</li><li>MATLAB</li>
+<li>Embedded Systems</li><li>Power Systems</li>
 </ul>
 </div>
 <div>
 <h3>Soft Skills</h3>
 <ul>
-<li>Communication Skills</li>
-<li>Teamwork</li>
-<li>Adaptability</li>
-<li>Critical Thinking</li>
+<li>Communication Skills</li><li>Teamwork</li>
+<li>Adaptability</li><li>Critical Thinking</li>
 <li>Leadership</li>
 </ul>
 </div>
@@ -648,6 +642,18 @@ p.x=Math.random()*canvas.width;
 requestAnimationFrame(animate);
 }
 animate();
+
+/* HIDE PROFILE ONLY AFTER ABOUT */
+const profileImage=document.getElementById("profileImage");
+const aboutSection=document.getElementById("about");
+
+window.addEventListener("scroll",function(){
+if(window.scrollY>=aboutSection.offsetTop+aboutSection.offsetHeight-100){
+profileImage.style.display="none";
+}else{
+profileImage.style.display="block";
+}
+});
 
 </script>
 
