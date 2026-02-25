@@ -28,7 +28,6 @@ font-family:'Poppins',sans-serif;
 color:#fff;
 overflow-x:hidden;
 background:#0a2731;
-position:relative;
 }
 
 /* LOADER */
@@ -130,19 +129,20 @@ justify-content:center;
 text-align:center;
 }
 
-/* PROFILE */
+/* PROFILE STICKY (TRUE 1:1) */
 
-#profileWrapper{
-position:fixed;
-top:50%;
-left:25%;
-transform:translate(-50%,-50%);
-z-index:900;
+.profile-wrapper{
+position:relative;
+height:200vh;
 }
 
-#profileWrapper.absolute{
-position:absolute;
-transform:translate(-50%,0);
+#profile{
+position:sticky;
+top:50vh;
+transform:translateY(-50%);
+left:25%;
+width:220px;
+z-index:900;
 }
 
 .profile-pic{
@@ -160,6 +160,8 @@ transform:scale(1.08);
 box-shadow:0 0 40px rgba(0,217,255,.9);
 }
 
+/* HOME TEXT */
+
 .home-text{
 max-width:800px;
 margin-left:500px;
@@ -167,12 +169,6 @@ display:flex;
 flex-direction:column;
 align-items:center;
 text-align:center;
-}
-
-section h2{
-width:100%;
-text-align:center;
-margin-bottom:30px;
 }
 
 /* SKILLS */
@@ -183,18 +179,27 @@ margin-top:40px;
 width:100%;
 }
 
-.skills-flex>div{width:50%;}
-.skills-flex>div:first-child{text-align:left;padding-right:35px;}
-.skills-flex>div:last-child{text-align:right;padding-left:35px;}
+.skills-flex>div{
+width:50%;
+}
 
-.skills-flex ul{list-style:none;margin-top:15px;}
-.skills-flex li{margin:8px 0;}
+.skills-flex>div:first-child{
+text-align:left;
+padding-right:35px;
+}
 
-@media(max-width:768px){
-.skills-flex{flex-direction:column;}
-.skills-flex>div{width:100%;text-align:left!important;padding:0;margin-bottom:20px;}
-#profileWrapper{left:50%;}
-.home-text{margin-left:0;}
+.skills-flex>div:last-child{
+text-align:right;
+padding-left:35px;
+}
+
+.skills-flex ul{
+list-style:none;
+margin-top:15px;
+}
+
+.skills-flex li{
+margin:8px 0;
 }
 
 /* CARDS */
@@ -348,6 +353,25 @@ animation:blink .7s infinite;
 50%{opacity:0;}
 }
 
+@media(max-width:768px){
+.skills-flex{
+flex-direction:column;
+}
+.skills-flex>div{
+width:100%;
+text-align:left!important;
+padding:0;
+margin-bottom:20px;
+}
+#profile{
+left:50%;
+transform:translate(-50%,-50%);
+}
+.home-text{
+margin-left:0;
+}
+}
+
 </style>
 </head>
 <body>
@@ -355,8 +379,10 @@ animation:blink .7s infinite;
 <div id="loader"><div class="loader-ring"></div></div>
 <canvas id="particles"></canvas>
 
-<div id="profileWrapper">
+<div class="profile-wrapper">
+<div id="profile">
 <img src="profile.jpg" class="profile-pic">
+</div>
 </div>
 
 <nav id="navbar">
@@ -480,39 +506,19 @@ animation:blink .7s infinite;
 
 <script>
 
-/* PIXEL PERFECT RELEASE */
+/* Always start at top */
+window.onload=function(){
+window.scrollTo(0,0);
+};
 
-const profile = document.getElementById("profileWrapper");
-const about = document.getElementById("about");
-
-function updateProfilePosition(){
-const aboutRect = about.getBoundingClientRect();
-const viewportCenter = window.innerHeight / 2;
-
-if(aboutRect.bottom > viewportCenter){
-profile.classList.remove("absolute");
-profile.style.top = "50%";
-}else{
-profile.classList.add("absolute");
-const absoluteTop = window.scrollY + viewportCenter - (profile.offsetHeight / 2);
-profile.style.top = absoluteTop + "px";
-}
-}
-
-window.addEventListener("scroll", updateProfilePosition);
-window.addEventListener("resize", updateProfilePosition);
-updateProfilePosition();
-
-/* LOADER */
-
+/* Loader */
 window.addEventListener("load",function(){
 setTimeout(()=>document.getElementById("loader").style.opacity=0,500);
 setTimeout(()=>document.getElementById("loader").style.display="none",1000);
 startTyping();
 });
 
-/* TYPING */
-
+/* Typing */
 function startTyping(){
 const text="Nandam Satya Bhaskar";
 let i=0;
@@ -526,15 +532,13 @@ setTimeout(type,70);
 })();
 }
 
-/* NAVBAR */
-
+/* Navbar fade */
 const navbar=document.getElementById("navbar");
 window.addEventListener("scroll",()=>{
 navbar.classList.toggle("scrolled",window.scrollY>10);
 });
 
-/* SECTION FADE */
-
+/* Section fade */
 const sections=document.querySelectorAll("section");
 const observer=new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
@@ -543,8 +547,7 @@ if(entry.isIntersecting) entry.target.classList.add("visible");
 },{threshold:0.6});
 sections.forEach(sec=>observer.observe(sec));
 
-/* ACTIVE NAV */
-
+/* Active nav */
 const navLinks=document.querySelectorAll("nav a");
 window.addEventListener("scroll",()=>{
 let current="";
@@ -556,8 +559,7 @@ link.classList.toggle("active",link.getAttribute("href")==="#"+current);
 });
 });
 
-/* ARROW NAV */
-
+/* Arrow navigation */
 let currentIndex=0;
 const sectionList=[...sections];
 
@@ -579,8 +581,7 @@ sectionList[--currentIndex].scrollIntoView({behavior:"smooth"});
 }
 });
 
-/* STAGGER CARDS */
-
+/* Stagger cards */
 const grids=document.querySelectorAll(".grid");
 const gridObserver=new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
@@ -594,8 +595,7 @@ cards.forEach(card=>card.classList.remove("show"));
 },{threshold:0.4});
 grids.forEach(grid=>gridObserver.observe(grid));
 
-/* MODAL */
-
+/* Modal */
 const modal=document.getElementById("modal");
 const modalBody=document.getElementById("modalBody");
 
@@ -626,8 +626,7 @@ modal.classList.remove("active");
 window.onclick=e=>{if(e.target==modal) closeModal();};
 document.addEventListener("keydown",e=>{if(e.key==="Escape") closeModal();});
 
-/* PARTICLES */
-
+/* Particles */
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
 
