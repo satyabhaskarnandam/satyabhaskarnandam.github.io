@@ -10,8 +10,6 @@
 
 <style>
 
-/* ================= GLOBAL ================= */
-
 :root{
 --accent:#00d9ff;
 --glass:rgba(255,255,255,.06);
@@ -22,6 +20,7 @@
 
 html{
 scroll-behavior:smooth;
+scroll-snap-type:y mandatory;
 }
 
 body{
@@ -31,7 +30,7 @@ overflow-x:hidden;
 background:#0a2731;
 }
 
-/* ================= LOADER ================= */
+/* LOADER */
 
 #loader{
 position:fixed;
@@ -57,7 +56,7 @@ animation:spin 1s linear infinite;
 100%{transform:rotate(360deg);}
 }
 
-/* ================= PARTICLES ================= */
+/* PARTICLES */
 
 canvas{
 position:fixed;
@@ -66,7 +65,7 @@ left:0;
 z-index:-1;
 }
 
-/* ================= NAVBAR ================= */
+/* NAVBAR */
 
 nav{
 position:fixed;
@@ -85,6 +84,7 @@ z-index:1000;
 
 nav.scrolled{
 background:rgba(0,0,0,.65);
+backdrop-filter:blur(24px);
 box-shadow:0 8px 30px rgba(0,0,0,.4);
 }
 
@@ -101,16 +101,16 @@ nav a:hover{
 color:var(--accent);
 }
 
-/* ================= SECTIONS ================= */
+/* SECTIONS */
 
 section{
-min-height:100vh;
+height:100vh;
+scroll-snap-align:start;
 display:flex;
 align-items:center;
 justify-content:center;
 opacity:0;
 transition:opacity .8s ease;
-padding-top:70px;
 }
 
 section.visible{
@@ -129,27 +129,29 @@ justify-content:center;
 text-align:center;
 }
 
-/* ================= PROFILE ================= */
+/* FIXED PROFILE */
 
-#profileWrapper{
+#fixedProfile{
 position:fixed;
 top:50%;
 left:25%;
 transform:translate(-50%,-50%);
-z-index:900;
-will-change:transform;
-}
-
-#fixedProfile{
 width:220px;
 height:220px;
 border-radius:50%;
 object-fit:cover;
 border:4px solid var(--accent);
-box-shadow:0 0 20px rgba(0,217,255,.6);
+box-shadow:0 0 15px rgba(0,217,255,.5);
+transition:.5s;
+z-index:900;
 }
 
-/* ================= TEXT ================= */
+#fixedProfile:hover{
+transform:translate(-50%,-50%) scale(1.08);
+box-shadow:0 0 40px rgba(0,217,255,.9);
+}
+
+/* HOME & ABOUT TEXT */
 
 .home-text{
 max-width:800px;
@@ -160,17 +162,43 @@ align-items:center;
 text-align:center;
 }
 
+/* CENTER HEADINGS */
+
 section h2{
-margin-bottom:25px;
+width:100%;
+text-align:center;
+margin-bottom:30px;
 }
 
-/* ================= GRID ================= */
+/* SKILLS */
+
+.skills-flex{
+display:flex;
+margin-top:40px;
+width:100%;
+}
+
+.skills-flex>div{width:50%;}
+.skills-flex>div:first-child{text-align:left;padding-right:35px;}
+.skills-flex>div:last-child{text-align:right;padding-left:35px;}
+
+.skills-flex ul{list-style:none;margin-top:15px;}
+.skills-flex li{margin:8px 0;}
+
+@media(max-width:768px){
+.skills-flex{flex-direction:column;}
+.skills-flex>div{width:100%;text-align:left!important;padding:0;margin-bottom:20px;}
+#fixedProfile{left:50%;}
+.home-text{margin-left:0;}
+}
+
+/* CARDS */
 
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 gap:40px;
-margin-top:40px;
+margin-top:50px;
 width:100%;
 }
 
@@ -180,13 +208,17 @@ border:1px solid var(--glass-border);
 border-radius:20px;
 overflow:hidden;
 opacity:0;
-transform:translateY(40px);
+transform:translateY(25px);
 transition:.6s;
 }
 
 .card.show{
 opacity:1;
 transform:translateY(0);
+}
+
+.card:hover{
+transform:translateY(-6px) scale(1.02);
 }
 
 .image-box{
@@ -200,6 +232,11 @@ height:100%;
 object-fit:cover;
 }
 
+.card.contain img{
+object-fit:contain!important;
+background:#111;
+}
+
 .card button{
 margin:15px 0 25px;
 padding:10px 20px;
@@ -209,9 +246,15 @@ background:var(--accent);
 color:#000;
 font-weight:600;
 cursor:pointer;
+transition:.3s;
 }
 
-/* ================= MODAL ================= */
+.card button:hover{
+background:#00b8d4;
+transform:scale(1.05);
+}
+
+/* MODAL */
 
 .modal{
 position:fixed;
@@ -241,13 +284,56 @@ max-height:85vh;
 overflow:auto;
 }
 
+.modal-box img{
+width:100%;
+object-fit:contain;
+}
+
 .close{
 float:right;
 cursor:pointer;
 font-size:24px;
 }
 
-/* ================= CURSOR ================= */
+/* CONTACT */
+
+.contact-wrapper{
+display:flex;
+flex-direction:column;
+height:100%;
+width:100%;
+}
+
+.contact-center{
+flex:1;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+.social-icons a{
+color:rgba(255,255,255,.6);
+font-size:28px;
+margin:0 15px;
+transition:.3s;
+text-decoration:none;
+}
+
+.social-icons a:hover{
+color:var(--accent);
+transform:scale(1.2);
+}
+
+.contact-footer{
+text-align:center;
+padding:15px 0;
+background:transparent;
+opacity:.9;
+font-size:14px;
+}
+
+/* CURSOR */
 
 .cursor{
 display:inline-block;
@@ -267,12 +353,10 @@ animation:blink .7s infinite;
 <div id="loader"><div class="loader-ring"></div></div>
 <canvas id="particles"></canvas>
 
-<div id="profileWrapper">
 <img src="profile.jpg" id="fixedProfile">
-</div>
 
 <nav id="navbar">
-<a href="#home" class="active">Home</a>
+<a href="#home" class="active"><i class="fa-solid fa-house"></i></a>
 <a href="#about">About</a>
 <a href="#skills">Skills</a>
 <a href="#certifications">Certifications</a>
@@ -301,72 +385,111 @@ animation:blink .7s infinite;
 <section id="skills">
 <div class="container">
 <h2>Skills</h2>
-<p>C, C++, MATLAB, Embedded Systems, Power Systems</p>
+<div class="skills-flex">
+<div>
+<h3>Technical Skills</h3>
+<ul>
+<li>C</li><li>C++</li><li>MATLAB</li>
+<li>Embedded Systems</li><li>Power Systems</li>
+</ul>
+</div>
+<div>
+<h3>Soft Skills</h3>
+<ul>
+<li>Communication Skills</li><li>Teamwork</li>
+<li>Adaptability</li><li>Critical Thinking</li>
+<li>Leadership</li>
+</ul>
+</div>
+</div>
 </div>
 </section>
 
 <section id="certifications">
 <div class="container">
 <h2>Certifications</h2>
+<div class="grid">
+<div class="card">
+<div class="image-box"><img src="nptel.jpg"></div>
+<h3>Digital Electronics</h3>
+<button onclick="openCert('nptel.jpg')">View Certificate</button>
+</div>
+<div class="card">
+<div class="image-box"><img src="iot.jpg"></div>
+<h3>Introduction to IoT</h3>
+<button onclick="openCert('iot.jpg')">View Certificate</button>
+</div>
+<div class="card">
+<div class="image-box"><img src="matlab.jpg"></div>
+<h3>MATLAB Onramp</h3>
+<button onclick="openCert('matlab.jpg')">View Certificate</button>
+</div>
+</div>
 </div>
 </section>
 
 <section id="projects">
 <div class="container">
 <h2>Projects</h2>
+<div class="grid">
+<div class="card">
+<div class="image-box"><img src="solar.jpg"></div>
+<h3>Solar PV Modeling</h3>
+<button onclick="openProject('solar')">View Details</button>
+</div>
+<div class="card">
+<div class="image-box"><img src="streetlight.jpg"></div>
+<h3>Smart Street Lighting</h3>
+<button onclick="openProject('street')">View Details</button>
+</div>
+<div class="card contain">
+<div class="image-box"><img src="robot.jpg"></div>
+<h3>Underground Cable Inspection Robot</h3>
+<button onclick="openProject('robot')">View Details</button>
+</div>
+</div>
 </div>
 </section>
 
 <section id="contact">
-<div class="container">
+<div class="container contact-wrapper">
+<div class="contact-center">
 <h2>Contact</h2>
 <p>Email: satyabhaskarnandam@gmail.com</p>
+<p>Mobile: +91 7780603821</p>
+<div class="social-icons">
+<a href="https://github.com/satyabhaskarnandam" target="_blank"><i class="fab fa-github"></i></a>
+<a href="https://linkedin.com/in/nandam-satya-bhaskar" target="_blank"><i class="fab fa-linkedin"></i></a>
+<a href="https://wa.me/917780603821" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</div>
+</div>
+<div class="contact-footer">© SB | PORTFOLIO</div>
 </div>
 </section>
 
+<div id="modal" class="modal">
+<div class="modal-box">
+<span class="close" onclick="closeModal()">&times;</span>
+<div id="modalBody"></div>
+</div>
+</div>
+
 <script>
+
+/* START AT TOP */
+window.onload=function(){window.scrollTo(0,0);};
 
 /* LOADER */
 window.addEventListener("load",function(){
-const loader=document.getElementById("loader");
-setTimeout(()=>loader.style.opacity="0",500);
-setTimeout(()=>loader.style.display="none",1100);
+setTimeout(function(){loader.style.opacity=0;},500);
+setTimeout(function(){loader.style.display="none";},1000);
 startTyping();
 });
-
-/* PERFECT PROFILE SYNC (CENTER ANCHORED) */
-
-const wrapper=document.getElementById("profileWrapper");
-const about=document.getElementById("about");
-
-function syncProfile(){
-
-const scrollY=window.scrollY;
-
-/* release when ABOUT center aligns with viewport center */
-const releasePoint = about.offsetTop - (window.innerHeight/2);
-
-if(scrollY >= releasePoint){
-
-const delta = scrollY - releasePoint;
-wrapper.style.transform=`translate(-50%, calc(-50% - ${delta}px))`;
-
-}else{
-
-wrapper.style.transform="translate(-50%,-50%)";
-
-}
-
-requestAnimationFrame(syncProfile);
-}
-
-syncProfile();
 
 /* TYPING */
 function startTyping(){
 const text="Nandam Satya Bhaskar";
 let i=0;
-const typing=document.getElementById("typing");
 typing.innerHTML="";
 function type(){
 if(i<text.length){
@@ -376,6 +499,18 @@ setTimeout(type,70);
 }}
 type();
 }
+
+/* PROFILE VISIBILITY AFTER ABOUT */
+const profile=document.getElementById("fixedProfile");
+const about=document.getElementById("about");
+
+window.addEventListener("scroll",function(){
+if(window.scrollY > about.offsetTop + about.offsetHeight){
+profile.style.display="none";
+}else{
+profile.style.display="block";
+}
+});
 
 /* NAVBAR FADE */
 const navbar=document.getElementById("navbar");
@@ -391,8 +526,110 @@ if(entry.isIntersecting){
 entry.target.classList.add("visible");
 }
 });
-},{threshold:0.3});
-sections.forEach(sec=>observer.observe(sec));
+},{threshold:0.6});
+sections.forEach(function(sec){observer.observe(sec);});
+
+/* ACTIVE NAV */
+const navLinks=document.querySelectorAll("nav a");
+window.addEventListener("scroll",function(){
+let current="";
+sections.forEach(function(sec){
+if(pageYOffset>=sec.offsetTop-200){
+current=sec.id;
+}
+});
+navLinks.forEach(function(link){
+link.classList.toggle("active",link.getAttribute("href")==="#"+current);
+});
+});
+
+/* ARROW NAVIGATION */
+let currentIndex=0;
+const sectionList=[...sections];
+
+window.addEventListener("scroll",function(){
+const pos=window.scrollY+window.innerHeight/2;
+sectionList.forEach(function(sec,i){
+if(pos>=sec.offsetTop && pos<sec.offsetTop+sec.offsetHeight){
+currentIndex=i;
+}
+});
+});
+
+document.addEventListener("keydown",function(e){
+if(e.key==="ArrowDown"||e.key==="ArrowRight"){
+if(currentIndex<sectionList.length-1){
+sectionList[++currentIndex].scrollIntoView({behavior:"smooth"});
+}
+}
+if(e.key==="ArrowUp"||e.key==="ArrowLeft"){
+if(currentIndex>0){
+sectionList[--currentIndex].scrollIntoView({behavior:"smooth"});
+}
+}
+});
+
+/* STAGGER CARDS */
+const grids=document.querySelectorAll(".grid");
+const gridObserver=new IntersectionObserver(function(entries){
+entries.forEach(function(entry){
+const cards=entry.target.querySelectorAll(".card");
+if(entry.isIntersecting){
+cards.forEach(function(card,index){
+setTimeout(function(){
+card.classList.add("show");
+},index*120);
+});
+}else{
+cards.forEach(function(card){
+card.classList.remove("show");
+});
+}
+});
+},{threshold:0.4});
+grids.forEach(function(grid){
+gridObserver.observe(grid);
+});
+
+/* MODAL */
+const modal=document.getElementById("modal");
+const modalBody=document.getElementById("modalBody");
+
+function openCert(img){
+modalBody.innerHTML='<img src="'+img+'">';
+modal.classList.add("active");
+}
+
+function openProject(type){
+let content="";
+if(type==="solar"){
+content='<img src="solar.jpg"><h2>Solar PV Modeling</h2><p>Simulated PV array with MPPT under varying irradiation and temperature conditions.</p>';
+}
+if(type==="street"){
+content='<img src="streetlight.jpg"><h2>Smart Street Lighting</h2><p>Automatic brightness adjustment using LDR and motion sensors for energy efficiency.</p>';
+}
+if(type==="robot"){
+content='<img src="robot.jpg"><h2>Underground Cable Inspection Robot</h2><p>Autonomous robotic system for underground cable fault detection and monitoring.</p>';
+}
+modalBody.innerHTML=content;
+modal.classList.add("active");
+}
+
+function closeModal(){
+modal.classList.remove("active");
+}
+
+window.onclick=function(e){
+if(e.target==modal){
+closeModal();
+}
+};
+
+document.addEventListener("keydown",function(e){
+if(e.key==="Escape"){
+closeModal();
+}
+});
 
 /* PARTICLES */
 const canvas=document.getElementById("particles");
@@ -411,7 +648,7 @@ particles.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
 r:Math.random()*2,
-s:Math.random()*0.6+0.2
+s:Math.random()*0.7+0.2
 });
 }
 
