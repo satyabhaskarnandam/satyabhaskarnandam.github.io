@@ -32,7 +32,6 @@ overflow-x:hidden;
 background:#0a2731;
 }
 
-
 /* ================= LOADER ================= */
 
 #loader{
@@ -113,7 +112,7 @@ padding:0 25px;
 text-align:center;
 }
 
-/* ================= HOME ================= */
+/* ================= HOME & ABOUT FLEX ================= */
 
 .home-flex{
 display:flex;
@@ -133,8 +132,7 @@ box-shadow:0 0 15px rgba(0,217,255,.5);
 transition:.5s;
 }
 
-/* Hover + glow ONLY active in About section */
-.about-profile:hover{
+.profile:hover{
 transform:scale(1.08);
 box-shadow:0 0 40px rgba(0,217,255,.9);
 }
@@ -319,7 +317,7 @@ animation:blink .7s infinite;
 <!-- ABOUT -->
 <section id="about">
 <div class="container home-flex">
-<img src="profile.jpg" class="profile">
+<div style="width:220px;height:220px;"></div>
 <div class="home-text">
 <h2>About</h2>
 <p>Focused on Power Systems & Embedded Technologies.</p>
@@ -430,6 +428,7 @@ animation:blink .7s infinite;
 
 /* LOADER */
 window.addEventListener("load",()=>{
+window.scrollTo(0,0);
 setTimeout(()=>loader.style.opacity=0,500);
 setTimeout(()=>loader.style.display="none",1000);
 startTyping();
@@ -482,12 +481,14 @@ grids.forEach(grid=>gridObserver.observe(grid));
 /* ARROW NAVIGATION */
 let currentIndex=0;
 const sectionList=[...sections];
+
 window.addEventListener("scroll",()=>{
 const pos=window.scrollY+window.innerHeight/2;
 sectionList.forEach((sec,i)=>{
 if(pos>=sec.offsetTop && pos<sec.offsetTop+sec.offsetHeight)currentIndex=i;
 });
 });
+
 document.addEventListener("keydown",e=>{
 if(e.key==="ArrowDown"||e.key==="ArrowRight"){
 if(currentIndex<sectionList.length-1)
