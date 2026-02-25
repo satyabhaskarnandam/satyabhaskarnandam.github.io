@@ -10,6 +10,8 @@
 
 <style>
 
+/* ================= GLOBAL ================= */
+
 :root{
 --accent:#00d9ff;
 --glass:rgba(255,255,255,.06);
@@ -30,7 +32,8 @@ overflow-x:hidden;
 background:#0a2731;
 }
 
-/* LOADER */
+/* ================= LOADER ================= */
+
 #loader{
 position:fixed;inset:0;
 background:#0f2027;
@@ -47,14 +50,16 @@ animation:spin 1s linear infinite;
 }
 @keyframes spin{100%{transform:rotate(360deg);}}
 
-/* PARTICLES */
+/* ================= PARTICLES ================= */
+
 canvas{
 position:fixed;
 top:0;left:0;
 z-index:-1;
 }
 
-/* NAVBAR */
+/* ================= NAVBAR ================= */
+
 nav{
 position:fixed;
 top:0;width:100%;height:70px;
@@ -65,11 +70,13 @@ backdrop-filter:blur(12px);
 transition:.4s;
 z-index:1000;
 }
+
 nav.scrolled{
 background:rgba(0,0,0,.65);
 backdrop-filter:blur(24px);
 box-shadow:0 8px 30px rgba(0,0,0,.4);
 }
+
 nav a{
 color:#ddd;
 text-decoration:none;
@@ -77,12 +84,14 @@ font-weight:500;
 font-size:17px;
 transition:.3s;
 }
+
 nav a.active,
 nav a:hover{
 color:var(--accent);
 }
 
-/* SECTIONS */
+/* ================= SECTIONS ================= */
+
 section{
 height:100vh;
 scroll-snap-align:start;
@@ -92,6 +101,7 @@ justify-content:center;
 opacity:0;
 transition:opacity .8s ease;
 }
+
 section.visible{opacity:1;}
 
 .container{
@@ -101,31 +111,14 @@ padding:0 25px;
 text-align:center;
 }
 
-/* FIXED PROFILE */
-.fixed-profile{
-position:fixed;
-top:50%;
-left:calc(50% - 300px);
-transform:translateY(-50%);
-width:220px;
-height:220px;
-border-radius:50%;
-object-fit:cover;
-border:4px solid var(--accent);
-box-shadow:0 0 15px rgba(0,217,255,.5);
-transition:.5s;
-z-index:500;
-}
-.fixed-profile:hover{
-transform:translateY(-50%) scale(1.08);
-box-shadow:0 0 40px rgba(0,217,255,.9);
-}
+/* ================= HOME FLEX ================= */
 
 .home-flex{
 display:flex;
 align-items:center;
 justify-content:center;
 gap:60px;
+flex-wrap:wrap;
 }
 
 .home-text{text-align:left;}
@@ -135,7 +128,37 @@ gap:60px;
 .home-text{text-align:center;}
 }
 
-/* SKILLS */
+/* ================= PROFILE ================= */
+
+.profile{
+width:220px;
+height:220px;
+border-radius:50%;
+object-fit:cover;
+border:4px solid var(--accent);
+box-shadow:0 0 15px rgba(0,217,255,.5);
+transition:.5s;
+}
+
+.profile:hover{
+transform:scale(1.08);
+box-shadow:0 0 40px rgba(0,217,255,.9);
+}
+
+/* fixed state */
+.profile.fixed{
+position:fixed;
+top:50%;
+left:calc(50% - 300px);
+transform:translateY(-50%);
+z-index:500;
+}
+.profile.fixed:hover{
+transform:translateY(-50%) scale(1.08);
+}
+
+/* ================= SKILLS ================= */
+
 .skills-flex{
 display:flex;
 margin-top:40px;
@@ -151,13 +174,15 @@ margin-top:40px;
 .skills-flex>div{width:100%;text-align:left!important;padding:0;margin-bottom:20px;}
 }
 
-/* CARDS */
+/* ================= CARDS ================= */
+
 .grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 gap:40px;
 margin-top:50px;
 }
+
 .card{
 background:var(--glass);
 border:1px solid var(--glass-border);
@@ -167,25 +192,31 @@ opacity:0;
 transform:translateY(25px);
 transition:.6s;
 }
+
 .card.show{
 opacity:1;
 transform:translateY(0);
 }
+
 .card:hover{
 transform:translateY(-6px) scale(1.02);
 }
+
 .image-box{
 height:220px;
 overflow:hidden;
 }
+
 .image-box img{
 width:100%;height:100%;
 object-fit:cover;
 }
+
 .card.contain img{
 object-fit:contain!important;
 background:#111;
 }
+
 .card button{
 margin:15px 0 25px;
 padding:10px 20px;
@@ -196,12 +227,14 @@ font-weight:600;
 cursor:pointer;
 transition:.3s;
 }
+
 .card button:hover{
 background:#00b8d4;
 transform:scale(1.05);
 }
 
-/* MODAL */
+/* ================= MODAL ================= */
+
 .modal{
 position:fixed;inset:0;
 background:rgba(0,0,0,.85);
@@ -210,7 +243,11 @@ opacity:0;visibility:hidden;
 transition:.4s;
 z-index:2000;
 }
-.modal.active{opacity:1;visibility:visible;}
+
+.modal.active{
+opacity:1;visibility:visible;
+}
+
 .modal-box{
 background:#111;
 padding:30px;
@@ -218,15 +255,26 @@ width:90%;max-width:900px;
 border-radius:15px;
 max-height:85vh;overflow:auto;
 }
-.modal-box img{width:100%;object-fit:contain;}
-.close{float:right;cursor:pointer;font-size:24px;}
 
-/* CONTACT */
+.modal-box img{
+width:100%;
+object-fit:contain;
+}
+
+.close{
+float:right;
+cursor:pointer;
+font-size:24px;
+}
+
+/* ================= CONTACT ================= */
+
 .contact-wrapper{
 display:flex;
 flex-direction:column;
 height:100%;
 }
+
 .contact-center{
 flex:1;
 display:flex;
@@ -234,6 +282,7 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 }
+
 .social-icons a{
 color:rgba(255,255,255,.6);
 font-size:28px;
@@ -241,10 +290,12 @@ margin:0 15px;
 transition:.3s;
 text-decoration:none;
 }
+
 .social-icons a:hover{
 color:var(--accent);
 transform:scale(1.2);
 }
+
 .contact-footer{
 text-align:center;
 padding:15px 0;
@@ -253,13 +304,15 @@ opacity:.9;
 font-size:14px;
 }
 
-/* CURSOR */
+/* ================= CURSOR ================= */
+
 .cursor{
 display:inline-block;
 width:2px;
 background:var(--accent);
 animation:blink .7s infinite;
 }
+
 @keyframes blink{50%{opacity:0;}}
 
 </style>
@@ -268,8 +321,6 @@ animation:blink .7s infinite;
 
 <div id="loader"><div class="loader-ring"></div></div>
 <canvas id="particles"></canvas>
-
-<img src="profile.jpg" class="fixed-profile" id="fixedProfile">
 
 <nav id="navbar">
 <a href="#home" class="active"><i class="fa-solid fa-house"></i></a>
@@ -283,7 +334,7 @@ animation:blink .7s infinite;
 <!-- HOME -->
 <section id="home">
 <div class="container home-flex">
-<div style="width:220px;"></div>
+<img src="profile.jpg" class="profile" id="profileImg">
 <div class="home-text">
 <h1><span id="typing"></span><span class="cursor"></span></h1>
 <p>3rd Year Electrical & Electronics Engineering at Lovely Professional University</p>
@@ -395,7 +446,7 @@ animation:blink .7s infinite;
 
 <script>
 
-/* START AT TOP */
+/* FORCE START AT TOP */
 window.onload=()=>window.scrollTo(0,0);
 
 /* LOADER */
@@ -419,7 +470,20 @@ setTimeout(type,70);
 type();
 }
 
-/* NAVBAR SCROLL */
+/* PROFILE FIX BETWEEN HOME & ABOUT */
+const profile=document.getElementById("profileImg");
+const about=document.getElementById("about");
+const skills=document.getElementById("skills");
+
+window.addEventListener("scroll",()=>{
+if(window.scrollY >= about.offsetTop && window.scrollY < skills.offsetTop){
+profile.classList.add("fixed");
+}else{
+profile.classList.remove("fixed");
+}
+});
+
+/* NAVBAR FADE */
 const navbar=document.getElementById("navbar");
 window.addEventListener("scroll",()=>{
 navbar.classList.toggle("scrolled",window.scrollY>10);
@@ -434,17 +498,6 @@ if(entry.isIntersecting)entry.target.classList.add("visible");
 },{threshold:0.6});
 sections.forEach(sec=>observer.observe(sec));
 
-/* PROFILE VISIBILITY */
-const fixedProfile=document.getElementById("fixedProfile");
-const skillsSection=document.getElementById("skills");
-window.addEventListener("scroll",()=>{
-if(window.scrollY >= skillsSection.offsetTop - 10){
-fixedProfile.style.display="none";
-}else{
-fixedProfile.style.display="block";
-}
-});
-
 /* ACTIVE NAV */
 const navLinks=document.querySelectorAll("nav a");
 window.addEventListener("scroll",()=>{
@@ -457,15 +510,17 @@ link.classList.toggle("active",link.getAttribute("href")==="#"+current);
 });
 });
 
-/* ARROW NAV */
+/* ARROW NAVIGATION */
 let currentIndex=0;
 const sectionList=[...sections];
+
 window.addEventListener("scroll",()=>{
 const pos=window.scrollY+window.innerHeight/2;
 sectionList.forEach((sec,i)=>{
 if(pos>=sec.offsetTop && pos<sec.offsetTop+sec.offsetHeight)currentIndex=i;
 });
 });
+
 document.addEventListener("keydown",e=>{
 if(e.key==="ArrowDown"||e.key==="ArrowRight"){
 if(currentIndex<sectionList.length-1)
@@ -477,9 +532,30 @@ sectionList[--currentIndex].scrollIntoView({behavior:"smooth"});
 }
 });
 
+/* CARD STAGGER */
+const grids=document.querySelectorAll(".grid");
+const gridObserver=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+const cards=entry.target.querySelectorAll(".card");
+if(entry.isIntersecting){
+cards.forEach((card,index)=>{
+setTimeout(()=>card.classList.add("show"),index*120);
+});
+}else{
+cards.forEach(card=>card.classList.remove("show"));
+}
+});
+},{threshold:0.4});
+grids.forEach(grid=>gridObserver.observe(grid));
+
 /* MODAL */
-const modal=document.getElementById("modal");
+const modal=document.createElement("div");
+modal.className="modal";
+modal.innerHTML='<div class="modal-box"><span class="close">&times;</span><div id="modalBody"></div></div>';
+document.body.appendChild(modal);
+
 const modalBody=document.getElementById("modalBody");
+const closeBtn=modal.querySelector(".close");
 
 function openCert(img){
 modalBody.innerHTML=`<img src="${img}">`;
@@ -499,9 +575,9 @@ content=`<img src="robot.jpg"><h2>Underground Cable Inspection Robot</h2><p>Auto
 modalBody.innerHTML=content;
 modal.classList.add("active");
 }
-function closeModal(){modal.classList.remove("active");}
-window.onclick=e=>{if(e.target==modal)closeModal();}
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
+closeBtn.onclick=()=>modal.classList.remove("active");
+window.onclick=e=>{if(e.target===modal)modal.classList.remove("active");}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")modal.classList.remove("active");});
 
 /* PARTICLES */
 const canvas=document.getElementById("particles");
