@@ -19,7 +19,7 @@
 *{margin:0;padding:0;box-sizing:border-box;}
 
 html{
-scroll-behavior:smooth;
+scroll-behavior:smooth
 scroll-snap-type:y mandatory;
 }
 
@@ -355,7 +355,7 @@ animation:blink .7s infinite;
 
 <nav id="navbar">
 <a href="#home" class="active"><i class="fa-solid fa-house"></i></a>
-<a href="#about">About</a>
+<a href="#about">About me</a>
 <a href="#skills">Skills</a>
 <a href="#certifications">Certifications</a>
 <a href="#projects">Projects</a>
@@ -379,7 +379,7 @@ animation:blink .7s infinite;
 <section id="about">
 <div class="container">
 <div class="home-text">
-<h2>About</h2>
+<h2>About me</h2>
 <div style="margin-top:15px; line-height:1.8; text-align:center;">
 <p>B.Tech student in Electrical and Electronics Engineering with strong interest in power systems and renewable energy technologies.</p>
 <p>Passionate about electrical machines, power system protection, and transmission & distribution systems.</p>
@@ -585,15 +585,25 @@ modal.classList.add("active");
 
 function openProject(type){
 let content="";
+
 if(type==="solar"){
-content='<img src="solar.jpg"><h2>Solar PV Modeling</h2><p>Simulated PV array with MPPT under varying irradiation and temperature conditions.</p>';
+content=`<img src="solar.jpg">
+<h2>Solar PV Modeling</h2>
+<p>Designed and simulated a solar photovoltaic (PV) system integrated with Maximum Power Point Tracking (MPPT) control to enhance energy extraction efficiency. The system was modeled using simulation software to analyze PV characteristics under varying irradiance and temperature conditions. Implemented an MPPT algorithm (such as Perturb & Observe) to ensure maximum power delivery from the solar panel. Evaluated system performance through output voltage, current, and power analysis. The project demonstrates strong understanding of renewable energy systems and power electronics control techniques.</p>`;
 }
+
 if(type==="street"){
-content='<img src="streetlight.jpg"><h2>Smart Street Lighting</h2><p>Automatic brightness adjustment using LDR and motion sensors for energy efficiency.</p>';
+content=`<img src="streetlight.jpg">
+<h2>Smart Street Lighting</h2>
+<p>Developed an intelligent street lighting system that automatically adjusts brightness based on environmental conditions and motion detection. The system utilizes light sensors to monitor ambient light and PIR sensors to detect vehicle or pedestrian movement. Implemented a microcontroller-based control mechanism to optimize energy consumption while ensuring safety and visibility. The adaptive control strategy significantly reduces power wastage compared to conventional street lighting systems. This project highlights skills in embedded systems, automation, and energy-efficient design.</p>`;
 }
+
 if(type==="robot"){
-content='<img src="robot.jpg"><h2>Underground Cable Inspection Robot</h2><p>Autonomous robotic system for underground cable fault detection and monitoring.</p>';
+content=`<img src="robot.jpg">
+<h2>Underground Cable Inspection Robot</h2>
+<p>Designed and built an autonomous robotic system capable of inspecting underground power cables and detecting faults in real time. The robot is equipped with sensors to monitor temperature, gas presence, and cable abnormalities. Integrated wireless communication to transmit live data to a monitoring system for immediate analysis. The system improves safety by minimizing manual inspection in hazardous environments and enables early fault detection to prevent major power failures. This project showcases knowledge in robotics, sensor integration, embedded systems, and power system maintenance.</p>`;
 }
+
 modalBody.innerHTML=content;
 modal.classList.add("active");
 }
