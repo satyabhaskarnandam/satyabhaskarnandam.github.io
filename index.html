@@ -129,14 +129,13 @@ justify-content:center;
 text-align:center;
 }
 
-/* PROFILE STICKY (TRUE 1:1) */
+/* PROFILE SYSTEM */
 
 .profile-wrapper{
 position:relative;
-height:200vh;
 }
 
-#profile{
+.profile-sticky{
 position:sticky;
 top:50vh;
 transform:translateY(-50%);
@@ -160,8 +159,6 @@ transform:scale(1.08);
 box-shadow:0 0 40px rgba(0,217,255,.9);
 }
 
-/* HOME TEXT */
-
 .home-text{
 max-width:800px;
 margin-left:500px;
@@ -179,28 +176,12 @@ margin-top:40px;
 width:100%;
 }
 
-.skills-flex>div{
-width:50%;
-}
+.skills-flex>div{width:50%;}
+.skills-flex>div:first-child{text-align:left;padding-right:35px;}
+.skills-flex>div:last-child{text-align:right;padding-left:35px;}
 
-.skills-flex>div:first-child{
-text-align:left;
-padding-right:35px;
-}
-
-.skills-flex>div:last-child{
-text-align:right;
-padding-left:35px;
-}
-
-.skills-flex ul{
-list-style:none;
-margin-top:15px;
-}
-
-.skills-flex li{
-margin:8px 0;
-}
+.skills-flex ul{list-style:none;margin-top:15px;}
+.skills-flex li{margin:8px 0;}
 
 /* CARDS */
 
@@ -354,22 +335,10 @@ animation:blink .7s infinite;
 }
 
 @media(max-width:768px){
-.skills-flex{
-flex-direction:column;
-}
-.skills-flex>div{
-width:100%;
-text-align:left!important;
-padding:0;
-margin-bottom:20px;
-}
-#profile{
-left:50%;
-transform:translate(-50%,-50%);
-}
-.home-text{
-margin-left:0;
-}
+.skills-flex{flex-direction:column;}
+.skills-flex>div{width:100%;text-align:left!important;padding:0;margin-bottom:20px;}
+.profile-sticky{left:50%;transform:translate(-50%,-50%);}
+.home-text{margin-left:0;}
 }
 
 </style>
@@ -379,12 +348,6 @@ margin-left:0;
 <div id="loader"><div class="loader-ring"></div></div>
 <canvas id="particles"></canvas>
 
-<div class="profile-wrapper">
-<div id="profile">
-<img src="profile.jpg" class="profile-pic">
-</div>
-</div>
-
 <nav id="navbar">
 <a href="#home" class="active"><i class="fa-solid fa-house"></i></a>
 <a href="#about">About</a>
@@ -393,6 +356,11 @@ margin-left:0;
 <a href="#projects">Projects</a>
 <a href="#contact">Contact</a>
 </nav>
+
+<div class="profile-wrapper">
+<div class="profile-sticky">
+<img src="profile.jpg" class="profile-pic">
+</div>
 
 <section id="home" class="visible">
 <div class="container">
@@ -411,6 +379,8 @@ margin-left:0;
 </div>
 </div>
 </section>
+
+</div>
 
 <section id="skills">
 <div class="container">
@@ -506,10 +476,8 @@ margin-left:0;
 
 <script>
 
-/* Always start at top */
-window.onload=function(){
-window.scrollTo(0,0);
-};
+/* Start at top */
+window.onload=function(){window.scrollTo(0,0);};
 
 /* Loader */
 window.addEventListener("load",function(){
