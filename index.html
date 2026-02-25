@@ -183,23 +183,23 @@ text-align:center;
 
 .skills-flex{
 display:flex;
+justify-content:center;   /* center both blocks */
+gap:150px;                /* space between them */
 margin-top:40px;
 width:100%;
 }
 
-.skills-flex>div{width:50%;}
+.skills-flex>div{
+width:300px;              /* fixed width for clean alignment */
+}
+
 .skills-flex>div:first-child{
 text-align:left;
-padding-right:35px;
-margin-left:75px;   /* move towards center */
 }
 
 .skills-flex>div:last-child{
 text-align:right;
-padding-left:35px;
-margin-right:75px;  /* move towards center */
 }
-
 .skills-flex ul{list-style:none;margin-top:15px;}
 .skills-flex li{margin:8px 0;}
 
