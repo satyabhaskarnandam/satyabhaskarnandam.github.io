@@ -127,9 +127,13 @@ margin:0 auto;
 text-align:center;
 }
 
-/* ================= PROFILE ================= */
+/* ================= FIXED PROFILE ================= */
 
-.profile{
+#fixedProfile{
+position:fixed;
+top:50%;
+left:25%;
+transform:translate(-50%,-50%);
 width:220px;
 height:220px;
 border-radius:50%;
@@ -137,29 +141,24 @@ object-fit:cover;
 border:4px solid var(--accent);
 box-shadow:0 0 15px rgba(0,217,255,.5);
 transition:.5s;
+z-index:900;
 }
 
-.profile:hover{
-transform:scale(1.08);
+#fixedProfile:hover{
+transform:translate(-50%,-50%) scale(1.08);
 box-shadow:0 0 40px rgba(0,217,255,.9);
 }
 
-/* ================= HOME & ABOUT ================= */
-
-.home-flex{
-display:flex;
-align-items:center;
-justify-content:center;
-gap:60px;
-flex-wrap:wrap;
-}
+/* ================= HOME & ABOUT TEXT ================= */
 
 .home-text{
-text-align:center;
+max-width:700px;
+margin-left:300px;
 display:flex;
 flex-direction:column;
 justify-content:center;
-align-items:center;
+align-items:flex-start;
+text-align:left;
 }
 
 /* ================= SKILLS ================= */
@@ -179,6 +178,8 @@ margin-top:40px;
 @media(max-width:768px){
 .skills-flex{flex-direction:column;}
 .skills-flex>div{width:100%;text-align:left!important;padding:0;margin-bottom:20px;}
+.home-text{margin-left:0;text-align:center;align-items:center;}
+#fixedProfile{left:50%;}
 }
 
 /* ================= CARDS ================= */
@@ -228,8 +229,7 @@ background:#111;
 .card button{
 margin:15px 0 25px;
 padding:10px 20px;
-border:none;
-border-radius:25px;
+border:none;border-radius:25px;
 background:var(--accent);
 color:#000;
 font-weight:600;
@@ -245,36 +245,28 @@ transform:scale(1.05);
 /* ================= MODAL ================= */
 
 .modal{
-position:fixed;
-inset:0;
+position:fixed;inset:0;
 background:rgba(0,0,0,.85);
-display:flex;
-align-items:center;
-justify-content:center;
-opacity:0;
-visibility:hidden;
+display:flex;align-items:center;justify-content:center;
+opacity:0;visibility:hidden;
 transition:.4s;
 z-index:2000;
 }
 
 .modal.active{
-opacity:1;
-visibility:visible;
+opacity:1;visibility:visible;
 }
 
 .modal-box{
 background:#111;
 padding:30px;
-width:90%;
-max-width:900px;
+width:90%;max-width:900px;
 border-radius:15px;
-max-height:85vh;
-overflow:auto;
+max-height:85vh;overflow:auto;
 }
 
 .modal-box img{
-width:100%;
-object-fit:contain;
+width:100%;object-fit:contain;
 }
 
 .close{
@@ -340,6 +332,8 @@ animation:blink .7s infinite;
 <div id="loader"><div class="loader-ring"></div></div>
 <canvas id="particles"></canvas>
 
+<img src="profile.jpg" id="fixedProfile">
+
 <nav id="navbar">
 <a href="#home" class="active"><i class="fa-solid fa-house"></i></a>
 <a href="#about">About</a>
@@ -350,8 +344,7 @@ animation:blink .7s infinite;
 </nav>
 
 <section id="home" class="visible">
-<div class="container home-flex">
-<img src="profile.jpg" class="profile" id="profileImage">
+<div class="container">
 <div class="home-text">
 <h1><span id="typing"></span><span class="cursor"></span></h1>
 <p>3rd Year Electrical & Electronics Engineering at Lovely Professional University</p>
@@ -360,8 +353,7 @@ animation:blink .7s infinite;
 </section>
 
 <section id="about">
-<div class="container home-flex">
-<img src="profile.jpg" class="profile">
+<div class="container">
 <div class="home-text">
 <h2>About</h2>
 <p>Focused on Power Systems & Embedded Technologies.</p>
@@ -463,7 +455,7 @@ animation:blink .7s infinite;
 
 <script>
 
-/* FORCE START AT TOP */
+/* START AT TOP */
 window.onload=function(){window.scrollTo(0,0);};
 
 /* LOADER */
@@ -487,6 +479,18 @@ setTimeout(type,70);
 type();
 }
 
+/* PROFILE VISIBILITY AFTER ABOUT */
+const profile=document.getElementById("fixedProfile");
+const about=document.getElementById("about");
+
+window.addEventListener("scroll",function(){
+if(window.scrollY > about.offsetTop + about.offsetHeight){
+profile.style.display="none";
+}else{
+profile.style.display="block";
+}
+});
+
 /* NAVBAR FADE */
 const navbar=document.getElementById("navbar");
 window.addEventListener("scroll",function(){
@@ -502,9 +506,7 @@ entry.target.classList.add("visible");
 }
 });
 },{threshold:0.6});
-sections.forEach(function(sec){
-observer.observe(sec);
-});
+sections.forEach(function(sec){observer.observe(sec);});
 
 /* ACTIVE NAV */
 const navLinks=document.querySelectorAll("nav a");
@@ -523,6 +525,7 @@ link.classList.toggle("active",link.getAttribute("href")==="#"+current);
 /* ARROW NAVIGATION */
 let currentIndex=0;
 const sectionList=[...sections];
+
 window.addEventListener("scroll",function(){
 const pos=window.scrollY+window.innerHeight/2;
 sectionList.forEach(function(sec,i){
@@ -531,6 +534,7 @@ currentIndex=i;
 }
 });
 });
+
 document.addEventListener("keydown",function(e){
 if(e.key==="ArrowDown"||e.key==="ArrowRight"){
 if(currentIndex<sectionList.length-1){
@@ -609,6 +613,7 @@ closeModal();
 /* PARTICLES */
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
+
 function resize(){
 canvas.width=innerWidth;
 canvas.height=innerHeight;
@@ -642,18 +647,6 @@ p.x=Math.random()*canvas.width;
 requestAnimationFrame(animate);
 }
 animate();
-
-/* HIDE PROFILE ONLY AFTER ABOUT */
-const profileImage=document.getElementById("profileImage");
-const aboutSection=document.getElementById("about");
-
-window.addEventListener("scroll",function(){
-if(window.scrollY>=aboutSection.offsetTop+aboutSection.offsetHeight-100){
-profileImage.style.display="none";
-}else{
-profileImage.style.display="block";
-}
-});
 
 </script>
 
