@@ -32,30 +32,38 @@ overflow-x:hidden;
 background:#0a2731;
 }
 
-
 /* ================= LOADER ================= */
 
 #loader{
-position:fixed;inset:0;
+position:fixed;
+inset:0;
 background:#0f2027;
-display:flex;justify-content:center;align-items:center;
+display:flex;
+justify-content:center;
+align-items:center;
 z-index:9999;
 transition:opacity .6s ease;
 }
+
 .loader-ring{
-width:60px;height:60px;
+width:60px;
+height:60px;
 border:4px solid rgba(255,255,255,.2);
 border-top:4px solid var(--accent);
 border-radius:50%;
 animation:spin 1s linear infinite;
 }
-@keyframes spin{100%{transform:rotate(360deg);}}
+
+@keyframes spin{
+100%{transform:rotate(360deg);}
+}
 
 /* ================= PARTICLES ================= */
 
 canvas{
 position:fixed;
-top:0;left:0;
+top:0;
+left:0;
 z-index:-1;
 }
 
@@ -63,8 +71,12 @@ z-index:-1;
 
 nav{
 position:fixed;
-top:0;width:100%;height:70px;
-display:flex;justify-content:center;align-items:center;
+top:0;
+width:100%;
+height:70px;
+display:flex;
+justify-content:center;
+align-items:center;
 gap:40px;
 background:rgba(0,0,0,.25);
 backdrop-filter:blur(12px);
@@ -103,7 +115,9 @@ opacity:0;
 transition:opacity .8s ease;
 }
 
-section.visible{opacity:1;}
+section.visible{
+opacity:1;
+}
 
 .container{
 width:100%;
@@ -112,7 +126,35 @@ padding:0 25px;
 text-align:center;
 }
 
-/* ================= HOME ================= */
+/* ================= GLOBAL PROFILE ================= */
+
+.profile-global{
+position:fixed;
+top:50%;
+left:calc(50% - 300px);
+transform:translateY(-50%);
+width:220px;
+height:220px;
+border-radius:50%;
+object-fit:cover;
+border:4px solid var(--accent);
+box-shadow:0 0 15px rgba(0,217,255,.5);
+transition:.5s;
+z-index:600;
+}
+
+.profile-global:hover{
+transform:translateY(-50%) scale(1.08);
+box-shadow:0 0 40px rgba(0,217,255,.9);
+}
+
+/* spacer to preserve layout */
+.profile-spacer{
+width:220px;
+height:220px;
+}
+
+/* ================= HOME FLEX ================= */
 
 .home-flex{
 display:flex;
@@ -122,24 +164,18 @@ gap:60px;
 flex-wrap:wrap;
 }
 
-.profile{
-width:220px;height:220px;
-border-radius:50%;
-object-fit:cover;
-border:4px solid var(--accent);
-box-shadow:0 0 15px rgba(0,217,255,.5);
-transition:.5s;
+.home-text{
+text-align:left;
 }
-.profile:hover{
-transform:scale(1.08);
-box-shadow:0 0 40px rgba(0,217,255,.9);
-}
-
-.home-text{text-align:left;}
 
 @media(max-width:768px){
-.home-flex{flex-direction:column;text-align:center;}
-.home-text{text-align:center;}
+.home-flex{
+flex-direction:column;
+text-align:center;
+}
+.home-text{
+text-align:center;
+}
 }
 
 /* ================= SKILLS ================= */
@@ -148,15 +184,40 @@ box-shadow:0 0 40px rgba(0,217,255,.9);
 display:flex;
 margin-top:40px;
 }
-.skills-flex>div{width:50%;}
-.skills-flex>div:first-child{text-align:left;padding-right:35px;}
-.skills-flex>div:last-child{text-align:right;padding-left:35px;}
-.skills-flex ul{list-style:none;margin-top:15px;}
-.skills-flex li{margin:8px 0;}
+
+.skills-flex>div{
+width:50%;
+}
+
+.skills-flex>div:first-child{
+text-align:left;
+padding-right:35px;
+}
+
+.skills-flex>div:last-child{
+text-align:right;
+padding-left:35px;
+}
+
+.skills-flex ul{
+list-style:none;
+margin-top:15px;
+}
+
+.skills-flex li{
+margin:8px 0;
+}
 
 @media(max-width:768px){
-.skills-flex{flex-direction:column;}
-.skills-flex>div{width:100%;text-align:left!important;padding:0;margin-bottom:20px;}
+.skills-flex{
+flex-direction:column;
+}
+.skills-flex>div{
+width:100%;
+text-align:left!important;
+padding:0;
+margin-bottom:20px;
+}
 }
 
 /* ================= CARDS ================= */
@@ -177,10 +238,12 @@ opacity:0;
 transform:translateY(25px);
 transition:.6s;
 }
+
 .card.show{
 opacity:1;
 transform:translateY(0);
 }
+
 .card:hover{
 transform:translateY(-6px) scale(1.02);
 }
@@ -189,10 +252,13 @@ transform:translateY(-6px) scale(1.02);
 height:220px;
 overflow:hidden;
 }
+
 .image-box img{
-width:100%;height:100%;
+width:100%;
+height:100%;
 object-fit:cover;
 }
+
 .card.contain img{
 object-fit:contain!important;
 background:#111;
@@ -201,13 +267,15 @@ background:#111;
 .card button{
 margin:15px 0 25px;
 padding:10px 20px;
-border:none;border-radius:25px;
+border:none;
+border-radius:25px;
 background:var(--accent);
 color:#000;
 font-weight:600;
 cursor:pointer;
 transition:.3s;
 }
+
 .card button:hover{
 background:#00b8d4;
 transform:scale(1.05);
@@ -216,26 +284,38 @@ transform:scale(1.05);
 /* ================= MODAL ================= */
 
 .modal{
-position:fixed;inset:0;
+position:fixed;
+inset:0;
 background:rgba(0,0,0,.85);
-display:flex;align-items:center;justify-content:center;
-opacity:0;visibility:hidden;
+display:flex;
+align-items:center;
+justify-content:center;
+opacity:0;
+visibility:hidden;
 transition:.4s;
 z-index:2000;
 }
+
 .modal.active{
-opacity:1;visibility:visible;
+opacity:1;
+visibility:visible;
 }
+
 .modal-box{
 background:#111;
 padding:30px;
-width:90%;max-width:900px;
+width:90%;
+max-width:900px;
 border-radius:15px;
-max-height:85vh;overflow:auto;
+max-height:85vh;
+overflow:auto;
 }
+
 .modal-box img{
-width:100%;object-fit:contain;
+width:100%;
+object-fit:contain;
 }
+
 .close{
 float:right;
 cursor:pointer;
@@ -249,6 +329,7 @@ display:flex;
 flex-direction:column;
 height:100%;
 }
+
 .contact-center{
 flex:1;
 display:flex;
@@ -256,6 +337,7 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 }
+
 .social-icons a{
 color:rgba(255,255,255,.6);
 font-size:28px;
@@ -263,10 +345,12 @@ margin:0 15px;
 transition:.3s;
 text-decoration:none;
 }
+
 .social-icons a:hover{
 color:var(--accent);
 transform:scale(1.2);
 }
+
 .contact-footer{
 text-align:center;
 padding:15px 0;
@@ -283,14 +367,22 @@ width:2px;
 background:var(--accent);
 animation:blink .7s infinite;
 }
-@keyframes blink{50%{opacity:0;}}
+
+@keyframes blink{
+50%{opacity:0;}
+}
 
 </style>
 </head>
 <body>
 
-<div id="loader"><div class="loader-ring"></div></div>
+<div id="loader">
+<div class="loader-ring"></div>
+</div>
+
 <canvas id="particles"></canvas>
+
+<img src="profile.jpg" class="profile-global" id="profileImage">
 
 <nav id="navbar">
 <a href="#home" class="active"><i class="fa-solid fa-house"></i></a>
@@ -301,10 +393,9 @@ animation:blink .7s infinite;
 <a href="#contact">Contact</a>
 </nav>
 
-<!-- HOME -->
 <section id="home" class="visible">
 <div class="container home-flex">
-<img src="profile.jpg" class="profile">
+<div class="profile-spacer"></div>
 <div class="home-text">
 <h1><span id="typing"></span><span class="cursor"></span></h1>
 <p>3rd Year Electrical & Electronics Engineering at Lovely Professional University</p>
@@ -312,15 +403,16 @@ animation:blink .7s infinite;
 </div>
 </section>
 
-<!-- ABOUT -->
 <section id="about">
-<div class="container">
+<div class="container home-flex">
+<div class="profile-spacer"></div>
+<div class="home-text">
 <h2>About</h2>
 <p>Focused on Power Systems & Embedded Technologies.</p>
 </div>
+</div>
 </section>
 
-<!-- SKILLS -->
 <section id="skills">
 <div class="container">
 <h2>Skills</h2>
@@ -328,15 +420,20 @@ animation:blink .7s infinite;
 <div>
 <h3>Technical Skills</h3>
 <ul>
-<li>C</li><li>C++</li><li>MATLAB</li>
-<li>Embedded Systems</li><li>Power Systems</li>
+<li>C</li>
+<li>C++</li>
+<li>MATLAB</li>
+<li>Embedded Systems</li>
+<li>Power Systems</li>
 </ul>
 </div>
 <div>
 <h3>Soft Skills</h3>
 <ul>
-<li>Communication Skills</li><li>Teamwork</li>
-<li>Adaptability</li><li>Critical Thinking</li>
+<li>Communication Skills</li>
+<li>Teamwork</li>
+<li>Adaptability</li>
+<li>Critical Thinking</li>
 <li>Leadership</li>
 </ul>
 </div>
@@ -344,55 +441,60 @@ animation:blink .7s infinite;
 </div>
 </section>
 
-<!-- CERTIFICATIONS -->
 <section id="certifications">
 <div class="container">
 <h2>Certifications</h2>
 <div class="grid">
+
 <div class="card">
 <div class="image-box"><img src="nptel.jpg"></div>
 <h3>Digital Electronics</h3>
 <button onclick="openCert('nptel.jpg')">View Certificate</button>
 </div>
+
 <div class="card">
 <div class="image-box"><img src="iot.jpg"></div>
 <h3>Introduction to IoT</h3>
 <button onclick="openCert('iot.jpg')">View Certificate</button>
 </div>
+
 <div class="card">
 <div class="image-box"><img src="matlab.jpg"></div>
 <h3>MATLAB Onramp</h3>
 <button onclick="openCert('matlab.jpg')">View Certificate</button>
 </div>
+
 </div>
 </div>
 </section>
 
-<!-- PROJECTS -->
 <section id="projects">
 <div class="container">
 <h2>Projects</h2>
 <div class="grid">
+
 <div class="card">
 <div class="image-box"><img src="solar.jpg"></div>
 <h3>Solar PV Modeling</h3>
 <button onclick="openProject('solar')">View Details</button>
 </div>
+
 <div class="card">
 <div class="image-box"><img src="streetlight.jpg"></div>
 <h3>Smart Street Lighting</h3>
 <button onclick="openProject('street')">View Details</button>
 </div>
+
 <div class="card contain">
 <div class="image-box"><img src="robot.jpg"></div>
 <h3>Underground Cable Inspection Robot</h3>
 <button onclick="openProject('robot')">View Details</button>
 </div>
+
 </div>
 </div>
 </section>
 
-<!-- CONTACT -->
 <section id="contact">
 <div class="container contact-wrapper">
 <div class="contact-center">
@@ -411,7 +513,6 @@ animation:blink .7s infinite;
 </div>
 </section>
 
-<!-- MODAL -->
 <div id="modal" class="modal">
 <div class="modal-box">
 <span class="close" onclick="closeModal()">&times;</span>
@@ -421,10 +522,15 @@ animation:blink .7s infinite;
 
 <script>
 
+/* START AT TOP */
+window.onload=function(){
+window.scrollTo(0,0);
+};
+
 /* LOADER */
-window.addEventListener("load",()=>{
-setTimeout(()=>loader.style.opacity=0,500);
-setTimeout(()=>loader.style.display="none",1000);
+window.addEventListener("load",function(){
+setTimeout(function(){loader.style.opacity=0;},500);
+setTimeout(function(){loader.style.display="none";},1000);
 startTyping();
 });
 
@@ -432,76 +538,94 @@ startTyping();
 function startTyping(){
 const text="Nandam Satya Bhaskar";
 let i=0;
+typing.innerHTML="";
 function type(){
 if(i<text.length){
 typing.innerHTML+=text.charAt(i);
 i++;
 setTimeout(type,70);
-}}
+}
+}
 type();
 }
 
 /* NAVBAR FADE */
 const navbar=document.getElementById("navbar");
-window.addEventListener("scroll",()=>{
+window.addEventListener("scroll",function(){
 navbar.classList.toggle("scrolled",window.scrollY>10);
 });
 
 /* SECTION FADE */
 const sections=document.querySelectorAll("section");
-const observer=new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting)entry.target.classList.add("visible");
+const observer=new IntersectionObserver(function(entries){
+entries.forEach(function(entry){
+if(entry.isIntersecting){
+entry.target.classList.add("visible");
+}
 });
 },{threshold:0.6});
-sections.forEach(sec=>observer.observe(sec));
-
-/* STAGGER CARDS */
-const grids=document.querySelectorAll(".grid");
-const gridObserver=new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-const cards=entry.target.querySelectorAll(".card");
-if(entry.isIntersecting){
-cards.forEach((card,index)=>{
-setTimeout(()=>card.classList.add("show"),index*120);
-});
-}else{
-cards.forEach(card=>card.classList.remove("show"));
-}
-});
-},{threshold:0.4});
-grids.forEach(grid=>gridObserver.observe(grid));
-
-/* ARROW NAVIGATION */
-let currentIndex=0;
-const sectionList=[...sections];
-window.addEventListener("scroll",()=>{
-const pos=window.scrollY+window.innerHeight/2;
-sectionList.forEach((sec,i)=>{
-if(pos>=sec.offsetTop && pos<sec.offsetTop+sec.offsetHeight)currentIndex=i;
-});
-});
-document.addEventListener("keydown",e=>{
-if(e.key==="ArrowDown"||e.key==="ArrowRight"){
-if(currentIndex<sectionList.length-1)
-sectionList[++currentIndex].scrollIntoView({behavior:"smooth"});
-}
-if(e.key==="ArrowUp"||e.key==="ArrowLeft"){
-if(currentIndex>0)
-sectionList[--currentIndex].scrollIntoView({behavior:"smooth"});
-}
+sections.forEach(function(sec){
+observer.observe(sec);
 });
 
 /* ACTIVE NAV */
 const navLinks=document.querySelectorAll("nav a");
-window.addEventListener("scroll",()=>{
+window.addEventListener("scroll",function(){
 let current="";
-sections.forEach(sec=>{
-if(pageYOffset>=sec.offsetTop-200)current=sec.id;
+sections.forEach(function(sec){
+if(pageYOffset>=sec.offsetTop-200){
+current=sec.id;
+}
 });
-navLinks.forEach(link=>{
+navLinks.forEach(function(link){
 link.classList.toggle("active",link.getAttribute("href")==="#"+current);
 });
+});
+
+/* ARROW NAVIGATION */
+let currentIndex=0;
+const sectionList=[...sections];
+window.addEventListener("scroll",function(){
+const pos=window.scrollY+window.innerHeight/2;
+sectionList.forEach(function(sec,i){
+if(pos>=sec.offsetTop && pos<sec.offsetTop+sec.offsetHeight){
+currentIndex=i;
+}
+});
+});
+document.addEventListener("keydown",function(e){
+if(e.key==="ArrowDown"||e.key==="ArrowRight"){
+if(currentIndex<sectionList.length-1){
+sectionList[++currentIndex].scrollIntoView({behavior:"smooth"});
+}
+}
+if(e.key==="ArrowUp"||e.key==="ArrowLeft"){
+if(currentIndex>0){
+sectionList[--currentIndex].scrollIntoView({behavior:"smooth"});
+}
+}
+});
+
+/* STAGGER CARDS */
+const grids=document.querySelectorAll(".grid");
+const gridObserver=new IntersectionObserver(function(entries){
+entries.forEach(function(entry){
+const cards=entry.target.querySelectorAll(".card");
+if(entry.isIntersecting){
+cards.forEach(function(card,index){
+setTimeout(function(){
+card.classList.add("show");
+},index*120);
+});
+}else{
+cards.forEach(function(card){
+card.classList.remove("show");
+});
+}
+});
+},{threshold:0.4});
+grids.forEach(function(grid){
+gridObserver.observe(grid);
 });
 
 /* MODAL */
@@ -509,49 +633,88 @@ const modal=document.getElementById("modal");
 const modalBody=document.getElementById("modalBody");
 
 function openCert(img){
-modalBody.innerHTML=`<img src="${img}">`;
+modalBody.innerHTML='<img src="'+img+'">';
 modal.classList.add("active");
 }
+
 function openProject(type){
 let content="";
 if(type==="solar"){
-content=`<img src="solar.jpg"><h2>Solar PV Modeling</h2><p>Simulated PV array with MPPT under varying irradiation and temperature conditions.</p>`;
+content='<img src="solar.jpg"><h2>Solar PV Modeling</h2><p>Simulated PV array with MPPT under varying irradiation and temperature conditions.</p>';
 }
 if(type==="street"){
-content=`<img src="streetlight.jpg"><h2>Smart Street Lighting</h2><p>Automatic brightness adjustment using LDR and motion sensors for energy efficiency.</p>`;
+content='<img src="streetlight.jpg"><h2>Smart Street Lighting</h2><p>Automatic brightness adjustment using LDR and motion sensors for energy efficiency.</p>';
 }
 if(type==="robot"){
-content=`<img src="robot.jpg"><h2>Underground Cable Inspection Robot</h2><p>Autonomous robotic system for underground cable fault detection and monitoring.</p>`;
+content='<img src="robot.jpg"><h2>Underground Cable Inspection Robot</h2><p>Autonomous robotic system for underground cable fault detection and monitoring.</p>';
 }
 modalBody.innerHTML=content;
 modal.classList.add("active");
 }
-function closeModal(){modal.classList.remove("active");}
-window.onclick=e=>{if(e.target==modal)closeModal();}
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
+
+function closeModal(){
+modal.classList.remove("active");
+}
+
+window.onclick=function(e){
+if(e.target==modal){
+closeModal();
+}
+};
+
+document.addEventListener("keydown",function(e){
+if(e.key==="Escape"){
+closeModal();
+}
+});
 
 /* PARTICLES */
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
-function resize(){canvas.width=innerWidth;canvas.height=innerHeight;}
-resize();window.addEventListener("resize",resize);
+function resize(){
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+}
+resize();
+window.addEventListener("resize",resize);
+
 let particles=[];
 for(let i=0;i<120;i++){
-particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2,s:Math.random()*0.7+0.2});
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2,
+s:Math.random()*0.7+0.2
+});
 }
+
 function animate(){
 ctx.clearRect(0,0,canvas.width,canvas.height);
 ctx.fillStyle="rgba(255,255,255,.4)";
-particles.forEach(p=>{
+particles.forEach(function(p){
 ctx.beginPath();
 ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
 ctx.fill();
 p.y+=p.s;
-if(p.y>canvas.height){p.y=0;p.x=Math.random()*canvas.width;}
+if(p.y>canvas.height){
+p.y=0;
+p.x=Math.random()*canvas.width;
+}
 });
 requestAnimationFrame(animate);
 }
 animate();
+
+/* Hide profile after About */
+const profileImage=document.getElementById("profileImage");
+const skillsSection=document.getElementById("skills");
+window.addEventListener("scroll",function(){
+if(window.scrollY>=skillsSection.offsetTop-200){
+profileImage.style.display="none";
+}else{
+profileImage.style.display="block";
+}
+});
 
 </script>
 
