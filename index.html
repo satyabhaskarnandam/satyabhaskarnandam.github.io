@@ -9,7 +9,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-
 :root{
 --accent:#00d9ff;
 --glass:rgba(255,255,255,.06);
@@ -52,9 +51,7 @@ border-radius:50%;
 animation:spin 1s linear infinite;
 }
 
-@keyframes spin{
-100%{transform:rotate(360deg);}
-}
+@keyframes spin{100%{transform:rotate(360deg);}}
 
 /* PARTICLES */
 canvas{
@@ -95,9 +92,7 @@ transition:.3s;
 }
 
 nav a.active,
-nav a:hover{
-color:var(--accent);
-}
+nav a:hover{color:var(--accent);}
 
 /* PROFILE */
 #profileWrapper{
@@ -137,9 +132,7 @@ transition:opacity .8s ease;
 position:relative;
 }
 
-section.visible{
-opacity:1;
-}
+section.visible{opacity:1;}
 
 .container{
 width:100%;
@@ -280,10 +273,14 @@ background:var(--accent);
 animation:blink .7s infinite;
 }
 
-@keyframes blink{
-50%{opacity:0;}
-}
+@keyframes blink{50%{opacity:0;}}
 
+@media(max-width:768px){
+.skills-flex{flex-direction:column;}
+.skills-flex>div{width:100%;text-align:left!important;padding:0;margin-bottom:20px;}
+#profileWrapper{left:50%;}
+.home-text{margin-left:0;}
+}
 </style>
 </head>
 <body>
@@ -401,29 +398,34 @@ animation:blink .7s infinite;
 
 <script>
 
+/* LOADER + START */
 window.addEventListener("load",function(){
 window.scrollTo(0,0);
-setTimeout(()=>document.getElementById("loader").style.opacity=0,500);
-setTimeout(()=>document.getElementById("loader").style.display="none",1000);
+setTimeout(()=>loader.style.opacity=0,500);
+setTimeout(()=>loader.style.display="none",1000);
 startTyping();
 });
 
-/* PROFILE RELEASE */
+/* PROFILE RELEASE (True 1:1) */
 const profile=document.getElementById("profileWrapper");
 const about=document.getElementById("about");
+let released=false;
 
 function updateProfile(){
 const aboutBottom=about.offsetTop+about.offsetHeight;
 const releasePoint=aboutBottom-(window.innerHeight/2);
 
-if(window.scrollY<releasePoint){
+if(window.scrollY>=releasePoint && !released){
+profile.style.position="absolute";
+profile.style.top=aboutBottom-110+"px";
+profile.style.marginTop="0";
+released=true;
+}
+if(window.scrollY<releasePoint && released){
 profile.style.position="fixed";
 profile.style.top="50%";
 profile.style.marginTop="-110px";
-}else{
-profile.style.position="absolute";
-profile.style.top=aboutBottom-110+"px";
-profile.style.marginTop="0px";
+released=false;
 }
 }
 
@@ -434,7 +436,6 @@ updateProfile();
 function startTyping(){
 const text="Nandam Satya Bhaskar";
 let i=0;
-const typing=document.getElementById("typing");
 typing.innerHTML="";
 (function type(){
 if(i<text.length){
