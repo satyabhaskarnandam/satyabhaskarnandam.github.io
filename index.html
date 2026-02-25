@@ -136,12 +136,13 @@ position:relative;
 }
 
 .profile-sticky{
-position:sticky;
+position:fixed;
 top:50%;
-transform:translateY(-50%);
 left:25%;
+transform:translateY(-50%);
 width:220px;
 z-index:900;
+transition:top 0.1s linear;
 }
 
 .profile-pic{
@@ -594,7 +595,28 @@ modal.classList.remove("active");
 window.onclick=e=>{if(e.target==modal) closeModal();};
 document.addEventListener("keydown",e=>{if(e.key==="Escape") closeModal();});
 
-/* Particles */
+/* Smooth 1:1 Profile Scroll Control */
+
+const profile = document.querySelector(".profile-sticky");
+const aboutSection = document.getElementById("about");
+
+window.addEventListener("scroll", () => {
+
+  const aboutBottom = aboutSection.offsetTop + aboutSection.offsetHeight;
+  const scrollY = window.scrollY;
+
+  if (scrollY < aboutBottom - window.innerHeight/2) {
+    profile.style.position = "fixed";
+    profile.style.top = "50%";
+    profile.style.transform = "translateY(-50%)";
+  } else {
+    profile.style.position = "absolute";
+    profile.style.top = aboutBottom + "px";
+    profile.style.transform = "translateY(-50%)";
+  }
+
+});
+  /* Particles */
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
 
