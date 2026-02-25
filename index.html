@@ -136,13 +136,12 @@ position:relative;
 }
 
 .profile-sticky{
-position:fixed;
-top:50%;
-left:25%;
+position:sticky;
+top:50vh;
 transform:translateY(-50%);
+left:25%;
 width:220px;
 z-index:900;
-transition:top 0.1s linear;
 }
 
 .profile-pic{
@@ -152,8 +151,7 @@ border-radius:50%;
 object-fit:cover;
 border:4px solid var(--accent);
 box-shadow:0 0 15px rgba(0,217,255,.5);
-transition:opacity .4s ease, transform .4s ease;
-opacity:1;
+transition:.4s ease;
 }
 
 .profile-pic:hover{
@@ -596,39 +594,7 @@ modal.classList.remove("active");
 window.onclick=e=>{if(e.target==modal) closeModal();};
 document.addEventListener("keydown",e=>{if(e.key==="Escape") closeModal();});
 
-const profile = document.querySelector(".profile-sticky");
-const profilePic = document.querySelector(".profile-pic");
-const aboutSection = document.getElementById("about");
-
-window.addEventListener("scroll", () => {
-
-  const aboutBottom = aboutSection.offsetTop + aboutSection.offsetHeight;
-  const scrollY = window.scrollY;
-  const fadeStart = aboutBottom - window.innerHeight * 0.6;
-  const fadeEnd = aboutBottom;
-
-  if (scrollY < aboutBottom - window.innerHeight/2) {
-    profile.style.position = "fixed";
-    profile.style.top = "50%";
-    profile.style.transform = "translateY(-50%)";
-  } else {
-    profile.style.position = "absolute";
-    profile.style.top = aboutBottom + "px";
-    profile.style.transform = "translateY(-50%)";
-  }
-
-  /* Smooth Fade Effect */
-  if (scrollY >= fadeStart && scrollY <= fadeEnd) {
-    let opacity = 1 - (scrollY - fadeStart) / (fadeEnd - fadeStart);
-    profilePic.style.opacity = opacity;
-  } else if (scrollY < fadeStart) {
-    profilePic.style.opacity = 1;
-  } else {
-    profilePic.style.opacity = 0;
-  }
-
-});
-  /* Particles */
+/* Particles */
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
 
