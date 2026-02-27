@@ -23,15 +23,21 @@ scroll-behavior:smooth;
 scroll-snap-type:y mandatory;
 }
 
+/* Cinematic page fade */
 body{
-font-family:'Poppins',sans-serif;
-color:#fff;
-overflow-x:hidden;
-background:
-radial-gradient(ellipse at 50% 35%, rgba(0,217,255,0.22) 0%, transparent 40%),
-radial-gradient(ellipse at 0% 100%, rgba(0,80,200,0.18) 0%, transparent 50%),
-linear-gradient(180deg, #000000 0%, #02060a 40%, #000000 100%);
-background-attachment:fixed;
+opacity:0;
+animation:pageReveal 1.4s ease-out forwards;
+}
+
+@keyframes pageReveal{
+0%{
+opacity:0;
+transform:translateY(15px);
+}
+100%{
+opacity:1;
+transform:translateY(0);
+}
 }
 
 /* Intro Animation */
