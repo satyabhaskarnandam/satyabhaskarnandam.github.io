@@ -5,17 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SB | Premium Portfolio</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 
-/* ================= ROOT ================= */
-
 :root{
---accent:#4fd1ff;
---glass:rgba(255,255,255,.04);
---glass-border:rgba(255,255,255,.08);
+--accent:#00d9ff;
+--glass:rgba(255,255,255,.06);
+--glass-border:rgba(255,255,255,.15);
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -26,19 +24,17 @@ scroll-snap-type:y mandatory;
 }
 
 body{
-font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-color:#f5f5f7;
+font-family:'Poppins',sans-serif;
+color:#fff;
 overflow-x:hidden;
 background:
-radial-gradient(circle at 20% 30%, rgba(79,209,255,0.08), transparent 40%),
-radial-gradient(circle at 80% 70%, rgba(79,209,255,0.06), transparent 40%),
-linear-gradient(135deg,#0b0f1a 0%,#111827 35%,#0a0f18 70%,#05070d 100%);
+radial-gradient(ellipse at 50% 35%, rgba(0,217,255,0.22) 0%, transparent 40%),
+radial-gradient(ellipse at 0% 100%, rgba(0,80,200,0.18) 0%, transparent 50%),
+linear-gradient(180deg, #000000 0%, #02060a 40%, #000000 100%);
 background-attachment:fixed;
-letter-spacing:-0.2px;
 }
 
-/* ================= INTRO ================= */
-
+/* Intro Animation */
 body.intro .profile-sticky,
 body.intro .home-text {
 opacity:0;
@@ -47,16 +43,14 @@ transform:translateY(40px);
 
 .profile-sticky,
 .home-text {
-transition:opacity 1s cubic-bezier(.16,1,.3,1),
-transform 1s cubic-bezier(.16,1,.3,1);
+transition:opacity 1s ease, transform 1s ease;
 }
-
-/* ================= LOADER ================= */
+  /* LOADER */
 
 #loader{
 position:fixed;
 inset:0;
-background:#0b0f1a;
+background:#0f2027;
 display:flex;
 justify-content:center;
 align-items:center;
@@ -67,7 +61,7 @@ transition:opacity .6s ease;
 .loader-ring{
 width:60px;
 height:60px;
-border:4px solid rgba(255,255,255,.15);
+border:4px solid rgba(255,255,255,.2);
 border-top:4px solid var(--accent);
 border-radius:50%;
 animation:spin 1s linear infinite;
@@ -77,7 +71,7 @@ animation:spin 1s linear infinite;
 100%{transform:rotate(360deg);}
 }
 
-/* ================= PARTICLES ================= */
+/* PARTICLES */
 
 canvas{
 position:fixed;
@@ -86,7 +80,7 @@ left:0;
 z-index:-1;
 }
 
-/* ================= NAVBAR ================= */
+/* NAVBAR */
 
 nav{
 position:fixed;
@@ -97,24 +91,25 @@ display:flex;
 justify-content:center;
 align-items:center;
 gap:40px;
-background:rgba(15,20,30,0.65);
-backdrop-filter:blur(30px);
--webkit-backdrop-filter:blur(30px);
-border-bottom:1px solid rgba(255,255,255,0.05);
+background:rgba(255,255,255,0.08);   /* very light transparent */
+backdrop-filter:blur(12px);          /* blur effect */
+-webkit-backdrop-filter:blur(12px);  /* safari support */
 transition:.4s;
 z-index:1000;
 }
 
 nav.scrolled{
-background:rgba(10,15,25,0.85);
-box-shadow:0 8px 25px rgba(0,0,0,0.4);
+background:rgba(255,255,255,0.12);
+backdrop-filter:blur(18px);
+-webkit-backdrop-filter:blur(18px);
+box-shadow:0 8px 25px rgba(0,0,0,0.25);
 }
 
 nav a{
-color:#ccc;
+color:#ddd;
 text-decoration:none;
 font-weight:500;
-font-size:16px;
+font-size:17px;
 transition:.3s;
 }
 
@@ -123,7 +118,7 @@ nav a:hover{
 color:var(--accent);
 }
 
-/* ================= SECTIONS ================= */
+/* SECTIONS */
 
 section{
 height:100vh;
@@ -132,18 +127,11 @@ display:flex;
 align-items:center;
 justify-content:center;
 opacity:0;
-transform:translateY(60px) scale(0.98);
-filter:blur(8px);
-transition:
-opacity 1.2s cubic-bezier(.16,1,.3,1),
-transform 1.2s cubic-bezier(.16,1,.3,1),
-filter 1.2s cubic-bezier(.16,1,.3,1);
+transition:opacity .8s ease;
 }
 
 section.visible{
 opacity:1;
-transform:translateY(0) scale(1);
-filter:blur(0);
 }
 
 .container{
@@ -158,35 +146,11 @@ justify-content:center;
 text-align:center;
 }
 
-/* ================= TYPOGRAPHY ================= */
+/* PROFILE SYSTEM */
 
-h1{
-font-size:64px;
-font-weight:600;
-letter-spacing:-1.5px;
-line-height:1.1;
+.profile-wrapper{
+position:relative;
 }
-
-h2{
-font-size:40px;
-font-weight:600;
-letter-spacing:-1px;
-margin-bottom:20px;
-}
-
-h3{
-font-size:20px;
-font-weight:500;
-}
-
-p{
-font-size:18px;
-color:rgba(255,255,255,.7);
-}
-
-/* ================= PROFILE ================= */
-
-.profile-wrapper{position:relative;}
 
 .profile-sticky{
 position:sticky;
@@ -201,15 +165,16 @@ z-index:900;
 width:220px;
 height:220px;
 border-radius:50%;
-object-fit:cover;
+object-fit:cover;          /* keeps natural proportions */
+object-position:center;    /* keeps face centered */
 border:4px solid var(--accent);
-box-shadow:0 0 30px rgba(79,209,255,.4);
+box-shadow:0 0 15px rgba(0,217,255,.5);
 transition:.4s ease;
 }
 
 .profile-pic:hover{
 transform:scale(1.08);
-box-shadow:0 0 70px rgba(79,209,255,.8);
+box-shadow:0 0 40px rgba(0,217,255,.9);
 }
 
 .home-text{
@@ -221,29 +186,32 @@ align-items:center;
 text-align:center;
 }
 
-/* ================= SKILLS ================= */
+/* SKILLS */
 
 .skills-flex{
 display:grid;
-grid-template-columns:1fr 1fr;
-max-width:800px;
-margin:40px auto 0 auto;
+grid-template-columns: 1fr 1fr;   /* two equal columns */
+max-width:800px;                  /* control total width */
+margin:40px auto 0 auto;          /* center whole block */
+}
+
+.skills-flex > div{
+width:100%;
 }
 
 .skills-flex > div:first-child{
 text-align:left;
-padding-right:135px;
+padding-right:135px;   /* 60 + 75px more (≈2cm) */
 }
 
 .skills-flex > div:last-child{
 text-align:left;
-padding-left:135px;
+padding-left:135px;    /* 60 + 75px more (≈2cm) */
 }
-
 .skills-flex ul{list-style:none;margin-top:15px;}
-.skills-flex li{margin:8px 0;color:rgba(255,255,255,.7);}
+.skills-flex li{margin:8px 0;}
 
-/* ================= CARDS ================= */
+/* CARDS */
 
 .grid{
 display:grid;
@@ -255,13 +223,12 @@ width:100%;
 
 .card{
 background:var(--glass);
-backdrop-filter:blur(20px);
 border:1px solid var(--glass-border);
-border-radius:24px;
+border-radius:20px;
 overflow:hidden;
 opacity:0;
-transform:translateY(40px);
-transition:all .8s cubic-bezier(.16,1,.3,1);
+transform:translateY(25px);
+transition:.6s;
 }
 
 .card.show{
@@ -270,7 +237,7 @@ transform:translateY(0);
 }
 
 .card:hover{
-transform:translateY(-8px) scale(1.03);
+transform:translateY(-6px) scale(1.02);
 }
 
 .image-box{
@@ -302,15 +269,16 @@ transition:.3s;
 }
 
 .card button:hover{
+background:#00b8d4;
 transform:scale(1.05);
 }
 
-/* ================= MODAL ================= */
+/* MODAL */
 
 .modal{
 position:fixed;
 inset:0;
-background:rgba(0,0,0,.9);
+background:rgba(0,0,0,.85);
 display:flex;
 align-items:center;
 justify-content:center;
@@ -326,11 +294,11 @@ visibility:visible;
 }
 
 .modal-box{
-background:#111827;
+background:#111;
 padding:30px;
 width:90%;
 max-width:900px;
-border-radius:20px;
+border-radius:15px;
 max-height:85vh;
 overflow:auto;
 }
@@ -338,6 +306,8 @@ overflow:auto;
 .modal-box img{
 max-width:100%;
 max-height:70vh;
+width:auto;
+height:auto;
 display:block;
 margin:0 auto;
 object-fit:contain;
@@ -349,7 +319,7 @@ cursor:pointer;
 font-size:24px;
 }
 
-/* ================= CONTACT ================= */
+/* CONTACT */
 
 .contact-wrapper{
 display:flex;
@@ -367,7 +337,7 @@ align-items:center;
 }
 
 .social-icons a{
-color:rgba(255,255,255,.5);
+color:rgba(255,255,255,.6);
 font-size:28px;
 margin:0 15px;
 transition:.3s;
@@ -382,7 +352,7 @@ transform:scale(1.2);
 .contact-footer{
 text-align:center;
 padding:15px 0;
-opacity:.7;
+opacity:.9;
 font-size:14px;
 }
 
@@ -398,11 +368,393 @@ animation:blink .7s infinite;
 }
 
 @media(max-width:768px){
-.skills-flex{grid-template-columns:1fr;}
-.skills-flex>div{padding:0;margin-bottom:20px;}
+.skills-flex{flex-direction:column;}
+.skills-flex>div{width:100%;text-align:left!important;padding:0;margin-bottom:20px;}
 .profile-sticky{left:50%;transform:translate(-50%,-50%);}
 .home-text{margin-left:0;}
 }
 
 </style>
 </head>
+<body>
+
+<div id="loader"><div class="loader-ring"></div></div>
+<canvas id="particles"></canvas>
+
+<nav id="navbar">
+<a href="#home" class="active"><i class="fa-solid fa-house"></i></a>
+<a href="#about">About me</a>
+<a href="#skills">Skills</a>
+<a href="#academic">Academic Highlights</a>
+<a href="#career">Career Objective</a>
+<a href="#certifications">Certifications</a>
+<a href="#projects">Projects</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<div class="profile-wrapper">
+<div class="profile-sticky">
+<img src="profile1.jpg" class="profile-pic">
+</div>
+
+<section id="home" class="visible">
+<div class="container">
+<div class="home-text">
+<h1><span id="typing"></span><span class="cursor"></span></h1>
+<p>3rd Year Electrical & Electronics Engineering at Lovely Professional University</p>
+</div>
+</div>
+</section>
+
+<section id="about">
+<div class="container">
+<div class="home-text">
+<h2>About me</h2>
+<div style="margin-top:15px; line-height:1.8; text-align:center;">
+<ul style="margin-top:20px; line-height:1.9; text-align:left; max-width:750px; list-style:disc; padding-left:25px;">
+<li>B.Tech student in Electrical and Electronics Engineering with strong interest in power systems and renewable energy technologies.</li>
+<li>Passionate about electrical machines, power system protection, and transmission & distribution systems.</li>
+<li>Strong analytical and problem-solving abilities.</li>
+<li>Quick learner with adaptability to new technologies.</li>
+<li>Actively seeking opportunities to apply technical knowledge in real-world engineering environments.</li>
+</ul>
+</section>
+
+</div>
+
+<section id="skills">
+<div class="container">
+<h2>Skills</h2>
+<div class="skills-flex">
+<div>
+<h3>Technical Skills</h3>
+<ul>
+<li>C</li><li>C++</li><li>MATLAB</li>
+<li>Embedded Systems</li><li>Power Systems</li>
+</ul>
+</div>
+<div>
+<h3>Soft Skills</h3>
+<ul>
+<li>Communication Skills</li><li>Teamwork</li>
+<li>Adaptability</li><li>Critical Thinking</li>
+<li>Leadership</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+
+<section id="academic">
+<div class="container">
+<h2>Academic Highlights</h2>
+
+<ul style="
+margin-top:30px;
+line-height:2;
+max-width:700px;
+text-align:left;
+list-style:disc;
+padding-left:25px;
+font-size:18px;
+">
+<li>Strong foundation in Electrical Machines and Power Electronics</li>
+<li>Completed certified courses in Digital Electronics and IoT</li>
+<li>Developed simulation-based and hardware-based engineering projects</li>
+</ul>
+
+</div>
+</section>
+
+<section id="career">
+<div class="container">
+<h2>Career Objective</h2>
+
+<ul style="
+margin-top:30px;
+line-height:2;
+max-width:750px;
+text-align:left;
+list-style:disc;
+padding-left:25px;
+font-size:18px;
+">
+<li>To build a career in core electrical engineering with a focus on power systems and renewable energy technologies.</li>
+<li>To contribute technical knowledge in a growth-oriented organization while continuously learning and improving.</li>
+<li>To work in a challenging environment that encourages continuous learning, teamwork, and professional growth.</li>
+<li>To pursue a career in the power and energy sector, contributing to reliable and sustainable power generation and distribution.</li>
+</ul>
+
+</div>
+</section>
+<section id="certifications">
+<div class="container">
+<h2>Certifications</h2>
+<div class="grid">
+<div class="card">
+<div class="image-box"><img src="nptel.jpg"></div>
+<h3>Digital Electronics</h3>
+<button onclick="openCert('nptel.jpg')">View Certificate</button>
+</div>
+<div class="card">
+<div class="image-box"><img src="iot.jpg"></div>
+<h3>Introduction to IoT</h3>
+<button onclick="openCert('iot.jpg')">View Certificate</button>
+</div>
+<div class="card">
+<div class="image-box"><img src="matlab.jpg"></div>
+<h3>MATLAB Onramp</h3>
+<button onclick="openCert('matlab.jpg')">View Certificate</button>
+</div>
+</div>
+</div>
+</section>
+
+<section id="projects">
+<div class="container">
+<h2>Projects</h2>
+<div class="grid">
+<div class="card">
+<div class="image-box"><img src="solar.jpg"></div>
+<h3>Solar PV Modeling</h3>
+<button onclick="openProject('solar')">View Details</button>
+</div>
+<div class="card">
+<div class="image-box"><img src="streetlight.jpg"></div>
+<h3>Smart Street Lighting</h3>
+<button onclick="openProject('street')">View Details</button>
+</div>
+<div class="card contain">
+<div class="image-box"><img src="robot.jpg"></div>
+<h3>Underground Cable Inspection Robot</h3>
+<button onclick="openProject('robot')">View Details</button>
+</div>
+</div>
+</div>
+</section>
+
+<section id="contact">
+<div class="container contact-wrapper">
+<div class="contact-center">
+<h2>Contact</h2>
+<p>Email: satyabhaskarnandam@gmail.com</p>
+<p>Mobile: +91 7780603821</p>
+<div class="social-icons">
+<a href="https://github.com/satyabhaskarnandam" target="_blank"><i class="fab fa-github"></i></a>
+<a href="https://linkedin.com/in/nandam-satya-bhaskar" target="_blank"><i class="fab fa-linkedin"></i></a>
+<a href="https://wa.me/917780603821" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</div>
+</div>
+<div class="contact-footer">© SB | PORTFOLIO</div>
+</div>
+</section>
+
+<div id="modal" class="modal">
+<div class="modal-box">
+<span class="close" onclick="closeModal()">&times;</span>
+<div id="modalBody"></div>
+</div>
+</div>
+
+<script>
+
+/* Start at top */
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto"
+    });
+  }, 0);
+});
+
+// Disable browser scroll restore
+if ('scrollRestoration' in history) {
+history.scrollRestoration = 'manual';
+}
+
+// Add intro class before page renders
+document.body.classList.add("intro");
+  
+  /* Loader */
+window.addEventListener("load",function(){
+
+window.scrollTo(0,0);
+
+setTimeout(()=>{
+document.getElementById("loader").style.opacity=0;
+},500);
+
+setTimeout(()=>{
+document.getElementById("loader").style.display="none";
+
+/* Trigger intro animation */
+document.body.classList.remove("intro");
+
+},1000);
+
+startTyping();
+
+});
+
+/* Typing */
+function startTyping(){
+const text="Nandam Satya Bhaskar";
+let i=0;
+const typing=document.getElementById("typing");
+typing.innerHTML="";
+(function type(){
+if(i<text.length){
+typing.innerHTML+=text.charAt(i++);
+setTimeout(type,70);
+}
+})();
+}
+
+/* Navbar fade */
+const navbar=document.getElementById("navbar");
+window.addEventListener("scroll",()=>{
+navbar.classList.toggle("scrolled",window.scrollY>10);
+});
+
+/* Section fade */
+const sections=document.querySelectorAll("section");
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting) entry.target.classList.add("visible");
+});
+},{threshold:0.6});
+sections.forEach(sec=>observer.observe(sec));
+
+/* Active nav */
+const navLinks=document.querySelectorAll("nav a");
+window.addEventListener("scroll",()=>{
+let current="";
+sections.forEach(sec=>{
+if(pageYOffset>=sec.offsetTop-200) current=sec.id;
+});
+navLinks.forEach(link=>{
+link.classList.toggle("active",link.getAttribute("href")==="#"+current);
+});
+});
+
+/* Arrow navigation */
+let currentIndex=0;
+const sectionList=[...sections];
+
+window.addEventListener("scroll",()=>{
+const pos=window.scrollY+window.innerHeight/2;
+sectionList.forEach((sec,i)=>{
+if(pos>=sec.offsetTop && pos<sec.offsetTop+sec.offsetHeight) currentIndex=i;
+});
+});
+
+document.addEventListener("keydown",e=>{
+if(e.key==="ArrowDown"||e.key==="ArrowRight"){
+if(currentIndex<sectionList.length-1)
+sectionList[++currentIndex].scrollIntoView({behavior:"smooth"});
+}
+if(e.key==="ArrowUp"||e.key==="ArrowLeft"){
+if(currentIndex>0)
+sectionList[--currentIndex].scrollIntoView({behavior:"smooth"});
+}
+});
+
+/* Stagger cards */
+const grids=document.querySelectorAll(".grid");
+const gridObserver=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+const cards=entry.target.querySelectorAll(".card");
+if(entry.isIntersecting){
+cards.forEach((card,i)=>setTimeout(()=>card.classList.add("show"),i*120));
+}else{
+cards.forEach(card=>card.classList.remove("show"));
+}
+});
+},{threshold:0.4});
+grids.forEach(grid=>gridObserver.observe(grid));
+
+/* Modal */
+const modal=document.getElementById("modal");
+const modalBody=document.getElementById("modalBody");
+
+function openCert(img){
+modalBody.innerHTML='<img src="'+img+'">';
+modal.classList.add("active");
+}
+
+function openProject(type){
+let content="";
+
+if(type==="solar"){
+content=`<img src="solar.jpg">
+<h2>Solar PV Modeling</h2>
+<p>Designed and simulated a solar photovoltaic (PV) system integrated with Maximum Power Point Tracking (MPPT) control to enhance energy extraction efficiency. The system was modeled using simulation software to analyze PV characteristics under varying irradiance and temperature conditions. Implemented an MPPT algorithm (such as Perturb & Observe) to ensure maximum power delivery from the solar panel. Evaluated system performance through output voltage, current, and power analysis. The project demonstrates strong understanding of renewable energy systems and power electronics control techniques.</p>`;
+}
+
+if(type==="street"){
+content=`<img src="streetlight.jpg">
+<h2>Smart Street Lighting</h2>
+<p>Developed an intelligent street lighting system that automatically adjusts brightness based on environmental conditions and motion detection. The system utilizes light sensors to monitor ambient light and PIR sensors to detect vehicle or pedestrian movement. Implemented a microcontroller-based control mechanism to optimize energy consumption while ensuring safety and visibility. The adaptive control strategy significantly reduces power wastage compared to conventional street lighting systems. This project highlights skills in embedded systems, automation, and energy-efficient design.</p>`;
+}
+
+if(type==="robot"){
+content=`<img src="robot.jpg">
+<h2>Underground Cable Inspection Robot</h2>
+<p>Designed and built an autonomous robotic system capable of inspecting underground power cables and detecting faults in real time. The robot is equipped with sensors to monitor temperature, gas presence, and cable abnormalities. Integrated wireless communication to transmit live data to a monitoring system for immediate analysis. The system improves safety by minimizing manual inspection in hazardous environments and enables early fault detection to prevent major power failures. This project showcases knowledge in robotics, sensor integration, embedded systems, and power system maintenance.</p>`;
+}
+
+modalBody.innerHTML=content;
+modal.classList.add("active");
+}
+
+function closeModal(){
+modal.classList.remove("active");
+}
+
+window.onclick=e=>{if(e.target==modal) closeModal();};
+document.addEventListener("keydown",e=>{if(e.key==="Escape") closeModal();});
+
+/* Particles */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+
+function resize(){
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+}
+resize();
+window.addEventListener("resize",resize);
+
+let particles=[];
+for(let i=0;i<120;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2,
+s:Math.random()*0.7+0.2
+});
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="rgba(255,255,255,.4)";
+particles.forEach(p=>{
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fill();
+p.y+=p.s;
+if(p.y>canvas.height){
+p.y=0;
+p.x=Math.random()*canvas.width;
+}
+});
+requestAnimationFrame(animate);
+}
+animate();
+
+</script>
+
+</body>
+</html>
